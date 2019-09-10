@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/bg_login">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x33"
+            android:layout_marginTop="@dimen/y185"
+            android:text="欢迎登录"
+            android:textColor="#ff1f2732"
+            android:textSize="@dimen/x40"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.qmuiteam.qmui.layout.QMUILinearLayout
+            android:id="@+id/qlyt_phone"
+            android:layout_width="@dimen/x310"
+            android:layout_height="@dimen/y55"
+            android:layout_marginTop="@dimen/y50"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title">
+
+
+            <ImageView
+                android:layout_width="@dimen/x17"
+                android:layout_height="@dimen/y25"
+                android:layout_marginLeft="@dimen/x25"
+                android:background="@mipmap/icon_phone" />
+
+            <EditText
+                android:id="@+id/et_phone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/x16"
+                android:background="@null"
+                android:inputType="number"
+                android:textColorHint="#B3B3B3"
+                android:textSize="@dimen/x15" />
+
+
+        </com.qmuiteam.qmui.layout.QMUILinearLayout>
+
+
+        <com.qmuiteam.qmui.layout.QMUILinearLayout
+            android:id="@+id/qlyt_pwd"
+            android:layout_width="@dimen/x310"
+            android:layout_height="@dimen/y55"
+            android:layout_marginTop="@dimen/y25"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/qlyt_phone">
+
+
+            <ImageView
+                android:layout_width="@dimen/x22"
+                android:layout_height="@dimen/y26"
+                android:layout_marginLeft="@dimen/x25"
+                android:background="@mipmap/icon_pwd" />
+
+            <EditText
+                android:id="@+id/et_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/x16"
+                android:background="@null"
+                android:inputType="textPassword"
+                android:textColorHint="#B3B3B3"
+                android:textSize="@dimen/x15" />
+
+
+        </com.qmuiteam.qmui.layout.QMUILinearLayout>
+
+        <TextView
+            android:id="@+id/tv_login"
+            android:layout_width="@dimen/x310"
+            android:layout_height="@dimen/y55"
+            android:layout_marginTop="@dimen/y20"
+            android:background="@drawable/bg_rect_1f2732"
+            android:gravity="center"
+            android:text="登录"
+            android:textColor="#F8D347"
+            android:textSize="@dimen/x18"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/qlyt_pwd" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y38"
+            android:gravity="bottom"
+            android:text="忘记密码？"
+            android:textColor="#ff1f2732"
+            android:textSize="@dimen/x14"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_login" />
+
+
+        <LinearLayout
+            android:id="@+id/llyt_register"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y36"
+            android:layout_marginTop="@dimen/y30"
+            android:gravity="bottom|center_horizontal"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_login">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="还没有帐号?  "
+                android:textColor="#ff1f2732"
+                android:textSize="@dimen/x14" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="马上注册 "
+                android:textColor="#F8D347"
+                android:textSize="@dimen/x14" />
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
