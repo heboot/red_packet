@@ -17,6 +17,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".activity.loginregister.LoginActivity"></activity>
+
+        <activity android:name=".activity.loginregister.RegisterActivity"></activity>
+
+        <activity android:name=".activity.loginregister.ForgetActivity"></activity>
+
+        <activity android:name=".activity.redpackage.NewRedPackageActivity"></activity>
     </application>
 
 </manifest>

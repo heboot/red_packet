@@ -4,7 +4,7 @@ android {
     compileSdkVersion config.COMPILE_SDK_VERSION
     buildToolsVersion config.BUILD_TOOLS_VERSION
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion config.TARGET_SDK_VERSION
         versionCode config.VERSION_CODE
         versionName config.VERSION_NAME
@@ -49,6 +49,6 @@ dependencies {
 
 
     api rootProject.ext.dependencies["fastjson"]
-    api project(':MUtils')
+    api project(path: ':RCSticker')//RCSticker>IMKit>IMLib
 
 }

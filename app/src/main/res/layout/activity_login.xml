@@ -24,6 +24,7 @@
             android:layout_width="@dimen/x310"
             android:layout_height="@dimen/y55"
             android:layout_marginTop="@dimen/y50"
+            android:background="#ffffff"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -56,6 +57,7 @@
             android:layout_width="@dimen/x310"
             android:layout_height="@dimen/y55"
             android:layout_marginTop="@dimen/y25"
+            android:background="#ffffff"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -97,9 +99,10 @@
             app:layout_constraintTop_toBottomOf="@+id/qlyt_pwd" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_forget"
+            android:layout_width="0dp"
             android:layout_height="@dimen/y38"
-            android:gravity="bottom"
+            android:gravity="bottom|center_horizontal"
             android:text="忘记密码？"
             android:textColor="#ff1f2732"
             android:textSize="@dimen/x14"

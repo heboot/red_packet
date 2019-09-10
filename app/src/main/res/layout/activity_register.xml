@@ -138,7 +138,7 @@
             android:layout_marginTop="@dimen/y16"
             android:background="@drawable/bg_rect_1f2732"
             android:gravity="center"
-            android:text="登录"
+            android:text="注册"
             android:textColor="#F8D347"
             android:textSize="@dimen/x18"
             app:layout_constraintLeft_toLeftOf="parent"

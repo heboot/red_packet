@@ -1,20 +1,25 @@
 package com.zonghong.redpacket;
 
-import android.net.Uri;
-import android.support.v4.app.FragmentManager;
-
-
 import com.zonghong.redpacket.base.BaseActivity;
 import com.zonghong.redpacket.databinding.ActivityMainBinding;
+import com.zonghong.redpacket.fragment.ContactsFragment;
+import com.zonghong.redpacket.fragment.MConversationListFragment;
+import com.zonghong.redpacket.fragment.MyFragment;
+import com.zonghong.redpacket.fragment.WalletFragment;
 
-import io.rong.imkit.fragment.ConversationListFragment;
-import io.rong.imlib.model.Conversation;
 import me.yokeyword.fragmentation.ISupportFragment;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
+    private MConversationListFragment mConversationListFragment = MConversationListFragment.newInstance();
 
-    private ConversationListFragment conversationListFragment;
+    private ContactsFragment contactsFragment = ContactsFragment.newInstance();
+
+    private WalletFragment walletFragment = WalletFragment.newInstance();
+
+    private MyFragment myFragment = MyFragment.newInstance();
+
+    private ISupportFragment currentFragment;
 
     @Override
     protected int getLayoutId() {
@@ -28,26 +33,45 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     @Override
     public void initData() {
-        //会话列表
-        FragmentManager fragmentManage = getSupportFragmentManager();
-        conversationListFragment = (ConversationListFragment) fragmentManage.findFragmentById(R.id.flyt_container);
-        Uri uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
-                .appendPath("conversationlist")
-                .appendQueryParameter(Conversation.ConversationType.PRIVATE.getName(), "false")
-                .appendQueryParameter(Conversation.ConversationType.GROUP.getName(), "false")
-                .appendQueryParameter(Conversation.ConversationType.PUBLIC_SERVICE.getName(), "false")
-                .appendQueryParameter(Conversation.ConversationType.APP_PUBLIC_SERVICE.getName(), "false")
-                .appendQueryParameter(Conversation.ConversationType.SYSTEM.getName(), "true")
-                .build();
-        conversationListFragment.setUri(uri);
-
-        mDelegate.loadMultipleRootFragment(binding.flytContainer.getId(), 0, (ISupportFragment) conversationListFragment);
-
-
+        mDelegate.loadMultipleRootFragment(binding.flytContainer.getId(), 0, mConversationListFragment, contactsFragment, walletFragment, myFragment);
+        currentFragment = mConversationListFragment;
+        binding.ivMsg.setSelected(true);
     }
 
     @Override
     public void initListener() {
+        binding.llytMsg.setOnClickListener((v) -> {
+            mDelegate.showHideFragment(mConversationListFragment, currentFragment);
+            currentFragment = mConversationListFragment;
+            binding.ivMsg.setSelected(true);
+            binding.ivContacts.setSelected(false);
+            binding.ivWallet.setSelected(false);
+            binding.ivMy.setSelected(false);
+        });
+        binding.llytContacts.setOnClickListener((v) -> {
+            mDelegate.showHideFragment(contactsFragment, currentFragment);
+            currentFragment = contactsFragment;
+            binding.ivMsg.setSelected(false);
+            binding.ivContacts.setSelected(true);
+            binding.ivWallet.setSelected(false);
+            binding.ivMy.setSelected(false);
+        });
+        binding.llytWallet.setOnClickListener((v) -> {
+            mDelegate.showHideFragment(walletFragment, currentFragment);
+            currentFragment = walletFragment;
+            binding.ivMsg.setSelected(false);
+            binding.ivContacts.setSelected(false);
+            binding.ivWallet.setSelected(true);
+            binding.ivMy.setSelected(false);
 
+        });
+        binding.llytMy.setOnClickListener((v) -> {
+            mDelegate.showHideFragment(myFragment, currentFragment);
+            currentFragment = myFragment;
+            binding.ivMsg.setSelected(false);
+            binding.ivContacts.setSelected(false);
+            binding.ivWallet.setSelected(false);
+            binding.ivMy.setSelected(true);
+        });
     }
 }

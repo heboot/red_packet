@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <include
+            android:id="@+id/include_toolbar"
+            layout="@layout/layout_toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></include>
+
+        <EditText
+            android:id="@+id/et_money"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y60"
+            android:layout_marginLeft="@dimen/x33"
+            android:layout_marginTop="@dimen/y20"
+            android:layout_marginRight="@dimen/x33"
+            android:background="@drawable/bg_rect_white_5"
+            android:gravity="right|center_vertical"
+            android:inputType="numberDecimal"
+            android:paddingRight="@dimen/x40"
+            android:text="11"
+            android:textSize="@dimen/x17"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_toolbar" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginRight="@dimen/x16"
+            android:gravity="center"
+            android:text="元"
+            android:textColor="#ff000000"
+            android:textSize="@dimen/x17"
+            app:layout_constraintBottom_toBottomOf="@+id/et_money"
+            app:layout_constraintRight_toRightOf="@+id/et_money"
+            app:layout_constraintTop_toTopOf="@+id/et_money" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginLeft="@dimen/x11"
+            android:gravity="center"
+            android:text="总金额"
+            android:textColor="#ff000000"
+            android:textSize="@dimen/x18"
+            app:layout_constraintBottom_toBottomOf="@+id/et_money"
+            app:layout_constraintLeft_toLeftOf="@+id/et_money"
+            app:layout_constraintTop_toTopOf="@+id/et_money" />
+
+
+        <EditText
+            android:id="@+id/et_num"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y60"
+            android:layout_marginLeft="@dimen/x33"
+            android:layout_marginTop="@dimen/y25"
+            android:layout_marginRight="@dimen/x33"
+            android:background="@drawable/bg_rect_white_5"
+            android:gravity="right|center_vertical"
+            android:inputType="numberDecimal"
+            android:paddingRight="@dimen/x40"
+            android:text="11"
+            android:textSize="@dimen/x17"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_money" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginRight="@dimen/x16"
+            android:gravity="center"
+            android:text="个"
+            android:textColor="#ff000000"
+            android:textSize="@dimen/x17"
+            app:layout_constraintBottom_toBottomOf="@+id/et_num"
+            app:layout_constraintRight_toRightOf="@+id/et_num"
+            app:layout_constraintTop_toTopOf="@+id/et_num" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginLeft="@dimen/x11"
+            android:gravity="center"
+            android:text="红包个数"
+            android:textColor="#ff000000"
+            android:textSize="@dimen/x18"
+            app:layout_constraintBottom_toBottomOf="@+id/et_num"
+            app:layout_constraintLeft_toLeftOf="@+id/et_num"
+            app:layout_constraintTop_toTopOf="@+id/et_num" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x11"
+            android:layout_marginTop="@dimen/y7"
+            android:text="本群共7人"
+            android:textColor="#ff808080"
+            android:textSize="@dimen/x13"
+            app:layout_constraintLeft_toLeftOf="@+id/et_num"
+            app:layout_constraintTop_toBottomOf="@+id/et_num" />
+
+
+        <EditText
+            android:id="@+id/et_remark"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y65"
+            android:layout_marginLeft="@dimen/x33"
+            android:layout_marginTop="@dimen/y47"
+            android:layout_marginRight="@dimen/x33"
+            android:background="@drawable/bg_rect_white_5"
+            android:gravity="left"
+            android:inputType="numberDecimal"
+            android:padding="@dimen/x10"
+            android:text="11"
+            android:textSize="@dimen/x17"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_num" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y65"
+            android:text="￥10.00"
+            android:textColor="#ff000000"
+            android:textSize="35sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_remark" />
+
+        <TextView
+            android:id="@+id/tv_submit"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y45"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_marginTop="@dimen/y129"
+            android:layout_marginRight="@dimen/x20"
+            android:background="@drawable/bg_rect_f8d347_23"
+            android:gravity="center"
+            android:text="塞进红包"
+            android:textColor="#ff1f2732"
+            android:textSize="@dimen/x18"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_remark" />
+    </android.support.constraint.ConstraintLayout>
+</layout>
