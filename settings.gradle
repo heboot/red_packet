@@ -1,1 +1,1 @@
-include ':app',":http",":MUtils",":IMLib",":IMKit",":PushLib",":RedPacket",":RCSticker"
+include ':app',":http",":MUtils",":IMLib",":IMKit",":PushLib",":RCSticker"

@@ -7,6 +7,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 
+import com.zonghong.redpacket.rong.CustomDefaultExtensionModule;
+import com.zonghong.redpacket.rong.RedPackageChatMessage;
+
+import java.util.List;
+
+import io.rong.imkit.DefaultExtensionModule;
+import io.rong.imkit.IExtensionModule;
+import io.rong.imkit.RongExtensionManager;
 import io.rong.imkit.RongIM;
 
 public class MAPP extends Application {
@@ -21,6 +29,8 @@ public class MAPP extends Application {
         super.onCreate();
         mapp = this;
         RongIM.init(this);
+        RongIM.registerMessageType(RedPackageChatMessage.class);
+        setMyExtensionModule();
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle bundle) {
@@ -58,6 +68,24 @@ public class MAPP extends Application {
             }
         });
     }
+
+    public void setMyExtensionModule() {
+        List<IExtensionModule> moduleList = RongExtensionManager.getInstance().getExtensionModules();
+        IExtensionModule defaultModule = null;
+        if (moduleList != null) {
+            for (IExtensionModule module : moduleList) {
+                if (module instanceof DefaultExtensionModule) {
+                    defaultModule = module;
+                    break;
+                }
+            }
+            if (defaultModule != null) {
+                RongExtensionManager.getInstance().unregisterExtensionModule(defaultModule);
+                RongExtensionManager.getInstance().registerExtensionModule(new CustomDefaultExtensionModule());
+            }
+        }
+    }
+
 
     public Activity getCurrentActivity() {
         return currentActivity;

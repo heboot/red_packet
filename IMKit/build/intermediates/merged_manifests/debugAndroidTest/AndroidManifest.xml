@@ -28,8 +28,7 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> <!-- 保存图片，拍照等 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 新消息震动提醒 -->
     <uses-permission android:name="android.permission.VIBRATE" /> <!-- 消息通道保活 -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- 定位，如果您不需要定位相关的功能，可以删掉 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
@@ -117,7 +116,7 @@
             android:value="26.1.0" /> <!-- imlib config begin -->
         <meta-data
             android:name="RONG_CLOUD_APP_KEY"
-            android:value="此处添加APP_KEY" />
+            android:value="8luwapkv8bc3l" />
 
         <service
             android:name="io.rong.imlib.ipc.RongService"

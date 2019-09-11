@@ -51,6 +51,5 @@ dependencies {
     implementation project(path: ':http')
 
 
-    implementation project(path: ':RedPacket')
 //    implementation project(path: ':PushLib')
 }

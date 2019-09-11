@@ -15,7 +15,7 @@ android {
     buildTypes {
         release {
             //"/yihaocar/"
-            buildConfigField 'String', 'HTTP_SERVER', "\"https://zonghongkeji.cn//wordApp/public/index.php/\""
+            buildConfigField 'String', 'HTTP_SERVER', "\"https://zonghongkeji.cn/redPacket/public/index.php/\""
             minifyEnabled config.MINIFY_DISABLED
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'progua rd-rules.pro'
         }
@@ -23,7 +23,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             minifyEnabled config.MINIFY_DISABLED
             debuggable true
-            buildConfigField 'String', 'HTTP_SERVER', "\"https://zonghongkeji.cn//wordApp/public/index.php/\""//http://test.youzhihr.com/WawHRServer/
+            buildConfigField 'String', 'HTTP_SERVER', "\"https://zonghongkeji.cn/redPacket/public/index.php/\""
+//http://test.youzhihr.com/WawHRServer/
         }
     }
 

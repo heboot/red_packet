@@ -2,10 +2,15 @@ package com.zonghong.redpacket.fragment;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.View;
 
 import com.zonghong.redpacket.R;
+import com.zonghong.redpacket.activity.contacts.ChooseContactsActivity;
 import com.zonghong.redpacket.base.BaseFragment;
 import com.zonghong.redpacket.databinding.FragmentConversationBinding;
+import com.zonghong.redpacket.utils.IntentUtils;
+import com.zonghong.redpacket.view.MsgMorePopView;
 
 import io.rong.imkit.fragment.ConversationListFragment;
 import io.rong.imlib.model.Conversation;
@@ -13,6 +18,7 @@ import io.rong.imlib.model.Conversation;
 public class MConversationListFragment extends BaseFragment<FragmentConversationBinding> {
 
     private ConversationListFragment conversationListFragment;
+
 
     public static MConversationListFragment newInstance() {
         Bundle args = new Bundle();
@@ -28,13 +34,7 @@ public class MConversationListFragment extends BaseFragment<FragmentConversation
 
     @Override
     public void initUI() {
-
-    }
-
-    @Override
-    public void initData() {
         if (conversationListFragment == null) {
-//            conversationListFragment = (ConversationListFragment) fragmentManage.findFragmentById(R.id.subconversationlist);
             conversationListFragment = new ConversationListFragment();
         }
 
@@ -47,13 +47,42 @@ public class MConversationListFragment extends BaseFragment<FragmentConversation
                 .appendQueryParameter(Conversation.ConversationType.SYSTEM.getName(), "true")
                 .build();
         conversationListFragment.setUri(uri);
-//        getFragmentManager().beginTransaction().show(conversationListFragment);
-        getFragmentManager().beginTransaction().add(R.id.container, conversationListFragment).commit();
-//        mDelegate.loadRootFragment(R.id.container, conversationListFragment);
+        getFragmentManager().beginTransaction().add(R.id.llyt_container, conversationListFragment).commit();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
+    public void initData() {
+
     }
 
     @Override
     public void initListener() {
-
+        binding.tvRight.setOnClickListener((v) -> {
+            if (binding.includeMsgMore.getRoot().getVisibility() == View.GONE) {
+                binding.includeMsgMore.getRoot().setVisibility(getView().VISIBLE);
+            } else {
+                binding.includeMsgMore.getRoot().setVisibility(getView().GONE);
+            }
+//            MsgMorePopView msgMorePopView = new MsgMorePopView();
+//            msgMorePopView.showAsDropDown(v);
+        });
+        binding.includeMsgMore.llytContainer.setOnClickListener((v) -> {
+            binding.includeMsgMore.getRoot().setVisibility(getView().GONE);
+        });
+        binding.includeMsgMore.tvNewGroup.setOnClickListener((v) -> {
+            IntentUtils.doIntent(ChooseContactsActivity.class);
+        });
     }
 }

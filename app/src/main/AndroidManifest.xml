@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.loginregister.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,13 +18,47 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.loginregister.LoginActivity"></activity>
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleInstance"></activity>
 
         <activity android:name=".activity.loginregister.RegisterActivity"></activity>
 
         <activity android:name=".activity.loginregister.ForgetActivity"></activity>
 
         <activity android:name=".activity.redpackage.NewRedPackageActivity"></activity>
+
+        <activity android:name=".activity.contacts.ChooseContactsActivity"></activity>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.zonghong.redpacket.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/rc_file_path" />
+        </provider>
+
+        <!--会话界面-->
+        <activity
+            android:name=".activity.ConversationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.zonghong.redpacket"
+                    android:pathPrefix="/conversation/"
+                    android:scheme="rong" />
+            </intent-filter>
+        </activity>
+
+
     </application>
 
 </manifest>

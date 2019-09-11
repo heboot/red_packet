@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="@dimen/x231"
+        android:layout_height="@dimen/y90"
+        android:background="@drawable/bg_rect_ec6941_15">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/y25"
+            android:layout_marginRight="@dimen/x17"
+            android:gravity="center"
+            android:text="恭喜发财，大吉大利"
+            android:textColor="#ffffffff"
+            android:textSize="17sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="@dimen/x60"
+            android:layout_height="@dimen/x52"
+            android:layout_marginLeft="@dimen/x4"
+            android:layout_marginTop="@dimen/y11"
+            android:background="@drawable/icon_redpackage"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

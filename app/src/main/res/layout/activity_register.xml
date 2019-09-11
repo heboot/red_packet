@@ -95,7 +95,18 @@
             android:orientation="horizontal"
             app:layout_constraintLeft_toRightOf="@+id/qlyt_code"
             app:layout_constraintRight_toRightOf="@+id/qlyt_phone"
-            app:layout_constraintTop_toBottomOf="@+id/qlyt_phone"></com.qmuiteam.qmui.layout.QMUILinearLayout>
+            app:layout_constraintTop_toBottomOf="@+id/qlyt_phone">
+
+            <TextView
+                android:id="@+id/tv_sendcode"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="发送验证码"
+                android:textColor="#1F2732"
+                android:textSize="@dimen/x18" />
+
+        </com.qmuiteam.qmui.layout.QMUILinearLayout>
 
 
         <com.qmuiteam.qmui.layout.QMUILinearLayout
@@ -123,7 +134,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/x16"
                 android:background="@null"
-                android:inputType="number"
+                android:inputType="textPassword"
                 android:textColorHint="#B3B3B3"
                 android:textSize="@dimen/x15" />
 

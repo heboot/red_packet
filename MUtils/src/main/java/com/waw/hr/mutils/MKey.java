@@ -5,6 +5,7 @@ public class MKey {
     public static final String ORIGIN = "origin";
 
     public static final String TOKEN = "token";
+    public static final String RY_TOKEN = "rytoken";
 
     public static final String TRUENAME = "truename";
 

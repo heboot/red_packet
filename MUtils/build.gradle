@@ -52,5 +52,5 @@ dependencies {
     api project (':IMLib')
     api 'com.contrarywind:Android-PickerView:4.1.8'
 
-    implementation 'org.greenrobot:eventbus:3.1.1'
+    api 'org.greenrobot:eventbus:3.1.1'
 }

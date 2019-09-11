@@ -16,15 +16,15 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!-- 消息通道保活 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <!-- 定位，如果您不需要定位相关的功能，可以删掉 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+    <!-- 定位，如果您不需要定位相关的功能，可以删掉 -->
+    <!-- <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> -->
     <application>
 
         <!-- imlib config begin -->
         <meta-data
             android:name="RONG_CLOUD_APP_KEY"
-            android:value="此处添加APP_KEY" />
+            android:value="8luwapkv8bc3l" />
 
         <service
             android:name="io.rong.imlib.ipc.RongService"

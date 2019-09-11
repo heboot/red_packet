@@ -11,7 +11,7 @@ import me.yokeyword.fragmentation.ISupportFragment;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
-    private MConversationListFragment mConversationListFragment = MConversationListFragment.newInstance();
+    private MConversationListFragment mConversationListFragment;
 
     private ContactsFragment contactsFragment = ContactsFragment.newInstance();
 
@@ -33,10 +33,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     @Override
     public void initData() {
+        mConversationListFragment = MConversationListFragment.newInstance();
         mDelegate.loadMultipleRootFragment(binding.flytContainer.getId(), 0, mConversationListFragment, contactsFragment, walletFragment, myFragment);
         currentFragment = mConversationListFragment;
         binding.ivMsg.setSelected(true);
     }
+
 
     @Override
     public void initListener() {
