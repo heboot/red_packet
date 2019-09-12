@@ -108,6 +108,7 @@ public class ChooseContactsActivity extends BaseActivity<FragmentContactsBinding
                 tipDialog.show();
                 return;
             }
+            checkIds = checkIds + UserService.getInstance().getUserId();
 
             newgroup();
         });
@@ -115,7 +116,7 @@ public class ChooseContactsActivity extends BaseActivity<FragmentContactsBinding
 
 
     private void newgroup() {
-        params.put("user_list", checkIds.substring(0, checkIds.length() - 1));
+        params.put("user_list", checkIds);
         HttpClient.Builder.getServer().gCreate(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {

@@ -11,6 +11,8 @@ public class UserService {
 
     private String ry_token;
 
+    private String userId;
+
     private static UserService userService;
 
     public static UserService getInstance() {
@@ -50,5 +52,17 @@ public class UserService {
     public void setToken(String token) {
         this.token = token;
         PreferencesUtils.putString(MAPP.mapp, MKey.TOKEN, token);
+    }
+
+    public String getUserId() {
+        if (StringUtils.isEmpty(userId)) {
+            return PreferencesUtils.getString(MAPP.mapp, "userId");
+        }
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+        PreferencesUtils.putString(MAPP.mapp, "userId", userId);
     }
 }

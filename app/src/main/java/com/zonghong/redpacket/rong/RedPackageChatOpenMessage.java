@@ -15,23 +15,20 @@ import io.rong.common.ParcelUtils;
 import io.rong.imlib.MessageTag;
 import io.rong.imlib.model.MessageContent;
 
-@MessageTag(value = "app:redpackage", flag = MessageTag.ISCOUNTED | MessageTag.ISPERSISTED)
-public class RedPackageChatMessage extends MessageContent {
+@MessageTag(value = "app:redpackagetip", flag = MessageTag.ISPERSISTED)
+public class RedPackageChatOpenMessage extends MessageContent {
 
-    private String ID;
-
-    private String fromId;
+    private String name;
 
 //    private String sum;
 
     //给消息赋值。
-    public RedPackageChatMessage(Parcel in) {
-        ID = ParcelUtils.readFromParcel(in);//该类为工具类，消息属性
+    public RedPackageChatOpenMessage(Parcel in) {
+        name = ParcelUtils.readFromParcel(in);//该类为工具类，消息属性
         //这里可继续增加你消息的属性
-        fromId = ParcelUtils.readFromParcel(in);
     }
 
-    public RedPackageChatMessage(byte[] data) {
+    public RedPackageChatOpenMessage(byte[] data) {
         String jsonStr = null;
 
         try {
@@ -45,9 +42,7 @@ public class RedPackageChatMessage extends MessageContent {
 
 //            if (jsonObj.has("ID"))
 //                ID = jsonObj.optString("ID");
-            ID = String.valueOf(jsonObj.getID());
-
-            fromId = jsonObj.getFrom_id();
+            name = String.valueOf(jsonObj.getID());
 
 
         } catch (Exception e) {
@@ -59,8 +54,7 @@ public class RedPackageChatMessage extends MessageContent {
         JSONObject jsonObj = new JSONObject();
 
         try {
-            jsonObj.put("ID", ID);
-            jsonObj.put("fromId", fromId);
+            jsonObj.put("ID", name);
         } catch (JSONException e) {
             Log.e("JSONException", e.getMessage());
         }
@@ -77,16 +71,16 @@ public class RedPackageChatMessage extends MessageContent {
     /**
      * 读取接口，目的是要从Parcel中构造一个实现了Parcelable的类的实例处理。
      */
-    public static final Creator<RedPackageChatMessage> CREATOR = new Creator<RedPackageChatMessage>() {
+    public static final Creator<RedPackageChatOpenMessage> CREATOR = new Creator<RedPackageChatOpenMessage>() {
 
         @Override
-        public RedPackageChatMessage createFromParcel(Parcel source) {
-            return new RedPackageChatMessage(source);
+        public RedPackageChatOpenMessage createFromParcel(Parcel source) {
+            return new RedPackageChatOpenMessage(source);
         }
 
         @Override
-        public RedPackageChatMessage[] newArray(int size) {
-            return new RedPackageChatMessage[size];
+        public RedPackageChatOpenMessage[] newArray(int size) {
+            return new RedPackageChatOpenMessage[size];
         }
     };
 
@@ -97,7 +91,6 @@ public class RedPackageChatMessage extends MessageContent {
 
     @Override
     public void writeToParcel(Parcel dest, int i) {
-        ParcelUtils.writeToParcel(dest, ID);//该类为工具类，对消息中属性进行序列化
-        ParcelUtils.writeToParcel(dest, fromId);//该类为工具类，对消息中属性进行序列化
+        ParcelUtils.writeToParcel(dest, name);//该类为工具类，对消息中属性进行序列化
     }
 }

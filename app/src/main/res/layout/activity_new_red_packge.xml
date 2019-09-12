@@ -26,7 +26,6 @@
             android:gravity="right|center_vertical"
             android:inputType="numberDecimal"
             android:paddingRight="@dimen/x40"
-            android:text="11"
             android:textSize="@dimen/x17"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

@@ -12,6 +12,16 @@ public class CreateRedPackageChildBean {
     private int ID;
     private String user_id;
     private String number;
+    private String group_id;
+    private String from_id;
+
+    public String getGroup_id() {
+        return group_id;
+    }
+
+    public void setGroup_id(String group_id) {
+        this.group_id = group_id;
+    }
 
     public int getID() {
         return ID;
@@ -35,5 +45,13 @@ public class CreateRedPackageChildBean {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    public String getFrom_id() {
+        return from_id;
+    }
+
+    public void setFrom_id(String from_id) {
+        this.from_id = from_id;
     }
 }

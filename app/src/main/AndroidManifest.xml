@@ -30,6 +30,8 @@
 
         <activity android:name=".activity.contacts.ChooseContactsActivity"></activity>
 
+        <activity android:name=".activity.redpackage.RedPageResultActivity"></activity>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.zonghong.redpacket.FileProvider"

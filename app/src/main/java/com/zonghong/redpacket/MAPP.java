@@ -7,8 +7,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 
+import com.alibaba.fastjson.JSON;
+import com.waw.hr.mutils.LogUtil;
+import com.waw.hr.mutils.bean.GroupMember;
+import com.waw.hr.mutils.bean.GroupModel;
 import com.zonghong.redpacket.rong.CustomDefaultExtensionModule;
 import com.zonghong.redpacket.rong.RedPackageChatMessage;
+import com.zonghong.redpacket.rong.RedPackageChatMessageView;
+import com.zonghong.redpacket.rong.RedPackageChatOpenMessage;
+import com.zonghong.redpacket.rong.RedPackageChatTipMessageView;
 
 import java.util.List;
 
@@ -30,7 +37,20 @@ public class MAPP extends Application {
         mapp = this;
         RongIM.init(this);
         RongIM.registerMessageType(RedPackageChatMessage.class);
+        RongIM.registerMessageType(RedPackageChatOpenMessage.class);
         setMyExtensionModule();
+        RongIM.getInstance().registerMessageTemplate(new RedPackageChatMessageView());
+        RongIM.getInstance().registerMessageTemplate(new RedPackageChatTipMessageView());
+        GroupMember[] members = {new GroupMember().setId("ghJiu7H1"), new GroupMember().setId("ghJiu7H2")};
+
+
+        GroupModel group = new GroupModel()
+                .setId("groupId")
+                .setMembers(members)
+                .setName("groupName");
+//        Result groupCreateResult = (Result)Group.create(group);
+        LogUtil.e("group create result:》》》  ", JSON.toJSONString(group));
+
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle bundle) {

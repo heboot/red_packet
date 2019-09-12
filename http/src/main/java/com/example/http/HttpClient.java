@@ -4,6 +4,7 @@ package com.example.http;
 import com.waw.hr.mutils.base.BaseBean;
 import com.waw.hr.mutils.bean.ContatsChildBean;
 import com.waw.hr.mutils.bean.CreateRedPackageBean;
+import com.waw.hr.mutils.bean.CreateRedPackageChildBean;
 import com.waw.hr.mutils.bean.LoginBean;
 
 import java.util.List;
@@ -56,7 +57,7 @@ public interface HttpClient {
 
     @FormUrlEncoded
     @POST("in/tCreate")
-    Observable<BaseBean<CreateRedPackageBean>> tCreate(@Header("token") String token);
+    Observable<BaseBean<CreateRedPackageChildBean>> tCreate(@Header("token") String token, @FieldMap Map<String, Object> params);
 
 
     @FormUrlEncoded

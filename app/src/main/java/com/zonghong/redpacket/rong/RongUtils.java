@@ -2,15 +2,23 @@ package com.zonghong.redpacket.rong;
 
 import android.text.method.Touch;
 
+import com.alibaba.fastjson.JSON;
+import com.waw.hr.mutils.LogUtil;
+import com.waw.hr.mutils.StringUtils;
+import com.waw.hr.mutils.bean.CreateRedPackageChildBean;
+import com.waw.hr.mutils.bean.GetRedpackageModel;
 import com.waw.hr.mutils.event.UserEvent;
 import com.zonghong.redpacket.MAPP;
 import com.zonghong.redpacket.MainActivity;
+import com.zonghong.redpacket.service.UserService;
 import com.zonghong.redpacket.utils.IntentUtils;
 
 import io.rong.eventbus.EventBus;
 import io.rong.imkit.RongIM;
+import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.Message;
 
 public class RongUtils {
     /**
@@ -43,6 +51,7 @@ public class RongUtils {
              */
             @Override
             public void onSuccess(String userid) {
+                UserService.getInstance().setUserId(userid);
                 EventBus.getDefault().post(new UserEvent.LOGIN_SUC_EVENT());
                 IntentUtils.doIntent(MainActivity.class);
             }
@@ -71,9 +80,71 @@ public class RongUtils {
          * @param title        聊天的标题，开发者需要在聊天界面通过 intent.getData().getQueryParameter("title")
          *                     获取该值, 再手动设置为聊天界面的标题。
          */
-//        RongIM.getInstance().startPrivateChat(MAPP.mapp.getCurrentActivity(), toUserId, toUserName);
         RongIM.getInstance().startConversation(MAPP.mapp.getCurrentActivity(), Conversation.ConversationType.NONE, toUserId, toUserName);
-//        IntentUtils.intent2ConversationActivity(toUserId, Conversation.ConversationType.NONE);
+    }
+
+    public static void sendRedPackageMessage(CreateRedPackageChildBean createRedPackageChildBean) {
+        LogUtil.e("SEND MESSAGE", JSON.toJSONString(createRedPackageChildBean));
+        RedPackageChatMessage redPackageChatMessage = new RedPackageChatMessage(JSON.toJSONString(createRedPackageChildBean).getBytes());
+        Message message = new Message();
+        if (StringUtils.isEmpty(createRedPackageChildBean.getGroup_id())) {
+            message.setConversationType(Conversation.ConversationType.NONE);
+            message.setTargetId(createRedPackageChildBean.getUser_id());
+        } else {
+            message.setConversationType(Conversation.ConversationType.GROUP);
+            message.setTargetId(createRedPackageChildBean.getGroup_id());
+        }
+        message.setContent(redPackageChatMessage);
+        message.setMessageDirection(io.rong.imlib.model.Message.MessageDirection.SEND);
+
+        RongIM.getInstance().sendMessage(message, "", "", new IRongCallback.ISendMessageCallback() {
+            @Override
+            public void onAttached(Message message) {
+                LogUtil.e("SEND MESSAGE", "onAttached");
+            }
+
+            @Override
+            public void onSuccess(Message message) {
+                LogUtil.e("SEND MESSAGE", "onSuccess");
+            }
+
+            @Override
+            public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+                LogUtil.e("SEND MESSAGE", "onError");
+            }
+        });
+    }
+
+    public static void sendRedPackageOpenMessage(GetRedpackageModel getRedpackageModel) {
+        LogUtil.e("SEND MESSAGE", JSON.toJSONString(getRedpackageModel));
+        RedPackageChatOpenMessage redPackageChatMessage = new RedPackageChatOpenMessage(JSON.toJSONString(getRedpackageModel).getBytes());
+        Message message = new Message();
+        if (StringUtils.isEmpty(getRedpackageModel.getGroupId())) {
+            message.setConversationType(Conversation.ConversationType.NONE);
+            message.setTargetId(getRedpackageModel.getUserId());
+        } else {
+            message.setConversationType(Conversation.ConversationType.GROUP);
+            message.setTargetId(getRedpackageModel.getGroupId());
+        }
+        message.setContent(redPackageChatMessage);
+        message.setMessageDirection(io.rong.imlib.model.Message.MessageDirection.SEND);
+
+        RongIM.getInstance().sendMessage(message, "", "", new IRongCallback.ISendMessageCallback() {
+            @Override
+            public void onAttached(Message message) {
+                LogUtil.e("SEND MESSAGE", "onAttached");
+            }
+
+            @Override
+            public void onSuccess(Message message) {
+                LogUtil.e("SEND MESSAGE", "onSuccess");
+            }
+
+            @Override
+            public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+                LogUtil.e("SEND MESSAGE", "onError");
+            }
+        });
     }
 
 }
