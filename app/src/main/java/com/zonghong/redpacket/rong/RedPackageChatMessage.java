@@ -15,12 +15,18 @@ import io.rong.common.ParcelUtils;
 import io.rong.imlib.MessageTag;
 import io.rong.imlib.model.MessageContent;
 
-@MessageTag(value = "app:redpackage", flag = MessageTag.ISCOUNTED | MessageTag.ISPERSISTED)
+@MessageTag(value = "redpackage", flag = MessageTag.ISCOUNTED | MessageTag.ISPERSISTED)
 public class RedPackageChatMessage extends MessageContent {
 
     private String ID;
 
     private String fromId;
+
+    private String image;
+
+    private String desc;
+
+    private String redName;
 
 //    private String sum;
 
@@ -29,6 +35,13 @@ public class RedPackageChatMessage extends MessageContent {
         ID = ParcelUtils.readFromParcel(in);//该类为工具类，消息属性
         //这里可继续增加你消息的属性
         fromId = ParcelUtils.readFromParcel(in);
+
+        image = ParcelUtils.readFromParcel(in);
+
+        desc = ParcelUtils.readFromParcel(in);
+
+        redName = ParcelUtils.readFromParcel(in);
+
     }
 
     public RedPackageChatMessage(byte[] data) {
@@ -49,6 +62,11 @@ public class RedPackageChatMessage extends MessageContent {
 
             fromId = jsonObj.getFrom_id();
 
+            image = jsonObj.getImage();
+
+            desc = jsonObj.getDesc();
+
+            redName = jsonObj.getRedName();
 
         } catch (Exception e) {
         }
@@ -61,6 +79,9 @@ public class RedPackageChatMessage extends MessageContent {
         try {
             jsonObj.put("ID", ID);
             jsonObj.put("fromId", fromId);
+            jsonObj.put("image", image);
+            jsonObj.put("desc", desc);
+            jsonObj.put("redName", redName);
         } catch (JSONException e) {
             Log.e("JSONException", e.getMessage());
         }
@@ -99,5 +120,8 @@ public class RedPackageChatMessage extends MessageContent {
     public void writeToParcel(Parcel dest, int i) {
         ParcelUtils.writeToParcel(dest, ID);//该类为工具类，对消息中属性进行序列化
         ParcelUtils.writeToParcel(dest, fromId);//该类为工具类，对消息中属性进行序列化
+        ParcelUtils.writeToParcel(dest, image);//该类为工具类，对消息中属性进行序列化
+        ParcelUtils.writeToParcel(dest, desc);//该类为工具类，对消息中属性进行序列化
+        ParcelUtils.writeToParcel(dest, redName);//该类为工具类，对消息中属性进行序列化
     }
 }

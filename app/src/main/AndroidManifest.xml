@@ -32,6 +32,12 @@
 
         <activity android:name=".activity.redpackage.RedPageResultActivity"></activity>
 
+        <activity android:name=".activity.contacts.SearchContactsActivity"></activity>
+
+        <activity android:name=".activity.contacts.ContactsDetailActivity"></activity>
+
+        <activity android:name=".activity.contacts.ContactsNewListActivity"></activity>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.zonghong.redpacket.FileProvider"

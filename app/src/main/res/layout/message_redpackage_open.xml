@@ -12,7 +12,7 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@mipmap/icon_redpackage_tip"
             android:drawablePadding="@dimen/x10"
-            android:text="有人(名字正在开发)领取了自己发的红包"
+            android:text="用户领取了你的红包"
             android:textColor="#ff000000"
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"

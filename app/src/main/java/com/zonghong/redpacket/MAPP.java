@@ -44,13 +44,6 @@ public class MAPP extends Application {
         GroupMember[] members = {new GroupMember().setId("ghJiu7H1"), new GroupMember().setId("ghJiu7H2")};
 
 
-        GroupModel group = new GroupModel()
-                .setId("groupId")
-                .setMembers(members)
-                .setName("groupName");
-//        Result groupCreateResult = (Result)Group.create(group);
-        LogUtil.e("group create result:》》》  ", JSON.toJSONString(group));
-
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle bundle) {

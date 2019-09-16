@@ -7,6 +7,7 @@ import com.zonghong.redpacket.activity.loginregister.LoginActivity;
 import com.zonghong.redpacket.adapter.ContactsAdapter;
 import com.zonghong.redpacket.base.BaseFragment;
 import com.zonghong.redpacket.databinding.FragmentMyBinding;
+import com.zonghong.redpacket.service.UserService;
 import com.zonghong.redpacket.utils.IntentUtils;
 
 public class MyFragment extends BaseFragment<FragmentMyBinding> {
@@ -30,14 +31,13 @@ public class MyFragment extends BaseFragment<FragmentMyBinding> {
 
     @Override
     public void initData() {
-
     }
 
 
     @Override
     public void initListener() {
-        binding.tvLogin.setOnClickListener((v) -> {
-            IntentUtils.doIntent(LoginActivity.class);
+        binding.tvSetting.setOnClickListener((v) -> {
+            UserService.getInstance().logout();
         });
     }
 }

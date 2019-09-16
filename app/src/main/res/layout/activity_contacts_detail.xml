@@ -7,16 +7,6 @@
         android:layout_height="match_parent"
         android:background="#ededed">
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="@dimen/y8"
-            android:background="#fff"
-            app:layout_constraintBottom_toTopOf="@+id/tv_scan"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></View>
-
         <include
             android:id="@+id/include_toolbar"
             layout="@layout/layout_toolbar"
@@ -27,13 +17,22 @@
             app:layout_constraintTop_toTopOf="parent"></include>
 
 
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/y10"
+            android:background="#fff"
+            app:layout_constraintBottom_toTopOf="@+id/tv_set_remark"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></View>
+
         <com.qmuiteam.qmui.widget.QMUIRadiusImageView
             android:id="@+id/iv_avatar"
             android:layout_width="@dimen/x64"
             android:layout_height="@dimen/y64"
             android:layout_marginLeft="@dimen/x15"
             android:layout_marginTop="@dimen/y28"
-            android:src="@color/qmui_config_color_red"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/include_toolbar"
             app:qmui_border_width="0dp"
@@ -55,7 +54,7 @@
             android:id="@+id/tv_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/y10"
+            android:layout_marginTop="@dimen/y12"
             android:text="ID：4501287"
             android:textColor="#ff808080"
             android:textSize="17sp"
@@ -64,103 +63,97 @@
 
 
         <TextView
-            android:id="@+id/tv_scan"
+            android:id="@+id/tv_set_remark"
             android:layout_width="0dp"
             android:layout_height="@dimen/y55"
             android:layout_marginTop="@dimen/y36"
             android:background="#fff"
             android:gravity="center_vertical"
-            android:paddingLeft="@dimen/x57"
-            android:text="扫一扫"
+            android:paddingLeft="@dimen/x15"
+            android:text="设置备注"
             android:textColor="#ff000000"
             android:textSize="18sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_avatar" />
 
-        <View
-            android:layout_width="@dimen/x28"
-            android:layout_height="@dimen/y28"
-            android:layout_marginLeft="@dimen/x15"
-            android:background="@mipmap/icon_my_scan"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_scan"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_scan"></View>
-
 
         <TextView
-            android:id="@+id/tv_card"
+            android:id="@+id/tv_add_black"
             android:layout_width="0dp"
             android:layout_height="@dimen/y55"
             android:layout_marginTop="@dimen/y8"
             android:background="#fff"
             android:gravity="center_vertical"
-            android:paddingLeft="@dimen/x57"
-            android:text="银行卡"
+            android:paddingLeft="@dimen/x15"
+            android:text="加入黑名单"
             android:textColor="#ff000000"
-            android:textSize="18sp"
+            android:textSize="17sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_scan" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_set_remark" />
 
         <View
-            android:layout_width="@dimen/x28"
-            android:layout_height="@dimen/y28"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y1"
             android:layout_marginLeft="@dimen/x15"
-            android:background="@mipmap/icon_my_card"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_card"
+            android:background="#ededed"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_card"></View>
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_add_black"></View>
 
 
         <TextView
-            android:id="@+id/tv_setting"
+            android:id="@+id/tv_close"
             android:layout_width="0dp"
             android:layout_height="@dimen/y55"
             android:layout_marginTop="@dimen/y1"
             android:background="#fff"
             android:gravity="center_vertical"
-            android:paddingLeft="@dimen/x57"
-            android:text="设置（点我退出）"
+            android:paddingLeft="@dimen/x15"
+            android:text="禁言"
             android:textColor="#ff000000"
-            android:textSize="18sp"
+            android:textSize="17sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_card" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_add_black" />
 
         <View
-            android:layout_width="@dimen/x28"
-            android:layout_height="@dimen/y28"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y1"
             android:layout_marginLeft="@dimen/x15"
-            android:background="@mipmap/icon_my_setting"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_setting"
+            android:background="#ededed"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_setting"></View>
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_close"></View>
 
         <TextView
-            android:id="@+id/tv_help"
+            android:id="@+id/tv_tousu"
             android:layout_width="0dp"
             android:layout_height="@dimen/y55"
             android:layout_marginTop="@dimen/y1"
             android:background="#fff"
             android:gravity="center_vertical"
-            android:paddingLeft="@dimen/x57"
-            android:text="帮助"
+            android:paddingLeft="@dimen/x15"
+            android:text="投诉"
             android:textColor="#ff000000"
-            android:textSize="18sp"
+            android:textSize="17sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_setting" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_close" />
 
-        <View
-            android:layout_width="@dimen/x28"
-            android:layout_height="@dimen/y28"
-            android:layout_marginLeft="@dimen/x15"
-            android:background="@mipmap/icon_my_help"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_help"
+        <TextView
+            android:id="@+id/tv_add"
+            android:layout_width="@dimen/x335"
+            android:layout_height="@dimen/y45"
+            android:layout_marginTop="@dimen/y15"
+            android:background="@drawable/bg_rect_f8d347_23"
+            android:gravity="center"
+            android:text="添加好友"
+            android:textColor="#1F2732"
+            android:textSize="@dimen/x18"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_help"></View>
-
-
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tousu" />
     </android.support.constraint.ConstraintLayout>
 </layout>

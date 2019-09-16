@@ -3,9 +3,13 @@ package com.example.http;
 
 import com.waw.hr.mutils.base.BaseBean;
 import com.waw.hr.mutils.bean.ContatsChildBean;
+import com.waw.hr.mutils.bean.ContatsListBean;
 import com.waw.hr.mutils.bean.CreateRedPackageBean;
 import com.waw.hr.mutils.bean.CreateRedPackageChildBean;
+import com.waw.hr.mutils.bean.GetRedpackageBean;
 import com.waw.hr.mutils.bean.LoginBean;
+import com.waw.hr.mutils.bean.NewFriendListBean;
+import com.waw.hr.mutils.bean.SearchContatsBean;
 
 import java.util.List;
 import java.util.Map;
@@ -53,7 +57,14 @@ public interface HttpClient {
 
     //    @FormUrlEncoded
     @POST("in/fIndex")
-    Observable<BaseBean<List<ContatsChildBean>>> fIndex(@Header("token") String token);
+    Observable<BaseBean<ContatsListBean>> fIndex(@Header("token") String token);
+
+    @POST("in/fSCon")
+    Observable<BaseBean<List<NewFriendListBean>>> fSCon(@Header("token") String token);
+
+    @POST("in/fSCon")
+    Observable<BaseBean<Object>> fConsent(@Header("token") String token);
+
 
     @FormUrlEncoded
     @POST("in/tCreate")
@@ -88,6 +99,15 @@ public interface HttpClient {
     @FormUrlEncoded
     @POST("api/addressadd")
     Observable<BaseBean<Object>> addressadd(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("in/fAdd")
+    Observable<BaseBean<List<SearchContatsBean>>> fAdd(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("in/fSendMsg")
+    Observable<BaseBean<Boolean>> fSendMsg(@Header("token") String token, @FieldMap Map<String, Object> params);
+
 
 //    @GET("type/read")
 //    Observable<BaseBean<List<WordTypeBean>>> read(@QueryMap Map<String, Object> params);

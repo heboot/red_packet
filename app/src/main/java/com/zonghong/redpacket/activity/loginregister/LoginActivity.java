@@ -41,6 +41,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 
     @Override
     public void initData() {
+        loadingDialog = DialogUtils.getLoadingDialog(this, "", false);
         EventBus.getDefault().register(this);
         if (!StringUtils.isEmpty(UserService.getInstance().getToken()) && !StringUtils.isEmpty(UserService.getInstance().getRy_token())) {
             RongUtils.connect(UserService.getInstance().getRy_token());
@@ -78,12 +79,16 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
             tipDialog.show();
             return;
         }
+
+        loadingDialog.show();
+
         params.put(MKey.PHONE, binding.etPhone.getText());
         params.put(MKey.PASSWORD, binding.etPwd.getText());
 
         HttpClient.Builder.getServer().uLogin(params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<LoginBean>() {
             @Override
             public void onSuccess(BaseBean<LoginBean> baseBean) {
+                loadingDialog.dismiss();
                 UserService.getInstance().setToken(baseBean.getData().getToken());
                 UserService.getInstance().setRy_token(baseBean.getData().getRy_token());
                 RongUtils.connect(baseBean.getData().getRy_token());
@@ -91,6 +96,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 
             @Override
             public void onError(BaseBean<LoginBean> baseBean) {
+                loadingDialog.dismiss();
                 tipDialog = DialogUtils.getFailDialog(LoginActivity.this, baseBean.getMsg(), true);
                 tipDialog.show();
             }

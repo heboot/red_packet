@@ -8,14 +8,12 @@ import android.view.View;
 
 import com.example.http.HttpClient;
 import com.waw.hr.mutils.DialogUtils;
-import com.waw.hr.mutils.MKey;
-import com.waw.hr.mutils.ObserableUtils;
 import com.waw.hr.mutils.StringUtils;
 import com.waw.hr.mutils.base.BaseBean;
 import com.waw.hr.mutils.bean.ContatsChildBean;
 import com.waw.hr.mutils.bean.ContatsFriendBean;
+import com.waw.hr.mutils.bean.ContatsListBean;
 import com.zonghong.redpacket.R;
-import com.zonghong.redpacket.activity.loginregister.RegisterActivity;
 import com.zonghong.redpacket.adapter.ContactsContainerAdapter;
 import com.zonghong.redpacket.base.BaseActivity;
 import com.zonghong.redpacket.databinding.FragmentContactsBinding;
@@ -23,8 +21,7 @@ import com.zonghong.redpacket.databinding.LayoutSearchBinding;
 import com.zonghong.redpacket.http.HttpObserver;
 import com.zonghong.redpacket.rong.RongUtils;
 import com.zonghong.redpacket.service.UserService;
-
-import java.util.List;
+import com.zonghong.redpacket.utils.IntentUtils;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -58,7 +55,7 @@ public class ChooseContactsActivity extends BaseActivity<FragmentContactsBinding
     private View getSearchView() {
         LayoutSearchBinding layoutSearchBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.layout_search, null, false);
         layoutSearchBinding.etKey.setOnClickListener((v) -> {
-            // TODO: 2019-09-10 goto search
+            IntentUtils.doIntent(SearchContactsActivity.class);
         });
         return layoutSearchBinding.getRoot();
     }
@@ -66,25 +63,25 @@ public class ChooseContactsActivity extends BaseActivity<FragmentContactsBinding
 
     private void list() {
 
-        HttpClient.Builder.getServer().fIndex(UserService.getInstance().getToken()).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<List<ContatsChildBean>>() {
+        HttpClient.Builder.getServer().fIndex(UserService.getInstance().getToken()).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<ContatsListBean>() {
             @Override
-            public void onSuccess(BaseBean<List<ContatsChildBean>> baseBean) {
+            public void onSuccess(BaseBean<ContatsListBean> baseBean) {
                 if (contactsAdapter == null) {
-                    if (baseBean.getData() != null) {
-                        contactsAdapter = new ContactsContainerAdapter(baseBean.getData(), true);
+                    if (baseBean.getData().getList() != null) {
+                        contactsAdapter = new ContactsContainerAdapter(baseBean.getData().getList(), true);
                         contactsAdapter.addHeaderView(getSearchView());
                         binding.rvList.setAdapter(contactsAdapter);
                     }
                 } else {
                     contactsAdapter.getData().clear();
-                    contactsAdapter.setNewData(baseBean.getData());
+                    contactsAdapter.setNewData(baseBean.getData().getList());
                     contactsAdapter.notifyDataSetChanged();
                 }
 
             }
 
             @Override
-            public void onError(BaseBean<List<ContatsChildBean>> baseBean) {
+            public void onError(BaseBean<ContatsListBean> baseBean) {
                 tipDialog = DialogUtils.getFailDialog(ChooseContactsActivity.this, baseBean.getMsg(), true);
                 tipDialog.show();
             }

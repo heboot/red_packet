@@ -15,6 +15,8 @@ public class MKey {
 
     public static final String NICKNAME = "nickname";
 
+    public static final String SEARCH_CONTENT= "search-content";
+
     public static final String PHONE1 = "phone1";
 
     public static final String PHONE2 = "phone2";

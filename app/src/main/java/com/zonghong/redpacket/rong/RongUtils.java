@@ -80,7 +80,7 @@ public class RongUtils {
          * @param title        聊天的标题，开发者需要在聊天界面通过 intent.getData().getQueryParameter("title")
          *                     获取该值, 再手动设置为聊天界面的标题。
          */
-        RongIM.getInstance().startConversation(MAPP.mapp.getCurrentActivity(), Conversation.ConversationType.NONE, toUserId, toUserName);
+        RongIM.getInstance().startConversation(MAPP.mapp.getCurrentActivity(), Conversation.ConversationType.PRIVATE, toUserId, toUserName);
     }
 
     public static void sendRedPackageMessage(CreateRedPackageChildBean createRedPackageChildBean) {
@@ -88,7 +88,7 @@ public class RongUtils {
         RedPackageChatMessage redPackageChatMessage = new RedPackageChatMessage(JSON.toJSONString(createRedPackageChildBean).getBytes());
         Message message = new Message();
         if (StringUtils.isEmpty(createRedPackageChildBean.getGroup_id())) {
-            message.setConversationType(Conversation.ConversationType.NONE);
+            message.setConversationType(Conversation.ConversationType.PRIVATE);
             message.setTargetId(createRedPackageChildBean.getUser_id());
         } else {
             message.setConversationType(Conversation.ConversationType.GROUP);
@@ -96,7 +96,6 @@ public class RongUtils {
         }
         message.setContent(redPackageChatMessage);
         message.setMessageDirection(io.rong.imlib.model.Message.MessageDirection.SEND);
-
         RongIM.getInstance().sendMessage(message, "", "", new IRongCallback.ISendMessageCallback() {
             @Override
             public void onAttached(Message message) {
@@ -120,7 +119,7 @@ public class RongUtils {
         RedPackageChatOpenMessage redPackageChatMessage = new RedPackageChatOpenMessage(JSON.toJSONString(getRedpackageModel).getBytes());
         Message message = new Message();
         if (StringUtils.isEmpty(getRedpackageModel.getGroupId())) {
-            message.setConversationType(Conversation.ConversationType.NONE);
+            message.setConversationType(Conversation.ConversationType.PRIVATE);
             message.setTargetId(getRedpackageModel.getUserId());
         } else {
             message.setConversationType(Conversation.ConversationType.GROUP);

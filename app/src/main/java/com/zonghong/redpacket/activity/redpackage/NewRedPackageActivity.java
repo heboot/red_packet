@@ -81,6 +81,13 @@ public class NewRedPackageActivity extends BaseActivity<ActivityNewRedPackgeBind
                 tipDialog.show();
                 return;
             }
+            if (type != RedPackageType.CHAT) {
+                if (StringUtils.isEmpty(binding.etNum.getText())) {
+                    tipDialog = DialogUtils.getFailDialog(this, "请输入个数", true);
+                    tipDialog.show();
+                    return;
+                }
+            }
             createRedpackage();
         });
     }
@@ -105,6 +112,10 @@ public class NewRedPackageActivity extends BaseActivity<ActivityNewRedPackgeBind
                     baseBean.getData().setFrom_id(String.valueOf(groupId));
                 }
 
+                baseBean.getData().setImage("");
+//                baseBean.getData().setUser_id(UserService.getInstance().getUserId());
+                baseBean.getData().setDesc("恭喜发财");
+                baseBean.getData().setRedName(UserService.getUserService().getUserId());
                 RongUtils.sendRedPackageMessage(baseBean.getData());
                 finish();
             }

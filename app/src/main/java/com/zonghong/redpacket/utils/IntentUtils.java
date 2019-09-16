@@ -3,8 +3,10 @@ package com.zonghong.redpacket.utils;
 import android.content.Intent;
 
 import com.waw.hr.mutils.MKey;
+import com.waw.hr.mutils.bean.SearchContatsBean;
 import com.zonghong.redpacket.MAPP;
 import com.zonghong.redpacket.activity.ConversationActivity;
+import com.zonghong.redpacket.activity.contacts.ContactsDetailActivity;
 import com.zonghong.redpacket.activity.redpackage.NewRedPackageActivity;
 import com.zonghong.redpacket.activity.redpackage.RedPageResultActivity;
 import com.zonghong.redpacket.common.RedPackageType;
@@ -39,5 +41,11 @@ public class IntentUtils {
         MAPP.mapp.getCurrentActivity().startActivity(intent);
     }
 
+
+    public static void intent2ContactsDetailActivity(SearchContatsBean searchContatsBean) {
+        intent = new Intent(MAPP.mapp.getCurrentActivity(), ContactsDetailActivity.class);
+        intent.putExtra(MKey.DATA, searchContatsBean);
+        MAPP.mapp.getCurrentActivity().startActivity(intent);
+    }
 
 }

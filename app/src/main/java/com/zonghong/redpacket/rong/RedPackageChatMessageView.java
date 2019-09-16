@@ -1,19 +1,19 @@
 package com.zonghong.redpacket.rong;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.support.v4.app.FragmentActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
-import com.waw.hr.mutils.LogUtil;
 import com.waw.hr.mutils.bean.CreateRedPackageChildBean;
 import com.zonghong.redpacket.MAPP;
 import com.zonghong.redpacket.R;
+import com.zonghong.redpacket.databinding.MessageRedpackageChatBinding;
 import com.zonghong.redpacket.view.RedPackageDialog;
 
 import io.rong.imkit.model.ProviderTag;
@@ -26,7 +26,10 @@ public class RedPackageChatMessageView extends IContainerItemProvider.MessagePro
 
     @Override
     public void bindView(View view, int i, RedPackageChatMessage messageContent, UIMessage uiMessage) {
-
+        MessageRedpackageChatBinding messageRedpackageChatBinding = DataBindingUtil.bind(view);
+        String s = new String(messageContent.encode());
+        CreateRedPackageChildBean createRedPackageChildBean = JSON.parseObject(s, CreateRedPackageChildBean.class);
+        messageRedpackageChatBinding.tvDes.setText(createRedPackageChildBean.getDesc());
     }
 
     @Override
@@ -37,12 +40,9 @@ public class RedPackageChatMessageView extends IContainerItemProvider.MessagePro
     @Override
     public void onItemClick(View view, int i, RedPackageChatMessage messageContent, UIMessage uiMessage) {
         // TODO: 2019-09-11 抢红包
-
         String s = new String(messageContent.encode());
         CreateRedPackageChildBean createRedPackageChildBean = JSON.parseObject(s, CreateRedPackageChildBean.class);
-        RedPackageDialog redPackageDialog = RedPackageDialog.newInstance(String.valueOf(createRedPackageChildBean.getID()), uiMessage.getConversationType(), createRedPackageChildBean.getFrom_id());
-        Toast.makeText(view.getContext(), "抢红包", Toast.LENGTH_LONG).show();
-        LogUtil.e("抢红包", s);
+        RedPackageDialog redPackageDialog = RedPackageDialog.newInstance(String.valueOf(createRedPackageChildBean.getID()), uiMessage.getConversationType(), createRedPackageChildBean.getFrom_id(), createRedPackageChildBean);
         redPackageDialog.show(((FragmentActivity) MAPP.mapp.getCurrentActivity()).getSupportFragmentManager(), "");
     }
 

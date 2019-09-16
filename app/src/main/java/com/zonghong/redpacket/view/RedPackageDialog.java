@@ -19,6 +19,8 @@ import android.widget.Toast;
 import com.example.http.HttpClient;
 import com.waw.hr.mutils.MKey;
 import com.waw.hr.mutils.base.BaseBean;
+import com.waw.hr.mutils.bean.CreateRedPackageChildBean;
+import com.waw.hr.mutils.bean.GetRedpackageBean;
 import com.waw.hr.mutils.bean.GetRedpackageModel;
 import com.zonghong.redpacket.MAPP;
 import com.zonghong.redpacket.R;
@@ -26,6 +28,7 @@ import com.zonghong.redpacket.databinding.DialogRedpackageGetBinding;
 import com.zonghong.redpacket.http.HttpObserver;
 import com.zonghong.redpacket.rong.RongUtils;
 import com.zonghong.redpacket.service.UserService;
+import com.zonghong.redpacket.utils.ImageUtils;
 import com.zonghong.redpacket.utils.IntentUtils;
 
 import java.util.HashMap;
@@ -45,11 +48,14 @@ public class RedPackageDialog extends DialogFragment {
 
     private String fromId;
 
-    public static RedPackageDialog newInstance(String redId, Conversation.ConversationType type, String fromId) {
+    private CreateRedPackageChildBean createRedPackageChildBean;
+
+    public static RedPackageDialog newInstance(String redId, Conversation.ConversationType type, String fromId, CreateRedPackageChildBean createRedPackageChildBean) {
         Bundle args = new Bundle();
         args.putSerializable(MKey.ID, redId);
         args.putSerializable(MKey.TYPE, type);
         args.putSerializable("fromId", fromId);
+        args.putSerializable(MKey.DATA, createRedPackageChildBean);
         RedPackageDialog fragment = new RedPackageDialog();
         fragment.setArguments(args);
         return fragment;
@@ -85,6 +91,14 @@ public class RedPackageDialog extends DialogFragment {
         redId = getArguments().getString(MKey.ID);
         fromId = getArguments().getString("fromId");
         type = (Conversation.ConversationType) getArguments().get(MKey.TYPE);
+        createRedPackageChildBean = (CreateRedPackageChildBean) getArguments().get(MKey.DATA);
+
+        binding.tvTtt.setText(createRedPackageChildBean.getRedName() + "的红包");
+
+        ImageUtils.showAvatar(createRedPackageChildBean.getImage(), binding.ivAvatar);
+
+        binding.tvDesc.setText(createRedPackageChildBean.getDesc());
+
         binding.vOpen.setOnClickListener((v) -> {
             createRedpackage();
         });
@@ -106,15 +120,19 @@ public class RedPackageDialog extends DialogFragment {
         HttpClient.Builder.getServer().tGetMoney(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
-                GetRedpackageModel getRedpackageModel = new GetRedpackageModel();
-                if (type == Conversation.ConversationType.GROUP) {
-                    getRedpackageModel.setGroupId(fromId);
-                } else {
-                    getRedpackageModel.setUserId(fromId);
+                if (baseBean.getData() instanceof GetRedpackageBean) {
+                    GetRedpackageModel getRedpackageModel = new GetRedpackageModel();
+                    if (type == Conversation.ConversationType.GROUP) {
+                        getRedpackageModel.setGroupId(fromId);
+                    } else {
+                        getRedpackageModel.setUserId(fromId);
+                    }
+                    RongUtils.sendRedPackageOpenMessage(getRedpackageModel);
+                    IntentUtils.intent2RedPackageOpenActivity(String.valueOf(baseBean.getData()));
+                    dismiss();
                 }
-                RongUtils.sendRedPackageOpenMessage(getRedpackageModel);
-                IntentUtils.intent2RedPackageOpenActivity(String.valueOf(baseBean.getData()));
-                dismiss();
+//                GetRedpackageBean
+
             }
 
             @Override

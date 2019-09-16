@@ -4,6 +4,8 @@ import com.waw.hr.mutils.MKey;
 import com.waw.hr.mutils.PreferencesUtils;
 import com.waw.hr.mutils.StringUtils;
 import com.zonghong.redpacket.MAPP;
+import com.zonghong.redpacket.activity.loginregister.LoginActivity;
+import com.zonghong.redpacket.utils.IntentUtils;
 
 public class UserService {
 
@@ -20,6 +22,13 @@ public class UserService {
             userService = new UserService();
         }
         return userService;
+    }
+
+    public void logout() {
+        setUserId("");
+        setRy_token("");
+        setToken("");
+        IntentUtils.doIntent(LoginActivity.class);
     }
 
     public String getToken() {
