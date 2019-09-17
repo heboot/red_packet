@@ -52,9 +52,12 @@ public class ContactsAdapter extends BaseQuickAdapter<ContatsFriendBean, BaseVie
         binding.tvName.setText(item.getReal_name());
         ImageUtils.showAvatar(item.getImage(), binding.ivAvatar);
 
-        binding.getRoot().setOnClickListener((v) -> {
-            RongUtils.toChat(String.valueOf(item.getID()), item.getReal_name());
-        });
+        if (!isChoose) {
+            binding.getRoot().setOnClickListener((v) -> {
+                RongUtils.toChat(String.valueOf(item.getID()), item.getReal_name());
+            });
+        }
+
 
     }
 }

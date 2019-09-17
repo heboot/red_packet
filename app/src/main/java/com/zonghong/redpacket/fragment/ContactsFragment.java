@@ -2,10 +2,12 @@ package com.zonghong.redpacket.fragment;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.example.http.HttpClient;
 import com.waw.hr.mutils.DialogUtils;
@@ -50,6 +52,8 @@ public class ContactsFragment extends BaseFragment<FragmentContactsBinding> {
 
     @Override
     public void initUI() {
+        binding.includeToolbar.vBack.setVisibility(View.GONE);
+        binding.includeToolbar.tvTitle.setText("通讯录");
         binding.rvList.setLayoutManager(new LinearLayoutManager(_mActivity, RecyclerView.VERTICAL, false));
     }
 
@@ -98,6 +102,7 @@ public class ContactsFragment extends BaseFragment<FragmentContactsBinding> {
         layoutSearchBinding.etKey.setOnClickListener((v) -> {
             IntentUtils.doIntent(SearchContactsActivity.class);
         });
+        layoutSearchBinding.getRoot().setLayoutParams(new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDimensionPixelOffset(R.dimen.y55)));
         return layoutSearchBinding.getRoot();
     }
 

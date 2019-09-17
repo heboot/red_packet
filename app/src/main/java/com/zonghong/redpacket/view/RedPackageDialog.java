@@ -117,9 +117,9 @@ public class RedPackageDialog extends DialogFragment {
     private void createRedpackage() {
         Map params = new HashMap<>();
         params.put("red_id", redId);
-        HttpClient.Builder.getServer().tGetMoney(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
+        HttpClient.Builder.getServer().tGetMoney(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<GetRedpackageBean>() {
             @Override
-            public void onSuccess(BaseBean<Object> baseBean) {
+            public void onSuccess(BaseBean<GetRedpackageBean> baseBean) {
                 if (baseBean.getData() instanceof GetRedpackageBean) {
                     GetRedpackageModel getRedpackageModel = new GetRedpackageModel();
                     if (type == Conversation.ConversationType.GROUP) {
@@ -128,7 +128,7 @@ public class RedPackageDialog extends DialogFragment {
                         getRedpackageModel.setUserId(fromId);
                     }
                     RongUtils.sendRedPackageOpenMessage(getRedpackageModel);
-                    IntentUtils.intent2RedPackageOpenActivity(String.valueOf(baseBean.getData()));
+                    IntentUtils.intent2RedPackageOpenActivity(baseBean.getData());
                     dismiss();
                 }
 //                GetRedpackageBean
@@ -136,7 +136,7 @@ public class RedPackageDialog extends DialogFragment {
             }
 
             @Override
-            public void onError(BaseBean<Object> baseBean) {
+            public void onError(BaseBean<GetRedpackageBean> baseBean) {
                 Toast.makeText(MAPP.mapp, baseBean.getMsg(), Toast.LENGTH_LONG).show();
             }
         });

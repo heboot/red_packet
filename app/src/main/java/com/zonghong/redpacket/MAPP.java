@@ -2,27 +2,47 @@ package com.zonghong.redpacket;
 
 import android.app.Activity;
 import android.app.Application;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-
-import com.alibaba.fastjson.JSON;
+import com.example.http.HttpClient;
+import com.waw.hr.mutils.DialogUtils;
 import com.waw.hr.mutils.LogUtil;
+import com.waw.hr.mutils.MKey;
+import com.waw.hr.mutils.StringUtils;
+import com.waw.hr.mutils.base.BaseBean;
 import com.waw.hr.mutils.bean.GroupMember;
-import com.waw.hr.mutils.bean.GroupModel;
+import com.waw.hr.mutils.bean.SearchContatsBean;
+import com.waw.hr.mutils.event.MessageEvent;
+import com.zonghong.redpacket.activity.contacts.SearchContactsActivity;
+import com.zonghong.redpacket.adapter.SearchContactsAdapter;
+import com.zonghong.redpacket.http.HttpObserver;
+import com.zonghong.redpacket.listenter.MActivtiyLifecycleCallBack;
+import com.zonghong.redpacket.listenter.MyGroupInfoProvider;
+import com.zonghong.redpacket.listenter.MyUserInfoProvider;
 import com.zonghong.redpacket.rong.CustomDefaultExtensionModule;
 import com.zonghong.redpacket.rong.RedPackageChatMessage;
 import com.zonghong.redpacket.rong.RedPackageChatMessageView;
 import com.zonghong.redpacket.rong.RedPackageChatOpenMessage;
 import com.zonghong.redpacket.rong.RedPackageChatTipMessageView;
+import com.zonghong.redpacket.service.UserService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import io.rong.eventbus.EventBus;
 import io.rong.imkit.DefaultExtensionModule;
 import io.rong.imkit.IExtensionModule;
 import io.rong.imkit.RongExtensionManager;
 import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Message;
+import io.rong.imlib.model.UserInfo;
 
 public class MAPP extends Application {
 
@@ -35,51 +55,47 @@ public class MAPP extends Application {
     public void onCreate() {
         super.onCreate();
         mapp = this;
+        registerActivityLifecycleCallbacks(new MActivtiyLifecycleCallBack());
+        registerMessageTemplate();
+        registerMessageListener();
+        registerProvider();
+    }
+
+    private void registerProvider() {
+        RongIM.setUserInfoProvider(new MyUserInfoProvider(), true);
+        RongIM.setGroupInfoProvider(new MyGroupInfoProvider(), true);
+    }
+
+
+    private void registerMessageListener() {
+        RongIM.setOnReceiveMessageListener(new RongIMClient.OnReceiveMessageListener() {
+            @Override
+            public boolean onReceived(Message message, int i) {
+                RongIM.getInstance().getTotalUnreadCount(new RongIMClient.ResultCallback<Integer>() {
+                    @Override
+                    public void onSuccess(Integer integer) {
+                        LogUtil.e("未读消息", "=====" + integer);
+                        EventBus.getDefault().post(new MessageEvent.GET_UNREAD_MESSAGE_NUM_EVENT(integer));
+                    }
+
+                    @Override
+                    public void onError(RongIMClient.ErrorCode errorCode) {
+                        LogUtil.e("未读消息 onError", "=====" + errorCode.getMessage());
+                    }
+                });
+                return false;
+            }
+        });
+    }
+
+
+    private void registerMessageTemplate() {
         RongIM.init(this);
         RongIM.registerMessageType(RedPackageChatMessage.class);
         RongIM.registerMessageType(RedPackageChatOpenMessage.class);
         setMyExtensionModule();
         RongIM.getInstance().registerMessageTemplate(new RedPackageChatMessageView());
         RongIM.getInstance().registerMessageTemplate(new RedPackageChatTipMessageView());
-        GroupMember[] members = {new GroupMember().setId("ghJiu7H1"), new GroupMember().setId("ghJiu7H2")};
-
-
-        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
-            @Override
-            public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle bundle) {
-
-            }
-
-            @Override
-            public void onActivityStarted(@NonNull Activity activity) {
-                setCurrentActivity(activity);
-            }
-
-            @Override
-            public void onActivityResumed(@NonNull Activity activity) {
-                setCurrentActivity(activity);
-            }
-
-            @Override
-            public void onActivityPaused(@NonNull Activity activity) {
-
-            }
-
-            @Override
-            public void onActivityStopped(@NonNull Activity activity) {
-
-            }
-
-            @Override
-            public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle bundle) {
-
-            }
-
-            @Override
-            public void onActivityDestroyed(@NonNull Activity activity) {
-
-            }
-        });
     }
 
     public void setMyExtensionModule() {

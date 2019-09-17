@@ -7,9 +7,11 @@ import com.waw.hr.mutils.bean.ContatsListBean;
 import com.waw.hr.mutils.bean.CreateRedPackageBean;
 import com.waw.hr.mutils.bean.CreateRedPackageChildBean;
 import com.waw.hr.mutils.bean.GetRedpackageBean;
+import com.waw.hr.mutils.bean.GroupInfoBean;
 import com.waw.hr.mutils.bean.LoginBean;
 import com.waw.hr.mutils.bean.NewFriendListBean;
 import com.waw.hr.mutils.bean.SearchContatsBean;
+import com.waw.hr.mutils.bean.UserInfoBean;
 
 import java.util.List;
 import java.util.Map;
@@ -65,19 +67,31 @@ public interface HttpClient {
     @POST("in/fSCon")
     Observable<BaseBean<Object>> fConsent(@Header("token") String token);
 
+    @FormUrlEncoded
+    @POST("in/groupInfo")
+    Observable<BaseBean<GroupInfoBean>> groupInfo(@Header("token") String token, @FieldMap Map<String, Object> params);
+
 
     @FormUrlEncoded
     @POST("in/tCreate")
     Observable<BaseBean<CreateRedPackageChildBean>> tCreate(@Header("token") String token, @FieldMap Map<String, Object> params);
 
+    @FormUrlEncoded
+    @POST("in/uRePss")
+    Observable<BaseBean<Object>> uRePss(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("in/tVerify")
+    Observable<BaseBean<Integer>> tVerify(@Header("token") String token, @FieldMap Map<String, Object> params);
+
 
     @FormUrlEncoded
     @POST("in/tGetMoney")
-    Observable<BaseBean<Object>> tGetMoney(@Header("token") String token, @FieldMap Map<String, Object> params);
+    Observable<BaseBean<GetRedpackageBean>> tGetMoney(@Header("token") String token, @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
     @POST("in/gCreate")
-    Observable<BaseBean<Object>> gCreate(@Header("token") String token, @FieldMap Map<String, Object> params);
+    Observable<BaseBean<Map>> gCreate(@Header("token") String token, @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
     @POST("api/login")
@@ -103,6 +117,11 @@ public interface HttpClient {
     @FormUrlEncoded
     @POST("in/fAdd")
     Observable<BaseBean<List<SearchContatsBean>>> fAdd(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("in/userInfo")
+    Observable<BaseBean<UserInfoBean>> userInfo(@Header("token") String token, @FieldMap Map<String, Object> params);
+
 
     @FormUrlEncoded
     @POST("in/fSendMsg")

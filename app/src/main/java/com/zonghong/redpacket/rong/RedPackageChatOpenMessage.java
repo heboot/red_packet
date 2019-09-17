@@ -15,7 +15,7 @@ import io.rong.common.ParcelUtils;
 import io.rong.imlib.MessageTag;
 import io.rong.imlib.model.MessageContent;
 
-@MessageTag(value = "app:redpackagetip", flag = MessageTag.ISPERSISTED)
+@MessageTag(value = "redpackagetip", flag = MessageTag.ISPERSISTED)
 public class RedPackageChatOpenMessage extends MessageContent {
 
     private String name;

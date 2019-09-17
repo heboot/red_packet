@@ -1,4 +1,5 @@
 package com.zonghong.redpacket.base;
+
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.rong.eventbus.EventBus;
 import me.yokeyword.fragmentation.ExtraTransaction;
 import me.yokeyword.fragmentation.ISupportActivity;
 import me.yokeyword.fragmentation.SupportActivityDelegate;
@@ -70,9 +72,9 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends FragmentAc
     protected void initContentView() {
         binding = DataBindingUtil.setContentView(this, getLayoutId());
         vBack = findViewById(R.id.v_back);
-        if(vBack != null){
-            vBack.setOnClickListener((v)->{
-                if(vBack.getVisibility() == View.VISIBLE){
+        if (vBack != null) {
+            vBack.setOnClickListener((v) -> {
+                if (vBack.getVisibility() == View.VISIBLE) {
                     finish();
                 }
             });
@@ -86,8 +88,8 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends FragmentAc
         }
     }
 
-    protected void setBackVisibility(int v){
-        if(vBack != null){
+    protected void setBackVisibility(int v) {
+        if (vBack != null) {
             vBack.setVisibility(v);
         }
     }
@@ -107,7 +109,9 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends FragmentAc
     protected void onDestroy() {
 
         mDelegate.onDestroy();
-
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
         if (this.compositeDisposable != null && !compositeDisposable.isDisposed()) {
             this.compositeDisposable.dispose();
         }
@@ -128,7 +132,7 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends FragmentAc
 
             @Override
             public void onNext(Object o) {
-                if(o.equals("logout")){
+                if (o.equals("logout")) {
                     finish();
                 }
             }
@@ -145,6 +149,11 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends FragmentAc
         });
     }
 
+    @Override
+    protected void onStop() {
+
+        super.onStop();
+    }
 
     @Override
     protected void onResume() {

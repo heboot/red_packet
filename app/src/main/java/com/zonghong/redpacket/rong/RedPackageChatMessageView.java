@@ -8,17 +8,31 @@ import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+import com.example.http.HttpClient;
+import com.waw.hr.mutils.base.BaseBean;
 import com.waw.hr.mutils.bean.CreateRedPackageChildBean;
+import com.waw.hr.mutils.bean.GetRedpackageBean;
+import com.waw.hr.mutils.bean.GetRedpackageModel;
 import com.zonghong.redpacket.MAPP;
 import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.databinding.MessageRedpackageChatBinding;
+import com.zonghong.redpacket.http.HttpObserver;
+import com.zonghong.redpacket.service.UserService;
+import com.zonghong.redpacket.utils.IntentUtils;
 import com.zonghong.redpacket.view.RedPackageDialog;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import io.rong.imkit.model.ProviderTag;
 import io.rong.imkit.model.UIMessage;
 import io.rong.imkit.widget.provider.IContainerItemProvider;
+import io.rong.imlib.model.Conversation;
 
 @ProviderTag(messageContent = RedPackageChatMessage.class, showReadState = true)
 public class RedPackageChatMessageView extends IContainerItemProvider.MessageProvider<RedPackageChatMessage> {
@@ -42,8 +56,9 @@ public class RedPackageChatMessageView extends IContainerItemProvider.MessagePro
         // TODO: 2019-09-11 抢红包
         String s = new String(messageContent.encode());
         CreateRedPackageChildBean createRedPackageChildBean = JSON.parseObject(s, CreateRedPackageChildBean.class);
-        RedPackageDialog redPackageDialog = RedPackageDialog.newInstance(String.valueOf(createRedPackageChildBean.getID()), uiMessage.getConversationType(), createRedPackageChildBean.getFrom_id(), createRedPackageChildBean);
-        redPackageDialog.show(((FragmentActivity) MAPP.mapp.getCurrentActivity()).getSupportFragmentManager(), "");
+//        RedPackageDialog redPackageDialog = RedPackageDialog.newInstance(String.valueOf(createRedPackageChildBean.getID()), uiMessage.getConversationType(), createRedPackageChildBean.getFrom_id(), createRedPackageChildBean);
+//        redPackageDialog.show(((FragmentActivity) MAPP.mapp.getCurrentActivity()).getSupportFragmentManager(), "");
+        checkredpackage(String.valueOf(createRedPackageChildBean.getID()), uiMessage, createRedPackageChildBean);
     }
 
     @Override
@@ -51,6 +66,49 @@ public class RedPackageChatMessageView extends IContainerItemProvider.MessagePro
         View view = LayoutInflater.from(context).inflate(R.layout.message_redpackage_chat, null);
         view.setLayoutParams(new ViewGroup.LayoutParams(MAPP.mapp.getResources().getDimensionPixelOffset(R.dimen.x231), MAPP.mapp.getResources().getDimensionPixelOffset(R.dimen.y90)));
         return view;
+    }
+
+    private void checkredpackage(String redId, UIMessage uiMessage, CreateRedPackageChildBean createRedPackageChildBean) {
+        Map params = new HashMap<>();
+        params.put("red_id", redId);
+        HttpClient.Builder.getServer().tVerify(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Integer>() {
+            @Override
+            public void onSuccess(BaseBean<Integer> baseBean) {
+                if (baseBean.getData() != null && baseBean.getData() == 10) {
+                    openPackage(redId);
+                } else {
+                    RedPackageDialog redPackageDialog = RedPackageDialog.newInstance(String.valueOf(createRedPackageChildBean.getID()), uiMessage.getConversationType(), createRedPackageChildBean.getFrom_id(), createRedPackageChildBean);
+                    redPackageDialog.show(((FragmentActivity) MAPP.mapp.getCurrentActivity()).getSupportFragmentManager(), "");
+                }
+
+            }
+
+            @Override
+            public void onError(BaseBean<Integer> baseBean) {
+                Toast.makeText(MAPP.mapp, baseBean.getMsg(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void openPackage(String redId) {
+        Map params = new HashMap<>();
+        params.put("red_id", redId);
+        HttpClient.Builder.getServer().tGetMoney(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<GetRedpackageBean>() {
+            @Override
+            public void onSuccess(BaseBean<GetRedpackageBean> baseBean) {
+                if (baseBean.getData() instanceof GetRedpackageBean) {
+                    GetRedpackageModel getRedpackageModel = new GetRedpackageModel();
+                    IntentUtils.intent2RedPackageOpenActivity(baseBean.getData());
+                }
+//                GetRedpackageBean
+
+            }
+
+            @Override
+            public void onError(BaseBean<GetRedpackageBean> baseBean) {
+                Toast.makeText(MAPP.mapp, baseBean.getMsg(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 

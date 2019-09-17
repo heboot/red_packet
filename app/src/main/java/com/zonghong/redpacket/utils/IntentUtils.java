@@ -3,6 +3,7 @@ package com.zonghong.redpacket.utils;
 import android.content.Intent;
 
 import com.waw.hr.mutils.MKey;
+import com.waw.hr.mutils.bean.GetRedpackageBean;
 import com.waw.hr.mutils.bean.SearchContatsBean;
 import com.zonghong.redpacket.MAPP;
 import com.zonghong.redpacket.activity.ConversationActivity;
@@ -35,9 +36,9 @@ public class IntentUtils {
         MAPP.mapp.getCurrentActivity().startActivity(intent);
     }
 
-    public static void intent2RedPackageOpenActivity(String money) {
+    public static void intent2RedPackageOpenActivity(GetRedpackageBean getRedpackageBean) {
         intent = new Intent(MAPP.mapp.getCurrentActivity(), RedPageResultActivity.class);
-        intent.putExtra(MKey.MONEY, money);
+        intent.putExtra(MKey.DATA, getRedpackageBean);
         MAPP.mapp.getCurrentActivity().startActivity(intent);
     }
 

@@ -7,6 +7,7 @@ import com.waw.hr.mutils.LogUtil;
 import com.waw.hr.mutils.StringUtils;
 import com.waw.hr.mutils.bean.CreateRedPackageChildBean;
 import com.waw.hr.mutils.bean.GetRedpackageModel;
+import com.waw.hr.mutils.event.MessageEvent;
 import com.waw.hr.mutils.event.UserEvent;
 import com.zonghong.redpacket.MAPP;
 import com.zonghong.redpacket.MainActivity;
@@ -142,6 +143,20 @@ public class RongUtils {
             @Override
             public void onError(Message message, RongIMClient.ErrorCode errorCode) {
                 LogUtil.e("SEND MESSAGE", "onError");
+            }
+        });
+    }
+
+    public static void checkUnread() {
+        RongIM.getInstance().getTotalUnreadCount(new RongIMClient.ResultCallback<Integer>() {
+            @Override
+            public void onSuccess(Integer integer) {
+                EventBus.getDefault().post(new MessageEvent.GET_UNREAD_MESSAGE_NUM_EVENT(integer));
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+
             }
         });
     }

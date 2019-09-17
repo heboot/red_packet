@@ -17,7 +17,7 @@ import io.rong.imlib.model.Conversation;
 public class RedpackagePlugin implements IPluginModule {
     @Override
     public Drawable obtainDrawable(Context context) {
-        Drawable drawable = ContextCompat.getDrawable(context, R.mipmap.icon_plugin_redpackage);
+        Drawable drawable = ContextCompat.getDrawable(context, R.drawable.icon_send_package);
         return drawable;
     }
 

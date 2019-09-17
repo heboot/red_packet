@@ -4,7 +4,7 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <View
             android:id="@+id/v_bg"
@@ -15,19 +15,66 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"></View>
 
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/y90"
-            android:text="用户的红包(目前没有名字)"
-            android:textColor="#fff"
-            android:textSize="@dimen/x20"
+        <View
+            android:layout_width="@dimen/x10"
+            android:layout_height="@dimen/y17"
+            android:layout_marginLeft="@dimen/x15"
+            android:layout_marginTop="@dimen/y38"
+            android:background="@mipmap/icon_back_white"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/v_bg" />
+            app:layout_constraintTop_toTopOf="parent"></View>
+
+        <View
+            android:id="@+id/v_back"
+            android:layout_width="@dimen/x40"
+            android:layout_height="@dimen/y47"
+            android:layout_marginTop="@dimen/y42"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></View>
 
         <TextView
+            android:id="@+id/tv_redpackage_log"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y37"
+            android:paddingRight="@dimen/x15"
+            android:text="红包记录"
+            android:textColor="#ffffffff"
+            android:textSize="@dimen/x18"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <LinearLayout
+            android:id="@+id/llyt_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y90"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/v_bg">
+
+            <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+                android:id="@+id/iv_avatar"
+                android:layout_width="@dimen/x25"
+                android:layout_height="@dimen/y25"
+                app:qmui_border_width="0dp"
+                app:qmui_is_circle="true" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#fff"
+                android:textSize="@dimen/x20" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/y25"
@@ -36,7 +83,7 @@
             android:textSize="@dimen/x14"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+            app:layout_constraintTop_toBottomOf="@+id/llyt_container" />
 
         <TextView
             android:id="@+id/tv_money"
@@ -44,9 +91,51 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/y50"
             android:textColor="#ffffffff"
-            android:textSize="45sp"
+            android:textSize="@dimen/x45"
             app:layout_constraintBottom_toBottomOf="@+id/v_bg"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已存入零钱，可直接提现"
+            android:textColor="#ffffffff"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_money" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y8"
+            android:background="#ededed"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/v_bg"></View>
+
+        <TextView
+            android:id="@+id/tv_get_info"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y39"
+            android:layout_marginTop="@dimen/y8"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/x15"
+            android:text="以领取3/4，共1.96/10.00元"
+            android:textColor="#ff808080"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/v_bg" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_get_info"></android.support.v7.widget.RecyclerView>
+
     </android.support.constraint.ConstraintLayout>
 </layout>

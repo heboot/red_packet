@@ -7,9 +7,10 @@ import com.zonghong.redpacket.activity.redpackage.NewRedPackageActivity;
 import com.zonghong.redpacket.adapter.ContactsAdapter;
 import com.zonghong.redpacket.base.BaseFragment;
 import com.zonghong.redpacket.databinding.FragmentMyBinding;
+import com.zonghong.redpacket.databinding.FragmentWalletBinding;
 import com.zonghong.redpacket.utils.IntentUtils;
 
-public class WalletFragment extends BaseFragment<FragmentMyBinding> {
+public class WalletFragment extends BaseFragment<FragmentWalletBinding> {
 
 
     public static WalletFragment newInstance() {
@@ -21,7 +22,7 @@ public class WalletFragment extends BaseFragment<FragmentMyBinding> {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_my;
+        return R.layout.fragment_wallet;
     }
 
     @Override
@@ -36,8 +37,5 @@ public class WalletFragment extends BaseFragment<FragmentMyBinding> {
 
     @Override
     public void initListener() {
-        binding.getRoot().setOnClickListener((v) -> {
-            IntentUtils.doIntent(NewRedPackageActivity.class);
-        });
     }
 }

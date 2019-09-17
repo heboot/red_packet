@@ -8,6 +8,7 @@ import android.view.View;
 import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.base.BaseActivity;
 import com.zonghong.redpacket.databinding.ConversationBinding;
+import com.zonghong.redpacket.rong.RongUtils;
 
 import io.rong.imkit.fragment.ConversationFragment;
 import io.rong.imlib.model.Conversation;
@@ -53,5 +54,17 @@ public class ConversationActivity extends BaseActivity<ConversationBinding> {
     @Override
     public void initListener() {
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        RongUtils.checkUnread();
+    }
+
+    @Override
+    protected void onStop() {
+        RongUtils.checkUnread();
+        super.onStop();
     }
 }

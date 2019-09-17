@@ -1,12 +1,23 @@
 package com.zonghong.redpacket;
 
+import android.view.View;
+
+import com.waw.hr.mutils.event.MessageEvent;
+import com.waw.hr.mutils.event.UserEvent;
 import com.zonghong.redpacket.base.BaseActivity;
 import com.zonghong.redpacket.databinding.ActivityMainBinding;
 import com.zonghong.redpacket.fragment.ContactsFragment;
 import com.zonghong.redpacket.fragment.MConversationListFragment;
 import com.zonghong.redpacket.fragment.MyFragment;
 import com.zonghong.redpacket.fragment.WalletFragment;
+import com.zonghong.redpacket.rong.RongUtils;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import io.rong.eventbus.EventBus;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
 import me.yokeyword.fragmentation.ISupportFragment;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
@@ -28,7 +39,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     @Override
     public void initUI() {
-
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -37,8 +48,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         mDelegate.loadMultipleRootFragment(binding.flytContainer.getId(), 0, mConversationListFragment, contactsFragment, walletFragment, myFragment);
         currentFragment = mConversationListFragment;
         binding.ivMsg.setSelected(true);
+
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        RongUtils.checkUnread();
+    }
 
     @Override
     public void initListener() {
@@ -76,4 +93,16 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             binding.ivMy.setSelected(true);
         });
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(MessageEvent.GET_UNREAD_MESSAGE_NUM_EVENT event) {
+        if (event.getUnreadNum() > 0) {
+            binding.tvUnread.setText(event.getUnreadNum() + "");
+            binding.tvUnread.setVisibility(View.VISIBLE);
+        } else {
+            binding.tvUnread.setVisibility(View.GONE);
+        }
+    }
+
+
 }

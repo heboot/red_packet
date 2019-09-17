@@ -1,6 +1,7 @@
 package com.zonghong.redpacket.activity.contacts;
 
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +14,8 @@ import com.waw.hr.mutils.base.BaseBean;
 import com.waw.hr.mutils.bean.ContatsChildBean;
 import com.waw.hr.mutils.bean.ContatsFriendBean;
 import com.waw.hr.mutils.bean.ContatsListBean;
+import com.waw.hr.mutils.event.GroupEvent;
+import com.waw.hr.mutils.event.MessageEvent;
 import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.adapter.ContactsContainerAdapter;
 import com.zonghong.redpacket.base.BaseActivity;
@@ -23,8 +26,16 @@ import com.zonghong.redpacket.rong.RongUtils;
 import com.zonghong.redpacket.service.UserService;
 import com.zonghong.redpacket.utils.IntentUtils;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.Map;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import io.rong.eventbus.EventBus;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.Group;
 
 public class ChooseContactsActivity extends BaseActivity<FragmentContactsBinding> {
 
@@ -42,7 +53,7 @@ public class ChooseContactsActivity extends BaseActivity<FragmentContactsBinding
         setBackVisibility(View.VISIBLE);
         binding.includeToolbar.tvRight.setVisibility(View.VISIBLE);
         binding.includeToolbar.tvRight.setText("完成");
-
+        binding.includeToolbar.tvTitle.setText("选择联系人");
         binding.rvList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
     }
 
@@ -111,17 +122,26 @@ public class ChooseContactsActivity extends BaseActivity<FragmentContactsBinding
         });
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(GroupEvent.CREATE_GROUP_SUC_EVENT event) {
+        finish();
+    }
+
 
     private void newgroup() {
         params.put("user_list", checkIds);
-        HttpClient.Builder.getServer().gCreate(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
+        HttpClient.Builder.getServer().gCreate(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Map>() {
             @Override
-            public void onSuccess(BaseBean<Object> baseBean) {
-                RongUtils.toGroupChat(baseBean.getData().toString(), "群聊");
+            public void onSuccess(BaseBean<Map> baseBean) {
+
+                RongUtils.toGroupChat((String) baseBean.getData().get("g_id"), (String) baseBean.getData().get("g_name"));
+                EventBus.getDefault().post(new GroupEvent.CREATE_GROUP_SUC_EVENT());
+                finish();
+
             }
 
             @Override
-            public void onError(BaseBean<Object> baseBean) {
+            public void onError(BaseBean<Map> baseBean) {
                 tipDialog = DialogUtils.getFailDialog(ChooseContactsActivity.this, baseBean.getMsg(), true);
                 tipDialog.show();
             }

@@ -93,6 +93,9 @@ public class NewRedPackageActivity extends BaseActivity<ActivityNewRedPackgeBind
     }
 
 
+    private String remark = "";
+
+
     private void createRedpackage() {
         params.put("sum", binding.tvMoney.getText());
         params.put("number", type == RedPackageType.CHAT ? 1 : binding.etNum.getText());
@@ -101,6 +104,14 @@ public class NewRedPackageActivity extends BaseActivity<ActivityNewRedPackgeBind
         } else {
             params.put("group_id", groupId);
         }
+
+        if (StringUtils.isEmpty(binding.etRemark.getText())) {
+            remark = "恭喜发财，大吉大利";
+        } else {
+            remark = binding.etRemark.getText().toString();
+        }
+
+
         HttpClient.Builder.getServer().tCreate(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<CreateRedPackageChildBean>() {
             @Override
             public void onSuccess(BaseBean<CreateRedPackageChildBean> baseBean) {
@@ -114,9 +125,10 @@ public class NewRedPackageActivity extends BaseActivity<ActivityNewRedPackgeBind
 
                 baseBean.getData().setImage("");
 //                baseBean.getData().setUser_id(UserService.getInstance().getUserId());
-                baseBean.getData().setDesc("恭喜发财");
+                baseBean.getData().setDesc(remark);
                 baseBean.getData().setRedName(UserService.getUserService().getUserId());
                 RongUtils.sendRedPackageMessage(baseBean.getData());
+                remark = "";
                 finish();
             }
 

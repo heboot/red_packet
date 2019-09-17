@@ -5,7 +5,6 @@ import android.view.View;
 import com.example.http.HttpClient;
 import com.waw.hr.mutils.DialogUtils;
 import com.waw.hr.mutils.MKey;
-import com.waw.hr.mutils.StringUtils;
 import com.waw.hr.mutils.base.BaseBean;
 import com.waw.hr.mutils.bean.SearchContatsBean;
 import com.zonghong.redpacket.R;
@@ -14,9 +13,6 @@ import com.zonghong.redpacket.databinding.ActivityContactsDetailBinding;
 import com.zonghong.redpacket.http.HttpObserver;
 import com.zonghong.redpacket.service.UserService;
 import com.zonghong.redpacket.utils.ImageUtils;
-import com.zonghong.redpacket.utils.IntentUtils;
-
-import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -33,6 +29,7 @@ public class ContactsDetailActivity extends BaseActivity<ActivityContactsDetailB
     @Override
     public void initUI() {
         setBackVisibility(View.VISIBLE);
+        binding.includeToolbar.tvTitle.setText("");
         loadingDialog = DialogUtils.getLoadingDialog(this, "", false);
     }
 

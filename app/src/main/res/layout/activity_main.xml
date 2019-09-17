@@ -21,28 +21,28 @@
             app:layout_constraintTop_toTopOf="parent"></FrameLayout>
 
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="@dimen/y1"
-            android:layout_marginBottom="@dimen/y49"
-            android:background="#E6E6E6"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"></View>
+        <!--<View-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="@dimen/y1"-->
+        <!--android:layout_marginBottom="@dimen/y49"-->
+        <!--android:background="#E6E6E6"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintRight_toRightOf="parent"></View>-->
 
         <LinearLayout
             android:id="@+id/clyt_bottom"
             android:layout_width="0dp"
             android:layout_height="@dimen/y50"
-            android:layout_marginLeft="@dimen/x15"
-            android:layout_marginRight="@dimen/x15"
-            android:background="#ffffff"
+            android:background="#f2f2f2"
             android:orientation="horizontal"
+            android:paddingLeft="@dimen/x15"
+            android:paddingRight="@dimen/x15"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
 
-            <LinearLayout
+            <android.support.constraint.ConstraintLayout
                 android:id="@+id/llyt_msg"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -56,7 +56,10 @@
                     android:layout_height="@dimen/y24"
                     android:layout_marginTop="@dimen/y6"
                     android:background="@drawable/bg_main_btn_msg"
-                    android:clickable="false" />
+                    android:clickable="false"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tv_index"
@@ -65,9 +68,28 @@
                     android:layout_marginTop="@dimen/y6"
                     android:text="消息"
                     android:textColor="#000000"
-                    android:textSize="@dimen/x10" />
+                    android:textSize="@dimen/x10"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_msg" />
 
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_unread"
+                    android:layout_width="@dimen/x18"
+                    android:layout_height="@dimen/y18"
+                    android:layout_marginLeft="@dimen/x22"
+                    android:layout_marginTop="@dimen/y3"
+                    android:background="@drawable/bg_oval_red"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textColor="#fff"
+                    android:textSize="@dimen/x12"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintLeft_toLeftOf="@+id/iv_msg"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
 
             <LinearLayout
                 android:id="@+id/llyt_contacts"
@@ -107,7 +129,7 @@
                     android:id="@+id/iv_wallet"
                     android:layout_width="@dimen/x24"
                     android:layout_height="@dimen/y21"
-                    android:layout_marginTop="@dimen/y6"
+                    android:layout_marginTop="@dimen/y8"
                     android:background="@drawable/bg_main_btn_wallet"
                     android:clickable="false" />
 

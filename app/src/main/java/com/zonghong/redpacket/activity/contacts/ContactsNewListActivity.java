@@ -1,10 +1,12 @@
 package com.zonghong.redpacket.activity.contacts;
 
 import android.databinding.DataBindingUtil;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.example.http.HttpClient;
 import com.waw.hr.mutils.DialogUtils;
@@ -17,6 +19,7 @@ import com.zonghong.redpacket.databinding.ActivityNewContactsListBinding;
 import com.zonghong.redpacket.databinding.LayoutSearchBinding;
 import com.zonghong.redpacket.http.HttpObserver;
 import com.zonghong.redpacket.service.UserService;
+import com.zonghong.redpacket.utils.IntentUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -97,7 +100,9 @@ public class ContactsNewListActivity extends BaseActivity<ActivityNewContactsLis
     private View getSearchView() {
         LayoutSearchBinding layoutSearchBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.layout_search, null, false);
         layoutSearchBinding.etKey.setOnClickListener((v) -> {
+            IntentUtils.doIntent(SearchContactsActivity.class);
         });
+        layoutSearchBinding.getRoot().setLayoutParams(new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDimensionPixelOffset(R.dimen.y55)));
         return layoutSearchBinding.getRoot();
     }
 }

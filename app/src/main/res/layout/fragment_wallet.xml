@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f2f2f2"
+        android:paddingTop="@dimen/y20">
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y40"
+            android:gravity="center"
+            android:text="钱包"
+            android:textColor="#ff000000"
+            android:textSize="@dimen/x18"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_balance_log"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y40"
+            android:layout_marginRight="@dimen/x16"
+            android:gravity="center"
+            android:text="余额明细"
+            android:textColor="#ff000000"
+            android:textSize="@dimen/x18"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#fff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_balance_log"></View>
+
+        <ImageView
+            android:layout_width="@dimen/x62"
+            android:layout_height="@dimen/y64"
+            android:layout_marginTop="@dimen/y52"
+            android:background="@mipmap/icon_balance"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_balance_log" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y151"
+            android:text="我的余额"
+            android:textColor="#ff000000"
+            android:textSize="@dimen/x17"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_balance_log" />
+
+        <TextView
+            android:id="@+id/tv_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y194"
+            android:textColor="#ff000000"
+            android:textSize="@dimen/x43"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_balance_log" />
+
+        <TextView
+            android:id="@+id/tv_recharge"
+            android:layout_width="@dimen/x335"
+            android:layout_height="@dimen/y45"
+            android:background="@drawable/bg_rect_f8d347_23"
+            android:gravity="center"
+            android:text="充值"
+            android:textColor="#ff1f2732"
+            android:textSize="@dimen/x18"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_balance" />
+
+        <TextView
+            android:id="@+id/tv_cash"
+            android:layout_width="@dimen/x335"
+            android:layout_height="@dimen/y45"
+            android:layout_marginTop="@dimen/y15"
+            android:background="@drawable/bg_rect_1f2732_23"
+            android:gravity="center"
+            android:text="提现"
+            android:textColor="#F8D347"
+            android:textSize="@dimen/x18"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_recharge" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

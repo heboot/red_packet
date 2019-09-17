@@ -1,6 +1,7 @@
 package com.zonghong.redpacket.fragment;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.activity.loginregister.LoginActivity;
@@ -27,6 +28,8 @@ public class MyFragment extends BaseFragment<FragmentMyBinding> {
 
     @Override
     public void initUI() {
+        binding.includeToolbar.vBack.setVisibility(View.GONE);
+        binding.includeToolbar.tvTitle.setText("我的");
     }
 
     @Override
