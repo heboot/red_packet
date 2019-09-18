@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ededed">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y60"
+            android:background="#f2f2f2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></View>
+
+        <include
+            android:id="@+id/include_toolbar"
+            layout="@layout/layout_toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></include>
+
+        <View
+            android:id="@+id/v1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y120"
+            android:background="#FFFFFF"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_toolbar"></View>
+
+        <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="@dimen/x64"
+            android:layout_height="@dimen/y64"
+            android:layout_marginLeft="@dimen/x15"
+            android:layout_marginTop="@dimen/y20"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_toolbar"
+            app:qmui_border_width="0dp"
+            app:qmui_is_circle="true" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x24"
+            android:layout_marginTop="@dimen/y5"
+            android:text="白茶清欢"
+            android:textColor="#ff333333"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_avatar" />
+
+
+        <TextView
+            android:id="@+id/tv_find_chat_content"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y55"
+            android:layout_marginTop="@dimen/y10"
+            android:background="#fff"
+            android:drawableRight="@mipmap/icon_arrow_right"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/x16"
+            android:paddingRight="@dimen/x16"
+            android:text="查找聊天内容"
+            android:textColor="#ff000000"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/v1" />
+
+        <TextView
+            android:id="@+id/tv_no_dis"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y55"
+            android:layout_marginTop="@dimen/y10"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/x16"
+            android:text="消息免打扰"
+            android:textColor="#ff000000"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_find_chat_content" />
+
+        <TextView
+            android:id="@+id/tv_chat_top"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y55"
+            android:layout_marginTop="@dimen/y1"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/x16"
+            android:text="置顶聊天"
+            android:textColor="#ff000000"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_no_dis" />
+
+        <TextView
+            android:id="@+id/tv_clear_his"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y55"
+            android:layout_marginTop="@dimen/y1"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/x16"
+            android:text="清除聊天记录"
+            android:textColor="#ff000000"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_chat_top" />
+    </android.support.constraint.ConstraintLayout>
+</layout>

@@ -18,6 +18,16 @@ android {
         }
     }
 
+    signingConfigs {
+        release {
+            keyAlias 'release'
+            keyPassword '123456'
+            storeFile file('../red.jks')
+            storePassword '123456'
+        }
+
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8

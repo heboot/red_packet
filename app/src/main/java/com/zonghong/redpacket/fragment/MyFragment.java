@@ -5,6 +5,7 @@ import android.view.View;
 
 import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.activity.loginregister.LoginActivity;
+import com.zonghong.redpacket.activity.user.SettingActivity;
 import com.zonghong.redpacket.adapter.ContactsAdapter;
 import com.zonghong.redpacket.base.BaseFragment;
 import com.zonghong.redpacket.databinding.FragmentMyBinding;
@@ -40,7 +41,7 @@ public class MyFragment extends BaseFragment<FragmentMyBinding> {
     @Override
     public void initListener() {
         binding.tvSetting.setOnClickListener((v) -> {
-            UserService.getInstance().logout();
+            IntentUtils.doIntent(SettingActivity.class);
         });
     }
 }

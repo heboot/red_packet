@@ -21,6 +21,7 @@ import com.zonghong.redpacket.databinding.ActivityNewRedPackgeBinding;
 import com.zonghong.redpacket.http.HttpObserver;
 import com.zonghong.redpacket.rong.RongUtils;
 import com.zonghong.redpacket.service.UserService;
+import com.zonghong.redpacket.utils.MoneyTextWatcher;
 
 import java.util.List;
 
@@ -59,22 +60,23 @@ public class NewRedPackageActivity extends BaseActivity<ActivityNewRedPackgeBind
 
     @Override
     public void initListener() {
-        binding.etMoney.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                binding.tvMoney.setText(charSequence);
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
+//        binding.etMoney.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                binding.tvMoney.setText(charSequence);
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//
+//            }
+//        });
+        binding.etMoney.addTextChangedListener(new MoneyTextWatcher(binding.etMoney, binding.tvMoney).setDigits(2));
         binding.tvSubmit.setOnClickListener((v) -> {
             if (StringUtils.isEmpty(binding.etMoney.getText())) {
                 tipDialog = DialogUtils.getFailDialog(this, "请输入金额", true);

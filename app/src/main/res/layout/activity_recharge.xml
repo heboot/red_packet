@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f2f2f2">
+
+
+        <include
+            android:id="@+id/include_toolbar"
+            layout="@layout/layout_toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></include>
+
+        <com.qmuiteam.qmui.layout.QMUILinearLayout
+            android:id="@+id/qlyt_container"
+            android:layout_width="@dimen/x345"
+            android:layout_height="@dimen/y195"
+            android:layout_marginTop="@dimen/y25"
+            android:background="#fff"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_toolbar">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_card_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:layout_marginTop="@dimen/y20"
+                    android:text="储蓄卡"
+                    android:textColor="#ff000000"
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/v_card"
+                    android:layout_width="@dimen/x22"
+                    android:layout_height="@dimen/y22"
+                    android:layout_marginLeft="@dimen/x13"
+                    android:background="@color/qmui_config_color_red"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_card_title"
+                    app:layout_constraintLeft_toRightOf="@+id/tv_card_title"
+                    app:layout_constraintTop_toTopOf="@+id/tv_card_title"></View>
+
+                <TextView
+                    android:id="@+id/tv_card"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/y40"
+                    android:layout_marginLeft="@dimen/x3"
+                    android:gravity="center_vertical"
+                    android:text="交通银行 (3310)"
+                    android:textColor="#ff000000"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/v_card"
+                    app:layout_constraintLeft_toRightOf="@+id/v_card"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/v_card" />
+
+                <View
+                    android:layout_width="@dimen/x7"
+                    android:layout_height="@dimen/y12"
+                    android:layout_marginRight="@dimen/x29"
+                    android:background="@mipmap/icon_arrow_right"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_card"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_card"></View>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y36"
+                    android:text="充值金额"
+                    android:textColor="#ff000000"
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toLeftOf="@+id/tv_card_title"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_card_title" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:text="￥"
+                    android:textColor="#ff000000"
+                    android:textSize="30sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/et_money"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/et_money" />
+
+                <EditText
+                    android:id="@+id/et_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x59"
+                    android:layout_marginTop="@dimen/y74"
+                    android:background="@null"
+                    android:inputType="numberDecimal"
+                    android:text="50.64"
+                    android:textColor="#ff000000"
+                    android:textSize="45sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_card_title" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/y1"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:layout_marginRight="@dimen/x30"
+                    android:layout_marginBottom="@dimen/y20"
+                    android:background="#ffe5e5e5"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"></View>
+
+            </android.support.constraint.ConstraintLayout>
+
+
+        </com.qmuiteam.qmui.layout.QMUILinearLayout>
+
+
+        <TextView
+            android:id="@+id/tv_submit"
+            android:layout_width="@dimen/x335"
+            android:layout_height="@dimen/y45"
+            android:layout_marginTop="@dimen/y25"
+            android:background="@drawable/bg_rect_f8d347_23"
+            android:gravity="center"
+            android:text="确定"
+            android:textColor="#1F2732"
+            android:textSize="@dimen/x18"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/qlyt_container" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

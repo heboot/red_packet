@@ -9,6 +9,7 @@ import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.base.BaseActivity;
 import com.zonghong.redpacket.databinding.ConversationBinding;
 import com.zonghong.redpacket.rong.RongUtils;
+import com.zonghong.redpacket.utils.IntentUtils;
 
 import io.rong.imkit.fragment.ConversationFragment;
 import io.rong.imlib.model.Conversation;
@@ -38,7 +39,7 @@ public class ConversationActivity extends BaseActivity<ConversationBinding> {
         Intent intent = getIntent();
         mTargetId = intent.getData().getQueryParameter("targetId");
         title = intent.getData().getQueryParameter("title");
-        binding.includeToolbar.tvTitle.setText(title);
+        binding.tvTitle.setText(title);
         mConversationType = Conversation.ConversationType.valueOf(intent.getData().getLastPathSegment().toUpperCase());
 
 
@@ -53,7 +54,13 @@ public class ConversationActivity extends BaseActivity<ConversationBinding> {
 
     @Override
     public void initListener() {
+        binding.tvRight.setOnClickListener((v) -> {
+            if (mConversationType == Conversation.ConversationType.GROUP) {
 
+            } else {
+                IntentUtils.intent2ChatDetailActivity();
+            }
+        });
     }
 
     @Override

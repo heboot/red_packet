@@ -1,16 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include
+        <android.support.constraint.ConstraintLayout
             android:id="@+id/include_toolbar"
-            layout="@layout/layout_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></include>
+            android:layout_height="@dimen/y40"
+            android:layout_marginTop="@dimen/y20"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!--android:background="@mipmap/icon_back"-->
+
+            <View
+                android:layout_width="@dimen/x11"
+                android:layout_height="@dimen/y20"
+                android:layout_marginLeft="@dimen/x13"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></View>
+
+            <View
+                android:id="@+id/v_back"
+                android:layout_width="@dimen/x25"
+                android:layout_height="@dimen/y25"
+                android:layout_marginLeft="@dimen/x12"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></View>
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="消息"
+                android:textColor="#2B2D30"
+                android:textSize="@dimen/x19"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="@dimen/x25"
+                android:layout_height="@dimen/y5"
+                android:layout_marginRight="@dimen/x10"
+                android:background="@mipmap/icon_more"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_right"
+                android:layout_width="@dimen/x45"
+                android:layout_height="0dp"
+                android:layout_marginRight="@dimen/x10"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
 
         <fragment
             android:id="@+id/conversation"

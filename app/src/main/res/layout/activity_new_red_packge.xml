@@ -24,7 +24,7 @@
             android:layout_marginRight="@dimen/x33"
             android:background="@drawable/bg_rect_white_5"
             android:gravity="right|center_vertical"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:paddingRight="@dimen/x40"
             android:textSize="@dimen/x17"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -112,7 +112,6 @@
 
 
         <EditText
-            android:maxLength="9"
             android:id="@+id/et_remark"
             android:layout_width="0dp"
             android:layout_height="@dimen/y65"
@@ -123,6 +122,7 @@
             android:gravity="left"
             android:hint="恭喜发财，大吉大利"
             android:inputType="numberDecimal"
+            android:maxLength="9"
             android:padding="@dimen/x10"
             android:textSize="@dimen/x17"
             app:layout_constraintLeft_toLeftOf="parent"

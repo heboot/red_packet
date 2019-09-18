@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ededed">
+
+        <include
+            android:id="@+id/include_toolbar"
+            layout="@layout/layout_toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></include>
+
+        <TextView
+            android:id="@+id/tv_avatar"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y80"
+            android:background="#fff"
+            android:drawableRight="@mipmap/icon_arrow_right"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/x15"
+            android:paddingRight="@dimen/x15"
+            android:text="帐号与安全"
+            android:textColor="#ff000000"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_toolbar" />
+
+        <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="@dimen/x64"
+            android:layout_height="@dimen/y64"
+            android:layout_marginRight="@dimen/x38"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_avatar"
+            app:layout_constraintRight_toRightOf="@+id/tv_avatar"
+            app:layout_constraintTop_toTopOf="@+id/tv_avatar"
+            app:qmui_border_width="0dp"
+            app:qmui_is_circle="true" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y1"
+            android:layout_marginLeft="@dimen/x15"
+            android:background="#ffe5e5e5"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_avatar"></View>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y55"
+            android:layout_marginTop="@dimen/y1"
+            android:background="#fff"
+            android:drawableRight="@mipmap/icon_arrow_right"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/x15"
+            android:paddingRight="@dimen/x15"
+            android:text="昵称"
+            android:textColor="#ff000000"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_avatar" />
+
+        <TextView
+            android:id="@+id/tv_nick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/x38"
+            android:text="萌芽"
+            android:textColor="#ff7f7f7f"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_name"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_name" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y1"
+            android:layout_marginLeft="@dimen/x15"
+            android:background="#ffe5e5e5"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name"></View>
+
+        <TextView
+            android:id="@+id/tv_sex_title"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y55"
+            android:layout_marginTop="@dimen/y1"
+            android:background="#fff"
+            android:drawableRight="@mipmap/icon_arrow_right"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/x15"
+            android:paddingRight="@dimen/x15"
+            android:text="性别"
+            android:textColor="#ff000000"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+
+        <TextView
+            android:id="@+id/tv_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/x38"
+            android:text="男"
+            android:textColor="#ff7f7f7f"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_sex_title"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_sex_title" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y10"
+            android:background="#ededed"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_sex_title"></View>
+
+        <TextView
+            android:id="@+id/tv_id_title"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y55"
+            android:layout_marginTop="@dimen/y1"
+            android:background="#fff"
+            android:drawableRight="@mipmap/icon_arrow_right"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/x15"
+            android:paddingRight="@dimen/x15"
+            android:text="ID"
+            android:textColor="#ff000000"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_sex_title" />
+
+        <TextView
+            android:id="@+id/tv_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/x38"
+            android:text="123123"
+            android:textColor="#ff7f7f7f"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_id_title"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_id_title" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y10"
+            android:background="#ededed"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_sex_title"></View>
+
+        <TextView
+            android:id="@+id/tv_code_title"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y55"
+            android:layout_marginTop="@dimen/y1"
+            android:background="#fff"
+            android:drawableRight="@mipmap/icon_arrow_right"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/x15"
+            android:paddingRight="@dimen/x15"
+            android:text="我的二维码"
+            android:textColor="#ff000000"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_sex_title" />
+
+        <TextView
+            android:layout_width="@dimen/x18"
+            android:layout_height="@dimen/y18"
+            android:layout_marginRight="@dimen/x38"
+            android:background="@mipmap/icon_qrcode"
+            android:textColor="#ff7f7f7f"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_id_title"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_id_title" />
+
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

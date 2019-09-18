@@ -38,6 +38,20 @@
 
         <activity android:name=".activity.contacts.ContactsNewListActivity"></activity>
 
+        <activity android:name=".activity.user.SettingActivity"></activity>
+
+        <activity android:name=".activity.user.AccountActivity"></activity>
+
+        <activity android:name=".activity.user.AlterPayPwdActivity"></activity>
+
+        <activity android:name=".activity.user.AlterPwdActivity"></activity>
+
+        <activity android:name=".activity.chat.ChatDetailActivity"></activity>
+
+        <activity android:name=".activity.user.ChooseBankActivity"></activity>
+
+        <activity android:name=".activity.user.RechargeCashActivity"></activity>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.zonghong.redpacket.FileProvider"
@@ -65,6 +79,7 @@
                     android:scheme="rong" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.user.AlterTextActivity" />
 
 
     </application>

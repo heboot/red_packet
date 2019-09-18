@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#EDEDED">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y60"
+            android:background="#f2f2f2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></View>
+
+        <include
+            android:id="@+id/include_toolbar"
+            layout="@layout/layout_toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></include>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x36"
+            android:layout_marginTop="@dimen/y36"
+            android:layout_marginRight="@dimen/x36"
+            android:gravity="center_vertical|left"
+            android:text="您的密保手机号码是158********，请点击“获取验证码”："
+            android:textColor="#ff808080"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_toolbar" />
+
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y45"
+            android:layout_marginTop="@dimen/y15"
+            android:background="#fff"
+            android:gravity="left|center_vertical"
+            android:inputType="number"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+        <TextView
+            android:id="@+id/tv_sendcode"
+            android:layout_width="@dimen/x100"
+            android:layout_height="@dimen/y30"
+            android:layout_marginRight="@dimen/x15"
+            android:background="@drawable/bg_rect_1f2732_23"
+            android:gravity="center"
+            android:text="发送验证码"
+            android:textColor="#F8D347"
+            android:textSize="@dimen/x17"
+            app:layout_constraintBottom_toBottomOf="@+id/et_phone"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/et_phone" />
+
+
+        <TextView
+            android:id="@+id/tv_submit"
+            android:layout_width="@dimen/x335"
+            android:layout_height="@dimen/y45"
+            android:layout_marginTop="@dimen/y25"
+            android:background="@drawable/bg_rect_f8d347_23"
+            android:gravity="center"
+            android:text="确定"
+            android:textColor="#1F2732"
+            android:textSize="@dimen/x18"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_phone" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>
