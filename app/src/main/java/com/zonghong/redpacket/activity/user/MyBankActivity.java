@@ -1,44 +1,43 @@
 package com.zonghong.redpacket.activity.user;
 
+import android.content.DialogInterface;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.example.http.HttpClient;
 import com.waw.hr.mutils.DialogUtils;
+import com.waw.hr.mutils.StringUtils;
 import com.waw.hr.mutils.base.BaseBean;
 import com.waw.hr.mutils.bean.BankListBean;
-import com.waw.hr.mutils.event.UserEvent;
 import com.zonghong.redpacket.R;
-import com.zonghong.redpacket.adapter.ChooseBankAdapter;
+import com.zonghong.redpacket.adapter.ContactsContainerAdapter;
 import com.zonghong.redpacket.adapter.MyBankAdapter;
 import com.zonghong.redpacket.base.BaseActivity;
-import com.zonghong.redpacket.databinding.ActivityChooseBankBinding;
+import com.zonghong.redpacket.databinding.ActivityMyBankBinding;
 import com.zonghong.redpacket.http.HttpObserver;
 import com.zonghong.redpacket.service.UserService;
+import com.zonghong.redpacket.utils.IntentUtils;
 
-import org.greenrobot.eventbus.EventBus;
-
-import java.lang.ref.WeakReference;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class ChooseBankActivity extends BaseActivity<ActivityChooseBankBinding> {
+public class MyBankActivity extends BaseActivity<ActivityMyBankBinding> {
 
-    private ChooseBankAdapter chooseBankAdapter;
+    private MyBankAdapter myBankAdapter;
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_choose_bank;
+        return R.layout.activity_my_bank;
     }
 
     @Override
     public void initUI() {
-        loadingDialog = DialogUtils.getLoadingDialog(this, "", false);
-        binding.includeToolbar.tvTitle.setText("选择充值方式");//根据枚举类型显示不同的标题
         setBackVisibility(View.VISIBLE);
+        binding.includeToolbar.tvTitle.setText("我的银行卡");
         binding.rvList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        loadingDialog = DialogUtils.getLoadingDialog(this, "", false);
     }
 
     @Override
@@ -48,8 +47,11 @@ public class ChooseBankActivity extends BaseActivity<ActivityChooseBankBinding> 
 
     @Override
     public void initListener() {
-
+        binding.tvSubmit.setOnClickListener((v) -> {
+            IntentUtils.doIntent(NewBankActivity.class);
+        });
     }
+
 
     private void bankList() {
         loadingDialog.show();
@@ -57,30 +59,25 @@ public class ChooseBankActivity extends BaseActivity<ActivityChooseBankBinding> 
             @Override
             public void onSuccess(BaseBean<List<BankListBean>> baseBean) {
                 loadingDialog.dismiss();
-                if (chooseBankAdapter == null) {
+                if (myBankAdapter == null) {
                     if (baseBean.getData() != null) {
-                        chooseBankAdapter = new ChooseBankAdapter(baseBean.getData(), new WeakReference<>(ChooseBankActivity.this));
-                        binding.rvList.setAdapter(chooseBankAdapter);
+                        myBankAdapter = new MyBankAdapter(baseBean.getData());
+                        binding.rvList.setAdapter(myBankAdapter);
                     }
                 } else {
-                    chooseBankAdapter.getData().clear();
-                    chooseBankAdapter.setNewData(baseBean.getData());
-                    chooseBankAdapter.notifyDataSetChanged();
+                    myBankAdapter.getData().clear();
+                    myBankAdapter.setNewData(baseBean.getData());
+                    myBankAdapter.notifyDataSetChanged();
                 }
             }
 
             @Override
             public void onError(BaseBean<List<BankListBean>> baseBean) {
                 loadingDialog.dismiss();
-                tipDialog = DialogUtils.getFailDialog(ChooseBankActivity.this, baseBean.getMsg(), true);
+                tipDialog = DialogUtils.getFailDialog(MyBankActivity.this, baseBean.getMsg(), true);
                 tipDialog.show();
             }
         });
     }
 
-
-    public void chooseBank(BankListBean bankListBean) {
-        EventBus.getDefault().postSticky(new UserEvent.CHOOSE_BANK_EVENT(bankListBean));
-        finish();
-    }
 }

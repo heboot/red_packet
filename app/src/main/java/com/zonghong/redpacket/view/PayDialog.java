@@ -1,12 +1,15 @@
 package com.zonghong.redpacket.view;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -17,13 +20,19 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.http.HttpClient;
+import com.qmuiteam.qmui.util.QMUIKeyboardHelper;
+import com.waw.hr.mutils.DialogUtils;
 import com.waw.hr.mutils.MKey;
+import com.waw.hr.mutils.StringUtils;
+import com.waw.hr.mutils.ToastUtils;
 import com.waw.hr.mutils.base.BaseBean;
 import com.waw.hr.mutils.bean.CreateRedPackageChildBean;
 import com.waw.hr.mutils.bean.GetRedpackageBean;
 import com.waw.hr.mutils.bean.GetRedpackageModel;
 import com.zonghong.redpacket.MAPP;
 import com.zonghong.redpacket.R;
+import com.zonghong.redpacket.activity.user.NewBankActivity;
+import com.zonghong.redpacket.common.PayDialogType;
 import com.zonghong.redpacket.databinding.DialogPaypwdBinding;
 import com.zonghong.redpacket.databinding.DialogRedpackageGetBinding;
 import com.zonghong.redpacket.http.HttpObserver;
@@ -44,7 +53,7 @@ public class PayDialog extends DialogFragment {
     private DialogPaypwdBinding binding;
 
 
-    public static PayDialog newInstance() {
+    public static PayDialog newInstance(PayDialogType type) {
         Bundle args = new Bundle();
         PayDialog fragment = new PayDialog();
         fragment.setArguments(args);
@@ -77,8 +86,80 @@ public class PayDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_paypwd, container, false);
         binding = DataBindingUtil.bind(view);
+        QMUIKeyboardHelper.showKeyboard(binding.etPwd, false);
+        binding.vClose.setOnClickListener((v) -> {
+            dismiss();
+        });
+
+        binding.etPwd.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.length() == 1) {
+                    binding.tvP1.setText(charSequence);
+                    binding.tvP2.setText("");
+                    binding.tvP3.setText("");
+                    binding.tvP4.setText("");
+                    binding.tvP5.setText("");
+                    binding.tvP6.setText("");
+                } else if (charSequence.length() == 2) {
+                    binding.tvP2.setText(charSequence.subSequence(1, charSequence.length()));
+                    binding.tvP3.setText("");
+                    binding.tvP4.setText("");
+                    binding.tvP5.setText("");
+                    binding.tvP6.setText("");
+                } else if (charSequence.length() == 3) {
+                    binding.tvP3.setText(charSequence.subSequence(2, charSequence.length()));
+                    binding.tvP4.setText("");
+                    binding.tvP5.setText("");
+                    binding.tvP6.setText("");
+                } else if (charSequence.length() == 4) {
+                    binding.tvP4.setText(charSequence.subSequence(3, charSequence.length()));
+                    binding.tvP5.setText("");
+                    binding.tvP6.setText("");
+                } else if (charSequence.length() == 5) {
+                    binding.tvP5.setText(charSequence.subSequence(4, charSequence.length()));
+                    binding.tvP6.setText("");
+                } else if (charSequence.length() == 6) {
+                    QMUIKeyboardHelper.hideKeyboard(binding.etPwd);
+                    binding.tvP6.setText(charSequence.subSequence(5, charSequence.length()));
+                    checkPayPwd();
+                } else {
+
+                    binding.tvP1.setText("");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+
+
+        });
+
 
         return view;
+    }
+
+    private void checkPayPwd() {
+        Map params = new HashMap();
+        params.put("payPass", binding.tvP1.getText().toString() + binding.tvP1.getText().toString() + binding.tvP1.getText().toString() + binding.tvP1.getText().toString() + binding.tvP1.getText().toString() + binding.tvP1.getText().toString());
+        HttpClient.Builder.getServer().uVerPay(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
+            @Override
+            public void onSuccess(BaseBean<Object> baseBean) {
+                ToastUtils.show(MAPP.mapp, baseBean.getMsg());
+            }
+
+            @Override
+            public void onError(BaseBean<Object> baseBean) {
+                ToastUtils.show(MAPP.mapp, baseBean.getMsg());
+            }
+        });
     }
 
     @Override

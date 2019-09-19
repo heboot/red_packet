@@ -11,8 +11,10 @@ import com.zonghong.redpacket.activity.chat.ChatDetailActivity;
 import com.zonghong.redpacket.activity.contacts.ContactsDetailActivity;
 import com.zonghong.redpacket.activity.redpackage.NewRedPackageActivity;
 import com.zonghong.redpacket.activity.redpackage.RedPageResultActivity;
+import com.zonghong.redpacket.activity.user.AlterTextActivity;
 import com.zonghong.redpacket.activity.user.ChooseBankActivity;
 import com.zonghong.redpacket.activity.user.RechargeCashActivity;
+import com.zonghong.redpacket.common.AlterTextType;
 import com.zonghong.redpacket.common.RechargeCashType;
 import com.zonghong.redpacket.common.RedPackageType;
 
@@ -67,6 +69,13 @@ public class IntentUtils {
     public static void intent2RechargeCaseActivity(RechargeCashType rechargeCashType) {
         intent = new Intent(MAPP.mapp.getCurrentActivity(), RechargeCashActivity.class);
         intent.putExtra(MKey.TYPE, rechargeCashType);
+        MAPP.mapp.getCurrentActivity().startActivity(intent);
+    }
+
+    public static void intent2AlterTextActivity(AlterTextType alterTextType, String oldValue) {
+        intent = new Intent(MAPP.mapp.getCurrentActivity(), AlterTextActivity.class);
+        intent.putExtra(MKey.TYPE, alterTextType);
+        intent.putExtra(MKey.DATA, oldValue);
         MAPP.mapp.getCurrentActivity().startActivity(intent);
     }
 

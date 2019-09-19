@@ -2,6 +2,7 @@ package com.example.http;
 
 
 import com.waw.hr.mutils.base.BaseBean;
+import com.waw.hr.mutils.bean.BankListBean;
 import com.waw.hr.mutils.bean.ContatsChildBean;
 import com.waw.hr.mutils.bean.ContatsListBean;
 import com.waw.hr.mutils.bean.CreateRedPackageBean;
@@ -57,6 +58,30 @@ public interface HttpClient {
     Observable<BaseBean<LoginBean>> uLogin(@FieldMap Map<String, Object> params);
 
 
+    @FormUrlEncoded
+    @POST("in/uSex")
+    Observable<BaseBean<Object>> uSex(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("in/uUpname")
+    Observable<BaseBean<Object>> uUpname(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("in/kAdd")
+    Observable<BaseBean<Object>> add_bank(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("in/kList")
+    Observable<BaseBean<List<BankListBean>>> bankList(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("in/uVerPay")
+    Observable<BaseBean<Object>> uVerPay(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+
+
+
+
     //    @FormUrlEncoded
     @POST("in/fIndex")
     Observable<BaseBean<ContatsListBean>> fIndex(@Header("token") String token);
@@ -79,6 +104,10 @@ public interface HttpClient {
     @FormUrlEncoded
     @POST("in/uRePss")
     Observable<BaseBean<Object>> uRePss(@FieldMap Map<String, Object> params);
+
+
+    @POST("in/bRead")
+    Observable<BaseBean<Map>> bRead(@Header("token") String token);
 
     @FormUrlEncoded
     @POST("in/tVerify")

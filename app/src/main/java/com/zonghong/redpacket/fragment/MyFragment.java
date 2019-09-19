@@ -5,6 +5,9 @@ import android.view.View;
 
 import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.activity.loginregister.LoginActivity;
+import com.zonghong.redpacket.activity.user.InfoActivity;
+import com.zonghong.redpacket.activity.user.MyBankActivity;
+import com.zonghong.redpacket.activity.user.NewBankActivity;
 import com.zonghong.redpacket.activity.user.SettingActivity;
 import com.zonghong.redpacket.adapter.ContactsAdapter;
 import com.zonghong.redpacket.base.BaseFragment;
@@ -42,6 +45,12 @@ public class MyFragment extends BaseFragment<FragmentMyBinding> {
     public void initListener() {
         binding.tvSetting.setOnClickListener((v) -> {
             IntentUtils.doIntent(SettingActivity.class);
+        });
+        binding.vBg.setOnClickListener((v) -> {
+            IntentUtils.doIntent(InfoActivity.class);
+        });
+        binding.tvCard.setOnClickListener((v) -> {
+            IntentUtils.doIntent(MyBankActivity.class);
         });
     }
 }

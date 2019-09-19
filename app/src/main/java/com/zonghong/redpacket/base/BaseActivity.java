@@ -15,6 +15,8 @@ import com.waw.hr.mutils.MStatusBarUtils;
 import com.waw.hr.mutils.rxbus.RxBus;
 import com.zonghong.redpacket.R;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,7 +24,6 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.rong.eventbus.EventBus;
 import me.yokeyword.fragmentation.ExtraTransaction;
 import me.yokeyword.fragmentation.ISupportActivity;
 import me.yokeyword.fragmentation.SupportActivityDelegate;
@@ -60,6 +61,7 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends FragmentAc
         super.onCreate(savedInstanceState);
         mDelegate.onCreate(savedInstanceState);
         params = new HashMap<>();
+
         QMUIStatusBarHelper.translucent(this);
         MStatusBarUtils.setActivityLightMode(this);
         initContentView();
@@ -107,7 +109,6 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends FragmentAc
 
     @Override
     protected void onDestroy() {
-
         mDelegate.onDestroy();
         if (EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().unregister(this);

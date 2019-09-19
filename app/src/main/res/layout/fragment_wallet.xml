@@ -78,6 +78,7 @@
             android:id="@+id/tv_recharge"
             android:layout_width="@dimen/x335"
             android:layout_height="@dimen/y45"
+            android:layout_marginTop="@dimen/y43"
             android:background="@drawable/bg_rect_f8d347_23"
             android:gravity="center"
             android:text="充值"

@@ -52,6 +52,16 @@
 
         <activity android:name=".activity.user.RechargeCashActivity"></activity>
 
+        <activity android:name=".activity.user.InfoActivity"></activity>
+
+        <activity android:name=".activity.user.QRCodeActivity"></activity>
+
+        <activity android:name=".activity.user.AlterTextActivity"></activity>
+
+        <activity android:name=".activity.user.NewBankActivity"></activity>
+
+        <activity android:name=".activity.user.MyBankActivity"></activity>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.zonghong.redpacket.FileProvider"
