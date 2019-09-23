@@ -3,6 +3,7 @@ package com.example.http;
 
 import com.waw.hr.mutils.base.BaseBean;
 import com.waw.hr.mutils.bean.BankListBean;
+import com.waw.hr.mutils.bean.BlackListBean;
 import com.waw.hr.mutils.bean.ContatsChildBean;
 import com.waw.hr.mutils.bean.ContatsListBean;
 import com.waw.hr.mutils.bean.CreateRedPackageBean;
@@ -79,9 +80,6 @@ public interface HttpClient {
     Observable<BaseBean<Object>> uVerPay(@Header("token") String token, @FieldMap Map<String, Object> params);
 
 
-
-
-
     //    @FormUrlEncoded
     @POST("in/fIndex")
     Observable<BaseBean<ContatsListBean>> fIndex(@Header("token") String token);
@@ -112,6 +110,9 @@ public interface HttpClient {
     @FormUrlEncoded
     @POST("in/tVerify")
     Observable<BaseBean<Integer>> tVerify(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+    @POST("in/fBlackL")
+    Observable<BaseBean<List<BlackListBean>>> fBlackL(@Header("token") String token);
 
 
     @FormUrlEncoded

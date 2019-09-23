@@ -2,6 +2,6 @@ package com.zonghong.redpacket.common;
 
 public enum PayDialogType {
 
-    RECHARGE, CASH,
+    RECHARGE, CASH, CREATE_GROUP
 
 }

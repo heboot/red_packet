@@ -29,8 +29,10 @@ import com.waw.hr.mutils.base.BaseBean;
 import com.waw.hr.mutils.bean.CreateRedPackageChildBean;
 import com.waw.hr.mutils.bean.GetRedpackageBean;
 import com.waw.hr.mutils.bean.GetRedpackageModel;
+import com.waw.hr.mutils.event.UserEvent;
 import com.zonghong.redpacket.MAPP;
 import com.zonghong.redpacket.R;
+import com.zonghong.redpacket.activity.contacts.ChooseContactsActivity;
 import com.zonghong.redpacket.activity.user.NewBankActivity;
 import com.zonghong.redpacket.common.PayDialogType;
 import com.zonghong.redpacket.databinding.DialogPaypwdBinding;
@@ -41,6 +43,9 @@ import com.zonghong.redpacket.service.UserService;
 import com.zonghong.redpacket.utils.ImageUtils;
 import com.zonghong.redpacket.utils.IntentUtils;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,9 +57,24 @@ public class PayDialog extends DialogFragment {
 
     private DialogPaypwdBinding binding;
 
+    private PayDialogType payDialogType;
+
+    private float money;
+
 
     public static PayDialog newInstance(PayDialogType type) {
         Bundle args = new Bundle();
+        args.putSerializable(MKey.TYPE, type);
+        args.putFloat(MKey.MONEY, 0);
+        PayDialog fragment = new PayDialog();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static PayDialog newInstance(PayDialogType type, float money) {
+        Bundle args = new Bundle();
+        args.putSerializable(MKey.TYPE, type);
+        args.putFloat(MKey.MONEY, money);
         PayDialog fragment = new PayDialog();
         fragment.setArguments(args);
         return fragment;
@@ -86,6 +106,25 @@ public class PayDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_paypwd, container, false);
         binding = DataBindingUtil.bind(view);
+
+        payDialogType = (PayDialogType) getArguments().get(MKey.TYPE);
+
+        money = getArguments().getFloat(MKey.MONEY);
+
+        switch (payDialogType) {
+            case CASH:
+                binding.tvType.setText("提现");
+                break;
+            case RECHARGE:
+                binding.tvType.setText("充值");
+                break;
+            case CREATE_GROUP:
+                binding.tvType.setText("创建群组");
+                break;
+        }
+
+        binding.tvMoney.setText(money + "");
+
         QMUIKeyboardHelper.showKeyboard(binding.etPwd, false);
         binding.vClose.setOnClickListener((v) -> {
             dismiss();
@@ -153,6 +192,11 @@ public class PayDialog extends DialogFragment {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
                 ToastUtils.show(MAPP.mapp, baseBean.getMsg());
+
+                if (payDialogType == PayDialogType.CREATE_GROUP) {
+                    EventBus.getDefault().postSticky(new UserEvent.PAY_SUC_EVENT());
+                }
+
             }
 
             @Override

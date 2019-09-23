@@ -40,7 +40,7 @@
             app:layout_constraintTop_toBottomOf="@+id/include_toolbar" />
 
         <EditText
-            android:id="@+id/et_phone"
+            android:id="@+id/et_password"
             android:layout_width="0dp"
             android:layout_height="@dimen/y45"
             android:layout_marginTop="@dimen/y15"
@@ -80,7 +80,7 @@
             android:textSize="@dimen/x18"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_phone" />
+            app:layout_constraintTop_toBottomOf="@+id/et_password" />
 
         <CheckBox
             android:id="@+id/cb_show_pwd"

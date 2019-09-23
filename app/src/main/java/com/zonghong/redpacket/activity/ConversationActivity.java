@@ -56,7 +56,7 @@ public class ConversationActivity extends BaseActivity<ConversationBinding> {
     public void initListener() {
         binding.tvRight.setOnClickListener((v) -> {
             if (mConversationType == Conversation.ConversationType.GROUP) {
-
+                IntentUtils.intent2GroupDetailActivity(mTargetId);
             } else {
                 IntentUtils.intent2ChatDetailActivity();
             }

@@ -1,7 +1,6 @@
 package com.zonghong.redpacket.activity.contacts;
 
 import android.databinding.DataBindingUtil;
-import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,16 +14,19 @@ import com.waw.hr.mutils.bean.ContatsChildBean;
 import com.waw.hr.mutils.bean.ContatsFriendBean;
 import com.waw.hr.mutils.bean.ContatsListBean;
 import com.waw.hr.mutils.event.GroupEvent;
-import com.waw.hr.mutils.event.MessageEvent;
+import com.waw.hr.mutils.event.UserEvent;
 import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.adapter.ContactsContainerAdapter;
 import com.zonghong.redpacket.base.BaseActivity;
+import com.zonghong.redpacket.common.PayDialogType;
+import com.zonghong.redpacket.common.RechargeCashType;
 import com.zonghong.redpacket.databinding.FragmentContactsBinding;
 import com.zonghong.redpacket.databinding.LayoutSearchBinding;
 import com.zonghong.redpacket.http.HttpObserver;
 import com.zonghong.redpacket.rong.RongUtils;
 import com.zonghong.redpacket.service.UserService;
 import com.zonghong.redpacket.utils.IntentUtils;
+import com.zonghong.redpacket.view.PayDialog;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -34,14 +36,18 @@ import java.util.Map;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import io.rong.eventbus.EventBus;
-import io.rong.imkit.RongIM;
-import io.rong.imlib.model.Group;
 
 public class ChooseContactsActivity extends BaseActivity<FragmentContactsBinding> {
 
     private ContactsContainerAdapter contactsAdapter;
 
     private String checkIds = "";
+
+    private int toll = 0;//如果是1,表示该用户创建群里需要付钱
+
+    private float charge = 0;//需要支付的额度
+
+    private PayDialog payDialog;
 
     @Override
     protected int getLayoutId() {
@@ -77,6 +83,8 @@ public class ChooseContactsActivity extends BaseActivity<FragmentContactsBinding
         HttpClient.Builder.getServer().fIndex(UserService.getInstance().getToken()).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<ContatsListBean>() {
             @Override
             public void onSuccess(BaseBean<ContatsListBean> baseBean) {
+                toll = baseBean.getData().getToll();
+                charge = baseBean.getData().getCharge();
                 if (contactsAdapter == null) {
                     if (baseBean.getData().getList() != null) {
                         contactsAdapter = new ContactsContainerAdapter(baseBean.getData().getList(), true);
@@ -102,6 +110,8 @@ public class ChooseContactsActivity extends BaseActivity<FragmentContactsBinding
     @Override
     public void initListener() {
         binding.includeToolbar.tvRight.setOnClickListener((v) -> {
+
+
             checkIds = "";
             for (ContatsChildBean contatsChildBean : contactsAdapter.getData()) {
                 for (ContatsFriendBean friendBean : contatsChildBean.getList()) {
@@ -117,7 +127,11 @@ public class ChooseContactsActivity extends BaseActivity<FragmentContactsBinding
                 return;
             }
             checkIds = checkIds + UserService.getInstance().getUserId();
-
+            if (toll == 1 && charge > 0) {
+                payDialog = PayDialog.newInstance(PayDialogType.CREATE_GROUP);
+                payDialog.show(getSupportFragmentManager(), "");
+                return;
+            }
             newgroup();
         });
     }
@@ -125,6 +139,11 @@ public class ChooseContactsActivity extends BaseActivity<FragmentContactsBinding
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(GroupEvent.CREATE_GROUP_SUC_EVENT event) {
         finish();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onEvent(UserEvent.PAY_SUC_EVENT event) {
+        newgroup();
     }
 
 

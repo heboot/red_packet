@@ -62,6 +62,10 @@
 
         <activity android:name=".activity.user.MyBankActivity"></activity>
 
+        <activity android:name=".activity.user.VerifyCodeActivity"></activity>
+
+        <activity android:name=".activity.chat.GroupDetailActivity"></activity>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.zonghong.redpacket.FileProvider"

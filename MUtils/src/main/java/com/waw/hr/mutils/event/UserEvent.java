@@ -15,10 +15,15 @@ public class UserEvent {
             this.bankListBean = bankListBean;
         }
 
-
         public BankListBean getBankListBean() {
             return bankListBean;
         }
     }
+
+
+    public static class PAY_SUC_EVENT {
+
+    }
+
 
 }

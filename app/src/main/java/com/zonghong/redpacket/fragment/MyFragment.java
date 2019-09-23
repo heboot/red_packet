@@ -3,6 +3,9 @@ package com.zonghong.redpacket.fragment;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.http.HttpClient;
+import com.waw.hr.mutils.base.BaseBean;
+import com.waw.hr.mutils.bean.UserInfoBean;
 import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.activity.loginregister.LoginActivity;
 import com.zonghong.redpacket.activity.user.InfoActivity;
@@ -12,8 +15,15 @@ import com.zonghong.redpacket.activity.user.SettingActivity;
 import com.zonghong.redpacket.adapter.ContactsAdapter;
 import com.zonghong.redpacket.base.BaseFragment;
 import com.zonghong.redpacket.databinding.FragmentMyBinding;
+import com.zonghong.redpacket.http.HttpObserver;
 import com.zonghong.redpacket.service.UserService;
+import com.zonghong.redpacket.utils.ImageUtils;
 import com.zonghong.redpacket.utils.IntentUtils;
+
+import java.util.HashMap;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class MyFragment extends BaseFragment<FragmentMyBinding> {
 
@@ -40,6 +50,11 @@ public class MyFragment extends BaseFragment<FragmentMyBinding> {
     public void initData() {
     }
 
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        userInfo();
+    }
 
     @Override
     public void initListener() {
@@ -51,6 +66,21 @@ public class MyFragment extends BaseFragment<FragmentMyBinding> {
         });
         binding.tvCard.setOnClickListener((v) -> {
             IntentUtils.doIntent(MyBankActivity.class);
+        });
+    }
+
+    private void userInfo() {
+        HttpClient.Builder.getServer().userInfo(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<UserInfoBean>() {
+            @Override
+            public void onSuccess(BaseBean<UserInfoBean> baseBean) {
+                ImageUtils.showAvatar(baseBean.getData().getImg(), binding.ivAvatar);
+                binding.tvName.setText(baseBean.getData().getNick_name());
+            }
+
+            @Override
+            public void onError(BaseBean<UserInfoBean> baseBean) {
+
+            }
         });
     }
 }

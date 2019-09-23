@@ -8,13 +8,17 @@ import com.waw.hr.mutils.bean.SearchContatsBean;
 import com.zonghong.redpacket.MAPP;
 import com.zonghong.redpacket.activity.ConversationActivity;
 import com.zonghong.redpacket.activity.chat.ChatDetailActivity;
+import com.zonghong.redpacket.activity.chat.GroupDetailActivity;
 import com.zonghong.redpacket.activity.contacts.ContactsDetailActivity;
 import com.zonghong.redpacket.activity.redpackage.NewRedPackageActivity;
 import com.zonghong.redpacket.activity.redpackage.RedPageResultActivity;
+import com.zonghong.redpacket.activity.user.AlterPwdActivity;
 import com.zonghong.redpacket.activity.user.AlterTextActivity;
 import com.zonghong.redpacket.activity.user.ChooseBankActivity;
 import com.zonghong.redpacket.activity.user.RechargeCashActivity;
+import com.zonghong.redpacket.activity.user.VerifyCodeActivity;
 import com.zonghong.redpacket.common.AlterTextType;
+import com.zonghong.redpacket.common.CheckCodeType;
 import com.zonghong.redpacket.common.RechargeCashType;
 import com.zonghong.redpacket.common.RedPackageType;
 
@@ -76,6 +80,24 @@ public class IntentUtils {
         intent = new Intent(MAPP.mapp.getCurrentActivity(), AlterTextActivity.class);
         intent.putExtra(MKey.TYPE, alterTextType);
         intent.putExtra(MKey.DATA, oldValue);
+        MAPP.mapp.getCurrentActivity().startActivity(intent);
+    }
+
+    public static void intent2VerifyCodeActivity(CheckCodeType checkCodeType) {
+        intent = new Intent(MAPP.mapp.getCurrentActivity(), VerifyCodeActivity.class);
+        intent.putExtra(MKey.TYPE, checkCodeType);
+        MAPP.mapp.getCurrentActivity().startActivity(intent);
+    }
+
+    public static void intent2AlterPwdActivity(CheckCodeType checkCodeType) {
+        intent = new Intent(MAPP.mapp.getCurrentActivity(), AlterPwdActivity.class);
+        intent.putExtra(MKey.TYPE, checkCodeType);
+        MAPP.mapp.getCurrentActivity().startActivity(intent);
+    }
+
+    public static void intent2GroupDetailActivity(String groupId) {
+        intent = new Intent(MAPP.mapp.getCurrentActivity(), GroupDetailActivity.class);
+        intent.putExtra(MKey.ID, groupId);
         MAPP.mapp.getCurrentActivity().startActivity(intent);
     }
 
