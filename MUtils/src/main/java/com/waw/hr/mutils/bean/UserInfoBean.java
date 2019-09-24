@@ -17,7 +17,9 @@ public class UserInfoBean {
 
     private int sign;
 
-    private String mobile;
+    //查看用户的信息对当前用户的关系; 0处于非好友; 1是处于待同意; 2是处于好友; 4是处于黑名单
+    private int status;
+
 
     public String getAccount_id() {
         return account_id;
@@ -67,11 +69,11 @@ public class UserInfoBean {
         this.img = img;
     }
 
-    public String getMobile() {
-        return mobile;
+    public int getStatus() {
+        return status;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

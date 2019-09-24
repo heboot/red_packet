@@ -6,6 +6,7 @@ import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.base.BaseActivity;
 import com.zonghong.redpacket.common.CheckCodeType;
 import com.zonghong.redpacket.databinding.ActivityAccountBinding;
+import com.zonghong.redpacket.service.UserService;
 import com.zonghong.redpacket.utils.IntentUtils;
 
 public class AccountActivity extends BaseActivity<ActivityAccountBinding> {
@@ -22,6 +23,7 @@ public class AccountActivity extends BaseActivity<ActivityAccountBinding> {
 
     @Override
     public void initData() {
+        binding.tvPhone.setText(UserService.getInstance().getPhone());
     }
 
     @Override

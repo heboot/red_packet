@@ -93,9 +93,10 @@ public class IntentUtils {
         MAPP.mapp.getCurrentActivity().startActivity(intent);
     }
 
-    public static void intent2AlterPwdActivity(CheckCodeType checkCodeType) {
+    public static void intent2AlterPwdActivity(CheckCodeType checkCodeType, String vcode) {
         intent = new Intent(MAPP.mapp.getCurrentActivity(), AlterPwdActivity.class);
         intent.putExtra(MKey.TYPE, checkCodeType);
+        intent.putExtra(MKey.CODE, vcode);
         MAPP.mapp.getCurrentActivity().startActivity(intent);
     }
 

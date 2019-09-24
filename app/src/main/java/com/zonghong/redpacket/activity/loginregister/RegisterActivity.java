@@ -158,6 +158,7 @@ public class RegisterActivity extends BaseActivity<ActivityRegisterBinding> {
         }
         binding.qlytSendcode.setEnabled(false);
         params.put(MKey.PHONE, binding.etPhone.getText());
+        params.put(MKey.TYPE, "1");
 
         HttpClient.Builder.getServer().sendVerify(params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<String>() {
             @Override

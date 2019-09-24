@@ -27,10 +27,10 @@ public class NewContactsAdapter extends BaseQuickAdapter<NewFriendListBean, Base
     @Override
     protected void convert(BaseViewHolder helper, NewFriendListBean item) {
         ItemNewFriendBinding binding = DataBindingUtil.bind(helper.itemView);
-        binding.tvName.setText(item.getReal_name());
-        ImageUtils.showAvatar(item.getImage(), binding.ivAvatar);
+        binding.tvName.setText(item.getFriend_name());
+        ImageUtils.showAvatar(item.getFriend_image(), binding.ivAvatar);
         binding.tvOption.setOnClickListener((v) -> {
-            weakReference.get().apply(item.getID());
+            weakReference.get().apply(String.valueOf(item.getMy_id()));
         });
     }
 }

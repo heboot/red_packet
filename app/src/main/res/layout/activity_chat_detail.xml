@@ -88,6 +88,17 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_find_chat_content" />
 
+        <com.kyleduo.switchbutton.SwitchButton
+            android:id="@+id/sb_close_noti"
+            android:layout_width="@dimen/x50"
+            android:layout_height="@dimen/y30"
+            android:layout_marginRight="@dimen/x16"
+            android:textColor="#ff808080"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_no_dis"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_no_dis" />
+
         <TextView
             android:id="@+id/tv_chat_top"
             android:layout_width="0dp"
@@ -102,6 +113,17 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_no_dis" />
+
+        <com.kyleduo.switchbutton.SwitchButton
+            android:id="@+id/sb_set_rop"
+            android:layout_width="@dimen/x50"
+            android:layout_height="@dimen/y30"
+            android:layout_marginRight="@dimen/x16"
+            android:textColor="#ff808080"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_chat_top"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_chat_top" />
 
         <TextView
             android:id="@+id/tv_clear_his"

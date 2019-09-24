@@ -2,33 +2,58 @@ package com.waw.hr.mutils.bean;
 
 public class NewFriendListBean {
 
-    private String ID;
 
-    private String real_name;
+    /**
+     * ID : 93
+     * my_id : 82
+     * notes :
+     * friend_name : 成都
+     * friend_image : /upload/20190924/fcaa7d46233318e0f1f81d9c3a4e03a3.jpg
+     */
 
-    private String image;
+    private int ID;
+    private int my_id;
+    private String notes;
+    private String friend_name;
+    private String friend_image;
 
-    public String getID() {
+    public int getID() {
         return ID;
     }
 
-    public void setID(String ID) {
+    public void setID(int ID) {
         this.ID = ID;
     }
 
-    public String getReal_name() {
-        return real_name;
+    public int getMy_id() {
+        return my_id;
     }
 
-    public void setReal_name(String real_name) {
-        this.real_name = real_name;
+    public void setMy_id(int my_id) {
+        this.my_id = my_id;
     }
 
-    public String getImage() {
-        return image;
+    public String getNotes() {
+        return notes;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public String getFriend_name() {
+        return friend_name;
+    }
+
+    public void setFriend_name(String friend_name) {
+        this.friend_name = friend_name;
+    }
+
+    public String getFriend_image() {
+        return friend_image;
+    }
+
+    public void setFriend_image(String friend_image) {
+        this.friend_image = friend_image;
     }
 }

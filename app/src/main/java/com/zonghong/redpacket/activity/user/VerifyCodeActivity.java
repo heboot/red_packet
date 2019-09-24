@@ -46,8 +46,14 @@ public class VerifyCodeActivity extends BaseActivity<ActivityVerifyCodeBinding> 
     public void initData() {
         binding.tvTitle.setText("您的密保手机号码是" + UserService.getInstance().getPhone().substring(0, 3) + "******** 请点击“获取验证码”：");
 
-
         checkCodeType = (CheckCodeType) getIntent().getExtras().get(MKey.TYPE);
+
+        if (checkCodeType == CheckCodeType.PASSWORD) {
+            binding.includeToolbar.tvTitle.setText("修改密码");
+        } else {
+            binding.includeToolbar.tvTitle.setText("修改支付密码");
+        }
+
         countDownObserver = new Observer<Integer>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -100,8 +106,9 @@ public class VerifyCodeActivity extends BaseActivity<ActivityVerifyCodeBinding> 
             return;
         }
 
-        IntentUtils.intent2AlterPwdActivity(checkCodeType);
+        IntentUtils.intent2AlterPwdActivity(checkCodeType, code);
 
+        finish();
 
     }
 

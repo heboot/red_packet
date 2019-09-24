@@ -26,6 +26,7 @@ public class AlterPwdActivity extends BaseActivity<ActivityAlterPwdBinding> {
 
     private CheckCodeType checkCodeType;
 
+    private String vCode;
 
     @Override
     protected int getLayoutId() {
@@ -42,7 +43,7 @@ public class AlterPwdActivity extends BaseActivity<ActivityAlterPwdBinding> {
 
     @Override
     public void initData() {
-
+        vCode = getIntent().getStringExtra(MKey.CODE);
     }
 
     @Override
@@ -80,10 +81,10 @@ public class AlterPwdActivity extends BaseActivity<ActivityAlterPwdBinding> {
 
         loadingDialog.show();
         params = new HashMap<>();
-        params.put(MKey.PHONE, binding.etPassword.getText());
-//        params.put(MKey.CODE, StringUtils.isEmpty(binding.etCode.getText()) ? "" : binding.etCode.getText());
-//        params.put(MKey.PASSWORD, binding.etPwd.getText());
-        HttpClient.Builder.getServer().uCreate(params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
+        params.put(MKey.PHONE, UserService.getInstance().getPhone());
+        params.put(MKey.CODE, vCode);
+        params.put(MKey.PASSWORD, binding.etPassword.getText().toString());
+        HttpClient.Builder.getServer().uRePss(params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
                 dismissLoadingDialog();

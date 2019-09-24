@@ -8,10 +8,12 @@ import android.widget.CompoundButton;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.waw.hr.mutils.bean.ContatsFriendBean;
+import com.waw.hr.mutils.bean.SearchContatsBean;
 import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.databinding.ItemContactsBinding;
 import com.zonghong.redpacket.rong.RongUtils;
 import com.zonghong.redpacket.utils.ImageUtils;
+import com.zonghong.redpacket.utils.IntentUtils;
 
 import java.util.List;
 
@@ -54,7 +56,10 @@ public class ContactsAdapter extends BaseQuickAdapter<ContatsFriendBean, BaseVie
 
         if (!isChoose) {
             binding.getRoot().setOnClickListener((v) -> {
-                RongUtils.toChat(String.valueOf(item.getID()), item.getReal_name());
+//                RongUtils.toChat(String.valueOf(item.getFriend_id()), item.getReal_name());
+                SearchContatsBean searchContatsBean = new SearchContatsBean();
+                searchContatsBean.setID(String.valueOf(item.getFriend_id()));
+                IntentUtils.intent2ContactsDetailActivity(searchContatsBean);
             });
         }
 

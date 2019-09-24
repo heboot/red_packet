@@ -11,6 +11,7 @@ import com.waw.hr.mutils.bean.ContatsListBean;
 import com.waw.hr.mutils.bean.CreateRedPackageBean;
 import com.waw.hr.mutils.bean.CreateRedPackageChildBean;
 import com.waw.hr.mutils.bean.GetRedpackageBean;
+import com.waw.hr.mutils.bean.GroupDetaiInfoBean;
 import com.waw.hr.mutils.bean.GroupInfoBean;
 import com.waw.hr.mutils.bean.HelpBean;
 import com.waw.hr.mutils.bean.LoginBean;
@@ -117,7 +118,7 @@ public interface HttpClient {
     @POST("in/fSCon")
     Observable<BaseBean<List<NewFriendListBean>>> fSCon(@Header("token") String token);
 
-    @POST("in/fSCon")
+    @POST("in/fConsent")
     Observable<BaseBean<Object>> fConsent(@Header("token") String token);
 
     @FormUrlEncoded
@@ -135,6 +136,10 @@ public interface HttpClient {
     @POST("in/bRechar")
     Observable<BaseBean<Object>> bRechar(@Header("token") String token, @FieldMap Map<String, Object> params);
 
+    @FormUrlEncoded
+    @POST("in/fAddBlack")
+    Observable<BaseBean<Object>> fAddBlack(@Header("token") String token, @FieldMap Map<String, Object> params);
+
 
     @FormUrlEncoded
     @POST("in/tCreate")
@@ -143,6 +148,10 @@ public interface HttpClient {
     @FormUrlEncoded
     @POST("in/uRePss")
     Observable<BaseBean<Object>> uRePss(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("in/gInfo")
+    Observable<BaseBean<GroupDetaiInfoBean>> gInfo(@Header("token") String token, @FieldMap Map<String, Object> params);
 
 
     @POST("in/bRead")
