@@ -12,6 +12,7 @@ import com.zonghong.redpacket.base.BaseActivity;
 import com.zonghong.redpacket.common.CheckCodeType;
 import com.zonghong.redpacket.databinding.ActivityVerifyCodeBinding;
 import com.zonghong.redpacket.http.HttpObserver;
+import com.zonghong.redpacket.service.UserService;
 import com.zonghong.redpacket.utils.IntentUtils;
 
 import io.reactivex.Observable;
@@ -43,6 +44,9 @@ public class VerifyCodeActivity extends BaseActivity<ActivityVerifyCodeBinding> 
 
     @Override
     public void initData() {
+        binding.tvTitle.setText("您的密保手机号码是" + UserService.getInstance().getPhone().substring(0, 3) + "******** 请点击“获取验证码”：");
+
+
         checkCodeType = (CheckCodeType) getIntent().getExtras().get(MKey.TYPE);
         countDownObserver = new Observer<Integer>() {
             @Override
@@ -102,13 +106,9 @@ public class VerifyCodeActivity extends BaseActivity<ActivityVerifyCodeBinding> 
     }
 
     private void sendCode() {
-        if (StringUtils.isEmpty(binding.etPhone.getText())) {
-            tipDialog = DialogUtils.getFailDialog(this, "请输入手机号码", true);
-            tipDialog.show();
-            return;
-        }
+
         binding.tvSendcode.setEnabled(false);
-        params.put(MKey.PHONE, binding.etPhone.getText());
+        params.put(MKey.PHONE, UserService.getInstance().getPhone());
 
         HttpClient.Builder.getServer().sendVerify(params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<String>() {
             @Override

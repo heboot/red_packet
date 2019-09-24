@@ -2,14 +2,17 @@ package com.example.http;
 
 
 import com.waw.hr.mutils.base.BaseBean;
+import com.waw.hr.mutils.bean.BalanceLogListBean;
 import com.waw.hr.mutils.bean.BankListBean;
 import com.waw.hr.mutils.bean.BlackListBean;
+import com.waw.hr.mutils.bean.CashListBean;
 import com.waw.hr.mutils.bean.ContatsChildBean;
 import com.waw.hr.mutils.bean.ContatsListBean;
 import com.waw.hr.mutils.bean.CreateRedPackageBean;
 import com.waw.hr.mutils.bean.CreateRedPackageChildBean;
 import com.waw.hr.mutils.bean.GetRedpackageBean;
 import com.waw.hr.mutils.bean.GroupInfoBean;
+import com.waw.hr.mutils.bean.HelpBean;
 import com.waw.hr.mutils.bean.LoginBean;
 import com.waw.hr.mutils.bean.NewFriendListBean;
 import com.waw.hr.mutils.bean.SearchContatsBean;
@@ -64,12 +67,27 @@ public interface HttpClient {
     Observable<BaseBean<Object>> uSex(@Header("token") String token, @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
+    @POST("in/bIndex")
+    Observable<BaseBean<BalanceLogListBean>> bIndex(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+
+    @Multipart
+    @POST("in/editHeadImg")
+    Observable<BaseBean<Object>> editHeadImg(@Header("token") String token, @Part MultipartBody.Part img);
+
+
+    @FormUrlEncoded
     @POST("in/uUpname")
     Observable<BaseBean<Object>> uUpname(@Header("token") String token, @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
     @POST("in/kAdd")
     Observable<BaseBean<Object>> add_bank(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+
+    @FormUrlEncoded
+    @POST("in/bEmHistory")
+    Observable<BaseBean<CashListBean>> bEmHistory(@Header("token") String token, @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
     @POST("in/kList")
@@ -79,6 +97,18 @@ public interface HttpClient {
     @POST("in/uVerPay")
     Observable<BaseBean<Object>> uVerPay(@Header("token") String token, @FieldMap Map<String, Object> params);
 
+    @FormUrlEncoded
+    @POST("in/kRelease")
+    Observable<BaseBean<Object>> kRelease(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+
+    @FormUrlEncoded
+    @POST("in/bEmbody")
+    Observable<BaseBean<Object>> bEmbody(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("in/upPay")
+    Observable<BaseBean<Object>> upPay(@Header("token") String token, @FieldMap Map<String, Object> params);
 
     //    @FormUrlEncoded
     @POST("in/fIndex")
@@ -93,6 +123,17 @@ public interface HttpClient {
     @FormUrlEncoded
     @POST("in/groupInfo")
     Observable<BaseBean<GroupInfoBean>> groupInfo(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+    @POST("in/iRegard")
+    Observable<BaseBean<Map>> iRegard(@Header("token") String token);
+
+    @POST("in/iHelp")
+    Observable<BaseBean<HelpBean>> iHelp(@Header("token") String token);
+
+
+    @FormUrlEncoded
+    @POST("in/bRechar")
+    Observable<BaseBean<Object>> bRechar(@Header("token") String token, @FieldMap Map<String, Object> params);
 
 
     @FormUrlEncoded

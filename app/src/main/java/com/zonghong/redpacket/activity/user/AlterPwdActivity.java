@@ -14,6 +14,9 @@ import com.zonghong.redpacket.base.BaseActivity;
 import com.zonghong.redpacket.common.CheckCodeType;
 import com.zonghong.redpacket.databinding.ActivityAlterPwdBinding;
 import com.zonghong.redpacket.http.HttpObserver;
+import com.zonghong.redpacket.service.UserService;
+
+import java.util.HashMap;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -45,7 +48,11 @@ public class AlterPwdActivity extends BaseActivity<ActivityAlterPwdBinding> {
     @Override
     public void initListener() {
         binding.tvSubmit.setOnClickListener((v) -> {
-
+            if (checkCodeType == CheckCodeType.PAY_PASSWORD) {
+                alterPayPwd();
+            } else if (checkCodeType == CheckCodeType.PASSWORD) {
+                alterPwd();
+            }
         });
     }
 
@@ -72,7 +79,7 @@ public class AlterPwdActivity extends BaseActivity<ActivityAlterPwdBinding> {
 //        }
 
         loadingDialog.show();
-
+        params = new HashMap<>();
         params.put(MKey.PHONE, binding.etPassword.getText());
 //        params.put(MKey.CODE, StringUtils.isEmpty(binding.etCode.getText()) ? "" : binding.etCode.getText());
 //        params.put(MKey.PASSWORD, binding.etPwd.getText());
@@ -102,7 +109,32 @@ public class AlterPwdActivity extends BaseActivity<ActivityAlterPwdBinding> {
 
 
     private void alterPayPwd() {
+        loadingDialog.show();
+        params = new HashMap<>();
+        params.put("pay_pass", binding.etPassword.getText().toString());
+        params.put("re_pass", binding.etPassword.getText().toString());
+        HttpClient.Builder.getServer().upPay(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
+            @Override
+            public void onSuccess(BaseBean<Object> baseBean) {
+                loadingDialog.dismiss();
+                tipDialog = DialogUtils.getSuclDialog(AlterPwdActivity.this, baseBean.getMsg(), true);
+                tipDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        finish();
+                    }
+                });
+                tipDialog.show();
 
+            }
+
+            @Override
+            public void onError(BaseBean<Object> baseBean) {
+                loadingDialog.dismiss();
+                tipDialog = DialogUtils.getFailDialog(AlterPwdActivity.this, baseBean.getMsg(), true);
+                tipDialog.show();
+            }
+        });
     }
 
 }

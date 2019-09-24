@@ -46,8 +46,9 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:minWidth="@dimen/x60"
                 android:id="@+id/tv_right"
-                android:layout_width="@dimen/x60"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/y30"
                 android:layout_marginRight="@dimen/x15"
                 android:background="@drawable/bg_rect_1f2732_15"

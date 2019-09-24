@@ -1,8 +1,10 @@
-package com.zonghong.redpacket.activity.user;
+package com.zonghong.redpacket.activity.common;
 
 import android.view.View;
 
 import com.zonghong.redpacket.R;
+import com.zonghong.redpacket.activity.common.AboutActivity;
+import com.zonghong.redpacket.activity.user.AccountActivity;
 import com.zonghong.redpacket.base.BaseActivity;
 import com.zonghong.redpacket.databinding.ActivitySettingBinding;
 import com.zonghong.redpacket.utils.IntentUtils;
@@ -21,7 +23,6 @@ public class SettingActivity extends BaseActivity<ActivitySettingBinding> {
 
     @Override
     public void initData() {
-
     }
 
     @Override
@@ -29,5 +30,9 @@ public class SettingActivity extends BaseActivity<ActivitySettingBinding> {
         binding.tvAccount.setOnClickListener((v) -> {
             IntentUtils.doIntent(AccountActivity.class);
         });
+        binding.tvAbout.setOnClickListener(view -> {
+            IntentUtils.doIntent(AboutActivity.class);
+        });
+
     }
 }

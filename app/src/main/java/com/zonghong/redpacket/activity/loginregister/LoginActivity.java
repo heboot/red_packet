@@ -88,6 +88,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
             @Override
             public void onSuccess(BaseBean<LoginBean> baseBean) {
                 loadingDialog.dismiss();
+                UserService.getInstance().setPhone(binding.etPhone.getText().toString());
                 UserService.getInstance().setToken(baseBean.getData().getToken());
                 UserService.getInstance().setRy_token(baseBean.getData().getRy_token());
                 RongUtils.connect(baseBean.getData().getRy_token());

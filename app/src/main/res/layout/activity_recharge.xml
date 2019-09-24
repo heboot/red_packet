@@ -75,6 +75,7 @@
                     app:layout_constraintTop_toTopOf="@+id/tv_card"></View>
 
                 <TextView
+                    android:id="@+id/tv_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/y36"
@@ -97,16 +98,16 @@
 
                 <EditText
                     android:id="@+id/et_money"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/x59"
                     android:layout_marginTop="@dimen/y74"
                     android:background="@null"
                     android:inputType="numberDecimal"
-                    android:text="50.64"
                     android:textColor="#ff000000"
                     android:textSize="45sp"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_card_title" />
 
                 <View

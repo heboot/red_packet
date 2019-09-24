@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ededed">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y60"
+            android:background="#f2f2f2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></View>
+
+        <include
+            android:id="@+id/include_toolbar"
+            layout="@layout/layout_toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></include>
+
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_marginTop="@dimen/y30"
+            android:layout_marginRight="@dimen/x10"
+            android:text="无论是个人还是企业，有贷款需求，银行都是主要的贷款机构，向银行申请贷款，成功获得银行的贷款支持，需要借款人提交银行需要的资料，以获得更大的几率通过审核，拿到贷款。同样的，每一个借款人不仅需要银行通过贷款的审核，提供贷款支持，也需要银行已最低的利息发放贷款，以便减轻贷款之后，借款人。"
+            android:textColor="#ff333333"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_toolbar" />
+
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

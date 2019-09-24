@@ -2,6 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zonghong.redpacket">
 
+    <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+
     <application
         android:name=".MAPP"
         android:allowBackup="true"
@@ -38,7 +46,7 @@
 
         <activity android:name=".activity.contacts.ContactsNewListActivity"></activity>
 
-        <activity android:name=".activity.user.SettingActivity"></activity>
+        <activity android:name=".activity.common.SettingActivity"></activity>
 
         <activity android:name=".activity.user.AccountActivity"></activity>
 
@@ -65,6 +73,16 @@
         <activity android:name=".activity.user.VerifyCodeActivity"></activity>
 
         <activity android:name=".activity.chat.GroupDetailActivity"></activity>
+
+        <activity android:name=".activity.common.AboutActivity"></activity>
+
+        <activity android:name=".activity.common.HelpActivity"></activity>
+
+        <activity android:name=".activity.common.TextActivity"></activity>
+
+        <activity android:name=".activity.user.CashListActivity"></activity>
+
+        <activity android:name=".activity.user.BalanceListActivity"></activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

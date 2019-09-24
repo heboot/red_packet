@@ -7,20 +7,16 @@ import com.example.http.HttpClient;
 import com.waw.hr.mutils.base.BaseBean;
 import com.waw.hr.mutils.bean.UserInfoBean;
 import com.zonghong.redpacket.R;
-import com.zonghong.redpacket.activity.loginregister.LoginActivity;
+import com.zonghong.redpacket.activity.common.HelpActivity;
 import com.zonghong.redpacket.activity.user.InfoActivity;
 import com.zonghong.redpacket.activity.user.MyBankActivity;
-import com.zonghong.redpacket.activity.user.NewBankActivity;
-import com.zonghong.redpacket.activity.user.SettingActivity;
-import com.zonghong.redpacket.adapter.ContactsAdapter;
+import com.zonghong.redpacket.activity.common.SettingActivity;
 import com.zonghong.redpacket.base.BaseFragment;
 import com.zonghong.redpacket.databinding.FragmentMyBinding;
 import com.zonghong.redpacket.http.HttpObserver;
 import com.zonghong.redpacket.service.UserService;
 import com.zonghong.redpacket.utils.ImageUtils;
 import com.zonghong.redpacket.utils.IntentUtils;
-
-import java.util.HashMap;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -48,6 +44,7 @@ public class MyFragment extends BaseFragment<FragmentMyBinding> {
 
     @Override
     public void initData() {
+        userInfo();
     }
 
     @Override
@@ -67,6 +64,9 @@ public class MyFragment extends BaseFragment<FragmentMyBinding> {
         binding.tvCard.setOnClickListener((v) -> {
             IntentUtils.doIntent(MyBankActivity.class);
         });
+        binding.tvHelp.setOnClickListener((v) -> {
+            IntentUtils.doIntent(HelpActivity.class);
+        });
     }
 
     private void userInfo() {
@@ -75,6 +75,8 @@ public class MyFragment extends BaseFragment<FragmentMyBinding> {
             public void onSuccess(BaseBean<UserInfoBean> baseBean) {
                 ImageUtils.showAvatar(baseBean.getData().getImg(), binding.ivAvatar);
                 binding.tvName.setText(baseBean.getData().getNick_name());
+                UserService.getInstance().setUserInfoBean(baseBean.getData());
+                binding.tvNo.setText(baseBean.getData().getAccount_id());
             }
 
             @Override

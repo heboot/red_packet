@@ -8,6 +8,9 @@ import com.waw.hr.mutils.base.BaseBean;
 import com.waw.hr.mutils.bean.ContatsListBean;
 import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.activity.redpackage.NewRedPackageActivity;
+import com.zonghong.redpacket.activity.user.BalanceListActivity;
+import com.zonghong.redpacket.activity.user.MyBankActivity;
+import com.zonghong.redpacket.activity.user.NewBankActivity;
 import com.zonghong.redpacket.adapter.ContactsAdapter;
 import com.zonghong.redpacket.adapter.ContactsContainerAdapter;
 import com.zonghong.redpacket.base.BaseFragment;
@@ -25,6 +28,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class WalletFragment extends BaseFragment<FragmentWalletBinding> {
 
+    private int bank = 1;
 
     public static WalletFragment newInstance() {
         Bundle args = new Bundle();
@@ -54,11 +58,8 @@ public class WalletFragment extends BaseFragment<FragmentWalletBinding> {
 
     @Override
     public void initListener() {
-        binding.tvCash.setOnClickListener((v) -> {
-            IntentUtils.intent2RechargeCaseActivity(RechargeCashType.CASH);
-        });
-        binding.tvRecharge.setOnClickListener((v) -> {
-            IntentUtils.intent2RechargeCaseActivity(RechargeCashType.RECHARGE);
+        binding.tvBalanceLog.setOnClickListener(view -> {
+            IntentUtils.doIntent(BalanceListActivity.class);
         });
     }
 
@@ -68,6 +69,22 @@ public class WalletFragment extends BaseFragment<FragmentWalletBinding> {
             @Override
             public void onSuccess(BaseBean<Map> baseBean) {
                 binding.tvBalance.setText((double) baseBean.getData().get("balance") + "");
+                if ((double) baseBean.getData().get("bank") == 1) {
+                    binding.tvCash.setOnClickListener((v) -> {
+                        IntentUtils.intent2RechargeCaseActivity(RechargeCashType.CASH);
+                    });
+                    binding.tvRecharge.setOnClickListener((v) -> {
+                        IntentUtils.intent2RechargeCaseActivity(RechargeCashType.RECHARGE);
+                    });
+                } else {
+                    binding.tvCash.setOnClickListener((v) -> {
+                        IntentUtils.doIntent(NewBankActivity.class);
+                    });
+                    binding.tvRecharge.setOnClickListener((v) -> {
+                        IntentUtils.doIntent(NewBankActivity.class);
+                    });
+                }
+
 
             }
 

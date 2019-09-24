@@ -22,7 +22,6 @@ public class AccountActivity extends BaseActivity<ActivityAccountBinding> {
 
     @Override
     public void initData() {
-
     }
 
     @Override

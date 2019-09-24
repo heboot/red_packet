@@ -25,5 +25,12 @@ public class UserEvent {
 
     }
 
+    public static class RECHARGE_SUC_EVENT {
+
+    }
+
+    public static class CASH_SUC_EVENT {
+
+    }
 
 }

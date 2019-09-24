@@ -15,7 +15,7 @@ public class BankListBean implements Serializable {
 
     private int ID;
     private int user_id;
-    private String name;
+    private String bank_name;
     private String card;
     private String create_time;
 
@@ -35,12 +35,12 @@ public class BankListBean implements Serializable {
         this.user_id = user_id;
     }
 
-    public String getName() {
-        return name;
+    public String getBank_name() {
+        return bank_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setBank_name(String bank_name) {
+        this.bank_name = bank_name;
     }
 
     public String getCard() {

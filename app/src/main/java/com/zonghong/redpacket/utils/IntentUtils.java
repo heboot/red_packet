@@ -9,6 +9,7 @@ import com.zonghong.redpacket.MAPP;
 import com.zonghong.redpacket.activity.ConversationActivity;
 import com.zonghong.redpacket.activity.chat.ChatDetailActivity;
 import com.zonghong.redpacket.activity.chat.GroupDetailActivity;
+import com.zonghong.redpacket.activity.common.TextActivity;
 import com.zonghong.redpacket.activity.contacts.ContactsDetailActivity;
 import com.zonghong.redpacket.activity.redpackage.NewRedPackageActivity;
 import com.zonghong.redpacket.activity.redpackage.RedPageResultActivity;
@@ -21,6 +22,9 @@ import com.zonghong.redpacket.common.AlterTextType;
 import com.zonghong.redpacket.common.CheckCodeType;
 import com.zonghong.redpacket.common.RechargeCashType;
 import com.zonghong.redpacket.common.RedPackageType;
+
+import java.io.Serializable;
+import java.util.Map;
 
 import io.rong.imlib.model.Conversation;
 
@@ -98,6 +102,12 @@ public class IntentUtils {
     public static void intent2GroupDetailActivity(String groupId) {
         intent = new Intent(MAPP.mapp.getCurrentActivity(), GroupDetailActivity.class);
         intent.putExtra(MKey.ID, groupId);
+        MAPP.mapp.getCurrentActivity().startActivity(intent);
+    }
+
+    public static void intent2TextActivity(Map map) {
+        intent = new Intent(MAPP.mapp.getCurrentActivity(), TextActivity.class);
+        intent.putExtra(MKey.DATA, (Serializable) map);
         MAPP.mapp.getCurrentActivity().startActivity(intent);
     }
 

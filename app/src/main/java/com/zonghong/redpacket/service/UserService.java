@@ -3,6 +3,7 @@ package com.zonghong.redpacket.service;
 import com.waw.hr.mutils.MKey;
 import com.waw.hr.mutils.PreferencesUtils;
 import com.waw.hr.mutils.StringUtils;
+import com.waw.hr.mutils.bean.UserInfoBean;
 import com.zonghong.redpacket.MAPP;
 import com.zonghong.redpacket.activity.loginregister.LoginActivity;
 import com.zonghong.redpacket.utils.IntentUtils;
@@ -14,6 +15,10 @@ public class UserService {
     private String ry_token;
 
     private String userId;
+
+    private String phone;
+
+    private UserInfoBean userInfoBean;
 
     private static UserService userService;
 
@@ -73,5 +78,25 @@ public class UserService {
     public void setUserId(String userId) {
         this.userId = userId;
         PreferencesUtils.putString(MAPP.mapp, "userId", userId);
+    }
+
+    public UserInfoBean getUserInfoBean() {
+        return userInfoBean;
+    }
+
+    public void setUserInfoBean(UserInfoBean userInfoBean) {
+        this.userInfoBean = userInfoBean;
+    }
+
+    public String getPhone() {
+        if (StringUtils.isEmpty(phone)) {
+            return PreferencesUtils.getString(MAPP.mapp, "phone");
+        }
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+        PreferencesUtils.putString(MAPP.mapp, "phone", phone);
     }
 }

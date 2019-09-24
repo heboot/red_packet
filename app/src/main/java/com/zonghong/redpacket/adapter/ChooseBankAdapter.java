@@ -27,7 +27,7 @@ public class ChooseBankAdapter extends BaseQuickAdapter<BankListBean, BaseViewHo
     @Override
     protected void convert(BaseViewHolder helper, BankListBean item) {
         ItemBankBinding binding = DataBindingUtil.bind(helper.itemView);
-        binding.tvName.setText(item.getName());
+        binding.tvName.setText(item.getBank_name());
         binding.getRoot().setOnClickListener((v) -> {
 //            EventBus.getDefault().post(new UserEvent.CHOOSE_BANK_EVENT(item));
 //            EventBus.getDefault().post(new UserEvent.LOGIN_SUC_EVENT());

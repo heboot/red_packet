@@ -34,6 +34,7 @@ import com.zonghong.redpacket.MAPP;
 import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.activity.contacts.ChooseContactsActivity;
 import com.zonghong.redpacket.activity.user.NewBankActivity;
+import com.zonghong.redpacket.activity.user.RechargeCashActivity;
 import com.zonghong.redpacket.common.PayDialogType;
 import com.zonghong.redpacket.databinding.DialogPaypwdBinding;
 import com.zonghong.redpacket.databinding.DialogRedpackageGetBinding;
@@ -61,20 +62,23 @@ public class PayDialog extends DialogFragment {
 
     private float money;
 
+    private String bankId;
 
-    public static PayDialog newInstance(PayDialogType type) {
-        Bundle args = new Bundle();
-        args.putSerializable(MKey.TYPE, type);
-        args.putFloat(MKey.MONEY, 0);
-        PayDialog fragment = new PayDialog();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
-    public static PayDialog newInstance(PayDialogType type, float money) {
+//    public static PayDialog newInstance(PayDialogType type) {
+//        Bundle args = new Bundle();
+//        args.putSerializable(MKey.TYPE, type);
+//        args.putFloat(MKey.MONEY, 0);
+//        PayDialog fragment = new PayDialog();
+//        fragment.setArguments(args);
+//        return fragment;
+//    }
+
+    public static PayDialog newInstance(PayDialogType type, float money, String bankId) {
         Bundle args = new Bundle();
         args.putSerializable(MKey.TYPE, type);
         args.putFloat(MKey.MONEY, money);
+        args.putString(MKey.ID, bankId);
         PayDialog fragment = new PayDialog();
         fragment.setArguments(args);
         return fragment;
@@ -110,6 +114,9 @@ public class PayDialog extends DialogFragment {
         payDialogType = (PayDialogType) getArguments().get(MKey.TYPE);
 
         money = getArguments().getFloat(MKey.MONEY);
+
+        bankId = getArguments().getString(MKey.ID);
+
 
         switch (payDialogType) {
             case CASH:
@@ -166,7 +173,7 @@ public class PayDialog extends DialogFragment {
                 } else if (charSequence.length() == 6) {
                     QMUIKeyboardHelper.hideKeyboard(binding.etPwd);
                     binding.tvP6.setText(charSequence.subSequence(5, charSequence.length()));
-                    checkPayPwd();
+                    checkPayPwd(String.valueOf(money), bankId);
                 } else {
 
                     binding.tvP1.setText("");
@@ -185,16 +192,19 @@ public class PayDialog extends DialogFragment {
         return view;
     }
 
-    private void checkPayPwd() {
+    private void checkPayPwd(String money, String bankId) {
         Map params = new HashMap();
-        params.put("payPass", binding.tvP1.getText().toString() + binding.tvP1.getText().toString() + binding.tvP1.getText().toString() + binding.tvP1.getText().toString() + binding.tvP1.getText().toString() + binding.tvP1.getText().toString());
+        params.put("payPass", binding.tvP1.getText().toString() + binding.tvP2.getText().toString() + binding.tvP3.getText().toString() + binding.tvP4.getText().toString() + binding.tvP5.getText().toString() + binding.tvP6.getText().toString());
         HttpClient.Builder.getServer().uVerPay(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
-                ToastUtils.show(MAPP.mapp, baseBean.getMsg());
-
                 if (payDialogType == PayDialogType.CREATE_GROUP) {
+                    dismiss();
                     EventBus.getDefault().postSticky(new UserEvent.PAY_SUC_EVENT());
+                } else if (payDialogType == PayDialogType.RECHARGE) {
+                    bRechar(money, bankId);
+                } else if (payDialogType == PayDialogType.CASH) {
+                    bEmbody(money, bankId);
                 }
 
             }
@@ -205,6 +215,45 @@ public class PayDialog extends DialogFragment {
             }
         });
     }
+
+    public void bRechar(String money, String bankId) {
+        Map params = new HashMap();
+        params.put("money", money);
+        params.put("bank_id", bankId);
+        HttpClient.Builder.getServer().bRechar(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
+            @Override
+            public void onSuccess(BaseBean<Object> baseBean) {
+                dismiss();
+                ToastUtils.show(MAPP.mapp, baseBean.getMsg());
+                EventBus.getDefault().postSticky(new UserEvent.RECHARGE_SUC_EVENT());
+            }
+
+            @Override
+            public void onError(BaseBean<Object> baseBean) {
+                ToastUtils.show(MAPP.mapp, baseBean.getMsg());
+            }
+        });
+    }
+
+    private void bEmbody(String money, String bankId) {
+        Map params = new HashMap();
+        params.put("money", money);
+        params.put("bank_id", bankId);
+        HttpClient.Builder.getServer().bEmbody(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
+            @Override
+            public void onSuccess(BaseBean<Object> baseBean) {
+                dismiss();
+                ToastUtils.show(MAPP.mapp, baseBean.getMsg());
+                EventBus.getDefault().postSticky(new UserEvent.CASH_SUC_EVENT());
+            }
+
+            @Override
+            public void onError(BaseBean<Object> baseBean) {
+                ToastUtils.show(MAPP.mapp, baseBean.getMsg());
+            }
+        });
+    }
+
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

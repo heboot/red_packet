@@ -35,18 +35,18 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/include_toolbar" />
 
+
         <View
             android:layout_width="0dp"
             android:layout_height="@dimen/y1"
             android:layout_marginTop="@dimen/y55"
             android:background="#d2d2d2"
-
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/include_toolbar"></View>
 
         <EditText
-            android:id="@+id/et_name"
+            android:id="@+id/et_bank_name"
             android:layout_width="0dp"
             android:layout_height="@dimen/y44"
             android:layout_marginTop="@dimen/y56"
@@ -55,6 +55,37 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/include_toolbar" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x15"
+            android:text="开户行"
+            android:textColor="#ff000000"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/et_bank_name"
+            app:layout_constraintLeft_toLeftOf="@+id/et_bank_name"
+            app:layout_constraintTop_toTopOf="@+id/et_bank_name" />
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y1"
+            android:background="#d2d2d2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_bank_name"></View>
+
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y44"
+            android:layout_marginTop="@dimen/y1"
+            android:background="#fff"
+            android:paddingLeft="@dimen/x80"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_bank_name" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -83,6 +114,7 @@
             android:layout_height="@dimen/y44"
             android:layout_marginTop="@dimen/y1"
             android:background="#fff"
+            android:inputType="number"
             android:paddingLeft="@dimen/x80"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

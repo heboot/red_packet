@@ -128,7 +128,7 @@ public class ChooseContactsActivity extends BaseActivity<FragmentContactsBinding
             }
             checkIds = checkIds + UserService.getInstance().getUserId();
             if (toll == 1 && charge > 0) {
-                payDialog = PayDialog.newInstance(PayDialogType.CREATE_GROUP);
+                payDialog = PayDialog.newInstance(PayDialogType.CREATE_GROUP, charge, "");
                 payDialog.show(getSupportFragmentManager(), "");
                 return;
             }

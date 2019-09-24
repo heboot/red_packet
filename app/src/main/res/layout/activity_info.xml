@@ -24,7 +24,7 @@
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/x15"
             android:paddingRight="@dimen/x15"
-            android:text="帐号与安全"
+            android:text="头像"
             android:textColor="#ff000000"
             android:textSize="18sp"
             app:layout_constraintLeft_toLeftOf="parent"
