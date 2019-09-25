@@ -15,6 +15,8 @@ import com.waw.hr.mutils.base.BaseBean;
 import com.waw.hr.mutils.bean.ContatsChildBean;
 import com.waw.hr.mutils.bean.ContatsListBean;
 import com.zonghong.redpacket.R;
+import com.zonghong.redpacket.activity.chat.MyGroupListActivity;
+import com.zonghong.redpacket.activity.contacts.BlackUserListActivity;
 import com.zonghong.redpacket.activity.contacts.ChooseContactsActivity;
 import com.zonghong.redpacket.activity.contacts.ContactsNewListActivity;
 import com.zonghong.redpacket.activity.contacts.SearchContactsActivity;
@@ -115,6 +117,12 @@ public class ContactsFragment extends BaseFragment<FragmentContactsBinding> {
         }
         layoutContactsHeadBinding.tvAddFriend.setOnClickListener((v) -> {
             IntentUtils.doIntent(ContactsNewListActivity.class);
+        });
+        layoutContactsHeadBinding.tvGroupChat.setOnClickListener((v) -> {
+            IntentUtils.doIntent(MyGroupListActivity.class);
+        });
+        layoutContactsHeadBinding.tvBlack.setOnClickListener(view -> {
+            IntentUtils.doIntent(BlackUserListActivity.class);
         });
         return layoutContactsHeadBinding.getRoot();
     }

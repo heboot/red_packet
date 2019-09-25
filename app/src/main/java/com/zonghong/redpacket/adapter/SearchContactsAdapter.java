@@ -10,6 +10,7 @@ import com.waw.hr.mutils.bean.NewFriendListBean;
 import com.waw.hr.mutils.bean.SearchContatsBean;
 import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.activity.contacts.ContactsNewListActivity;
+import com.zonghong.redpacket.common.ContactsDetailType;
 import com.zonghong.redpacket.databinding.ItemNewFriendBinding;
 import com.zonghong.redpacket.utils.ImageUtils;
 import com.zonghong.redpacket.utils.IntentUtils;
@@ -32,7 +33,7 @@ public class SearchContactsAdapter extends BaseQuickAdapter<SearchContatsBean, B
         ImageUtils.showAvatar(item.getImage(), binding.ivAvatar);
         binding.tvOption.setVisibility(View.GONE);
         binding.getRoot().setOnClickListener((v) -> {
-            IntentUtils.intent2ContactsDetailActivity(item);
+            IntentUtils.intent2ContactsDetailActivity(item.getID() + "", ContactsDetailType.NORMAL);
         });
     }
 }

@@ -14,6 +14,7 @@ public class CustomDefaultExtensionModule extends DefaultExtensionModule {
     public List<IPluginModule> getPluginModules(Conversation.ConversationType conversationType) {
         List<IPluginModule> pluginModules = super.getPluginModules(conversationType);
         pluginModules.add(new RedpackagePlugin());
+        pluginModules.add(new ZhuanZhangPlugin());
         return pluginModules;
     }
 

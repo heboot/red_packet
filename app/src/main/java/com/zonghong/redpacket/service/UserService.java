@@ -18,6 +18,8 @@ public class UserService {
 
     private String phone;
 
+    private String balance;
+
     private UserInfoBean userInfoBean;
 
     private static UserService userService;
@@ -98,5 +100,13 @@ public class UserService {
     public void setPhone(String phone) {
         this.phone = phone;
         PreferencesUtils.putString(MAPP.mapp, "phone", phone);
+    }
+
+    public String getBalance() {
+        return balance;
+    }
+
+    public void setBalance(String balance) {
+        this.balance = balance;
     }
 }

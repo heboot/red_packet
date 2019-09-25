@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ededed">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y60"
+            android:background="#f2f2f2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></View>
+
+        <include
+            android:id="@+id/include_toolbar"
+            layout="@layout/layout_toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></include>
+
+        <TextView
+            android:id="@+id/tv_join_confirm"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y55"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/x15"
+            android:text="群聊邀请确认"
+            android:textColor="#ff000000"
+            android:textSize="17sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_toolbar" />
+
+
+        <com.kyleduo.switchbutton.SwitchButton
+            android:id="@+id/sb_join_confirm"
+            android:layout_width="@dimen/x50"
+            android:layout_height="@dimen/y30"
+            android:layout_marginRight="@dimen/x16"
+            android:textColor="#ff808080"
+            android:textSize="18sp"
+            app:kswTintColor="#F8D347"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_join_confirm"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_join_confirm" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x15"
+            android:layout_marginTop="@dimen/y7"
+            android:layout_marginRight="@dimen/x15"
+            android:text="启用后，群成员需要群主确认才能邀请朋友进群。扫描二维码进群将同时停用。"
+            android:textColor="#ff808080"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_join_confirm" />
+
+        <TextView
+            android:id="@+id/tv_banned"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y55"
+            android:layout_marginTop="@dimen/y45"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/x15"
+            android:text="全员禁言"
+            android:textColor="#ff000000"
+            android:textSize="17sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_join_confirm" />
+
+        <com.kyleduo.switchbutton.SwitchButton
+            android:id="@+id/sb_banned"
+            android:layout_width="@dimen/x50"
+            android:layout_height="@dimen/y30"
+            android:layout_marginRight="@dimen/x16"
+            android:textColor="#ff808080"
+            android:textSize="18sp"
+            app:kswTintColor="#F8D347"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_banned"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_banned" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x15"
+            android:layout_marginTop="@dimen/y8"
+            android:text="全员禁言启用后，只允许群主 发言。"
+            android:textColor="#ff808080"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_banned" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x15"
+            android:layout_marginTop="@dimen/y37"
+            android:text="进入群成员名片，可对单个成员设置禁言。"
+            android:textColor="#ff808080"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_banned" />
+
+        <TextView
+            android:id="@+id/tv_manager_set"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y55"
+            android:layout_marginTop="@dimen/y60"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/x15"
+            android:text="管理员设置"
+            android:textColor="#ff000000"
+            android:textSize="17sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_banned" />
+
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

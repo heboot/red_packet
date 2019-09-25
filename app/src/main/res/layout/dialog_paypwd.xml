@@ -14,6 +14,7 @@
             android:background="@drawable/bg_rect_white_10">
 
             <TextView
+                android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/y20"
@@ -32,6 +33,27 @@
                 android:layout_marginRight="@dimen/x22"
                 android:background="@mipmap/icon_dialog_colose"
                 app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></View>
+
+            <View
+                android:id="@+id/iv_close"
+                android:layout_width="@dimen/x7"
+                android:layout_height="@dimen/y12"
+                android:layout_marginLeft="@dimen/x30"
+                android:layout_marginTop="@dimen/y22"
+                android:layout_marginRight="@dimen/x22"
+                android:background="@mipmap/icon_back_black"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></View>
+
+            <View
+                android:id="@+id/v_back"
+                android:layout_width="@dimen/x40"
+                android:layout_height="@dimen/y30"
+                android:layout_marginLeft="@dimen/x10"
+                android:layout_marginTop="@dimen/y10"
+                android:layout_marginRight="@dimen/x22"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></View>
 
             <TextView
@@ -61,6 +83,7 @@
 
 
             <View
+                android:id="@+id/v_line"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/y1"
                 android:layout_marginLeft="@dimen/x20"
@@ -71,12 +94,60 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_money"></View>
 
+
+            <View
+                android:id="@+id/tv_paytype"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/y55"
+                android:layout_marginRight="@dimen/x20"
+                android:drawableRight="@mipmap/icon_arrow_right"
+                android:drawablePadding="@dimen/x6"
+                android:gravity="right|center_vertical"
+                android:textColor="#ff000000"
+                android:textSize="14sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/v_line" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x20"
+                android:text="支付方式"
+                android:textColor="#ff808080"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_paytype"
+                app:layout_constraintLeft_toLeftOf="@+id/tv_paytype"
+                app:layout_constraintTop_toTopOf="@+id/tv_paytype" />
+
+            <TextView
+                android:id="@+id/tv_paytext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x20"
+                android:text="支付方式"
+                android:textColor="#ff000000"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_paytype"
+                app:layout_constraintRight_toRightOf="@+id/tv_paytype"
+                app:layout_constraintTop_toTopOf="@+id/tv_paytype" />
+
+            <ImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="@dimen/x16"
+                android:layout_height="@dimen/y16"
+                android:layout_marginRight="@dimen/x10"
+                android:background="@mipmap/icon_balance"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_paytype"
+                app:layout_constraintRight_toLeftOf="@+id/tv_paytext"
+
+                app:layout_constraintTop_toTopOf="@+id/tv_paytype" />
+
             <LinearLayout
                 android:id="@+id/llyt_pwd"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/y48"
                 android:layout_marginLeft="@dimen/x19"
-                android:layout_marginTop="@dimen/y64"
                 android:layout_marginRight="@dimen/x19"
                 android:layout_marginBottom="@dimen/y33"
                 android:background="@drawable/bg_rect_paypwd_border"
@@ -84,7 +155,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_money">
+                app:layout_constraintTop_toBottomOf="@+id/tv_paytype">
 
 
                 <TextView
@@ -186,6 +257,20 @@
                 app:layout_constraintLeft_toLeftOf="@+id/llyt_pwd"
                 app:layout_constraintRight_toRightOf="@+id/llyt_pwd"
                 app:layout_constraintTop_toTopOf="@+id/llyt_pwd" />
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_list"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y20"
+                android:layout_marginBottom="@dimen/y20"
+                android:background="#fff"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title"></android.support.v7.widget.RecyclerView>
 
 
         </android.support.constraint.ConstraintLayout>

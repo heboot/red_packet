@@ -38,6 +38,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/tv_type"
             android:layout_width="0dp"
             android:layout_height="@dimen/y22"
             android:background="@drawable/bg_redpackage_bottom"

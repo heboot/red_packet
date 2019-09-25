@@ -10,4 +10,8 @@ public class ImageUtils {
         Glide.with(image.getContext()).load(url).into(image);
     }
 
+    public static void showImage(int redId, ImageView image) {
+        Glide.with(image.getContext()).load(redId).into(image);
+    }
+
 }

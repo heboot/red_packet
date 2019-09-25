@@ -13,11 +13,29 @@ public class ContatsFriendBean {
     private int ID;
     private int my_id;
     private int friend_id;
+    private String nick_name;
     private String real_name;
     private String image;
     private String chart;
+    private int exist;
 
     private boolean isCheck;
+
+    public String getNick_name() {
+        return nick_name;
+    }
+
+    public void setNick_name(String nick_name) {
+        this.nick_name = nick_name;
+    }
+
+    public int getExist() {
+        return exist;
+    }
+
+    public void setExist(int exist) {
+        this.exist = exist;
+    }
 
     public boolean isCheck() {
         return isCheck;

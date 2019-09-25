@@ -1,6 +1,7 @@
 package com.zonghong.redpacket.activity.contacts;
 
 import android.view.View;
+import android.widget.CompoundButton;
 
 import com.example.http.HttpClient;
 import com.waw.hr.mutils.DialogUtils;
@@ -10,6 +11,7 @@ import com.waw.hr.mutils.bean.SearchContatsBean;
 import com.waw.hr.mutils.bean.UserInfoBean;
 import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.base.BaseActivity;
+import com.zonghong.redpacket.common.ContactsDetailType;
 import com.zonghong.redpacket.databinding.ActivityContactsDetailBinding;
 import com.zonghong.redpacket.http.HttpObserver;
 import com.zonghong.redpacket.service.UserService;
@@ -23,9 +25,15 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ContactsDetailActivity extends BaseActivity<ActivityContactsDetailBinding> {
 
-    private SearchContatsBean searchContatsBean;
+//    private SearchContatsBean searchContatsBean;
 
     private UserInfoBean userInfoBean;
+
+    private ContactsDetailType contactsDetailType = ContactsDetailType.NORMAL;
+
+    private String userId;
+
+    private String groupId;
 
     @Override
     protected int getLayoutId() {
@@ -41,8 +49,14 @@ public class ContactsDetailActivity extends BaseActivity<ActivityContactsDetailB
 
     @Override
     public void initData() {
-
-        searchContatsBean = (SearchContatsBean) getIntent().getExtras().get(MKey.DATA);
+//        searchContatsBean = (SearchContatsBean) getIntent().getExtras().get(MKey.DATA);
+        userId = getIntent().getStringExtra(MKey.USER_ID);
+        contactsDetailType = (ContactsDetailType) getIntent().getExtras().get(MKey.TYPE);
+        if (contactsDetailType == ContactsDetailType.GROUP) {
+            groupId = getIntent().getStringExtra(MKey.ID);
+            binding.tvClose.setVisibility(View.VISIBLE);
+            binding.sbBanned.setVisibility(View.VISIBLE);
+        }
         userInfo();
     }
 
@@ -50,7 +64,7 @@ public class ContactsDetailActivity extends BaseActivity<ActivityContactsDetailB
     private void userInfo() {
         loadingDialog.show();
         params = new HashMap<>();
-        params.put("id", searchContatsBean.getID());
+        params.put("id", userId);
         params.put("addFriend", "");
         HttpClient.Builder.getServer().userInfo(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<UserInfoBean>() {
             @Override
@@ -70,7 +84,7 @@ public class ContactsDetailActivity extends BaseActivity<ActivityContactsDetailB
                     binding.tvDel.setVisibility(View.VISIBLE);
                 } else if (userInfoBean.getStatus() == 3) {
                     binding.tvAdd.setVisibility(View.GONE);
-                    binding.sbAddBlack.setChecked(true);
+                    binding.sbAddBlack.setCheckedNoEvent(true);
                 }
             }
 
@@ -88,11 +102,64 @@ public class ContactsDetailActivity extends BaseActivity<ActivityContactsDetailB
         binding.tvAdd.setOnClickListener((v) -> {
             add();
         });
+        binding.sbAddBlack.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    addBlack();
+                } else {
+                    removeBlack();
+                }
+            }
+        });
+    }
+
+    private void addBlack() {
+        loadingDialog.show();
+        params = new HashMap<>();
+        params.put("friend_id", userId);
+        HttpClient.Builder.getServer().fAddBlack(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
+            @Override
+            public void onSuccess(BaseBean<Object> baseBean) {
+                loadingDialog.dismiss();
+                tipDialog = DialogUtils.getSuclDialog(ContactsDetailActivity.this, baseBean.getMsg(), true);
+                tipDialog.show();
+            }
+
+            @Override
+            public void onError(BaseBean<Object> baseBean) {
+                loadingDialog.dismiss();
+                tipDialog = DialogUtils.getFailDialog(ContactsDetailActivity.this, baseBean.getMsg(), true);
+                tipDialog.show();
+            }
+        });
+    }
+
+    private void removeBlack() {
+        loadingDialog.show();
+        params = new HashMap<>();
+        params.put("friend_id", userId);
+        HttpClient.Builder.getServer().fReBla(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
+            @Override
+            public void onSuccess(BaseBean<Object> baseBean) {
+                loadingDialog.dismiss();
+                tipDialog = DialogUtils.getSuclDialog(ContactsDetailActivity.this, baseBean.getMsg(), true);
+                tipDialog.show();
+            }
+
+            @Override
+            public void onError(BaseBean<Object> baseBean) {
+                loadingDialog.dismiss();
+                tipDialog = DialogUtils.getFailDialog(ContactsDetailActivity.this, baseBean.getMsg(), true);
+                tipDialog.show();
+            }
+        });
     }
 
     private void add() {
         loadingDialog.show();
-        params.put("friend_id", searchContatsBean.getID());
+        params = new HashMap<>();
+        params.put("friend_id", userId);
         params.put("notes", "");
         HttpClient.Builder.getServer().fSendMsg(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Boolean>() {
             @Override

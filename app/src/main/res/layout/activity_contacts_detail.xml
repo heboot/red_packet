@@ -110,6 +110,7 @@
             android:layout_marginRight="@dimen/x16"
             android:textColor="#ff808080"
             android:textSize="18sp"
+            app:kswTintColor="#F8D347"
             app:layout_constraintBottom_toBottomOf="@+id/tv_add_black"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_add_black" />
@@ -135,6 +136,7 @@
             android:text="禁言"
             android:textColor="#ff000000"
             android:textSize="17sp"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_add_black" />
@@ -146,6 +148,8 @@
             android:layout_marginRight="@dimen/x16"
             android:textColor="#ff808080"
             android:textSize="18sp"
+            android:visibility="gone"
+            app:kswTintColor="#F8D347"
             app:layout_constraintBottom_toBottomOf="@+id/tv_close"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_close" />

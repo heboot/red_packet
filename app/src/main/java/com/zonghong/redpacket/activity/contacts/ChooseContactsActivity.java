@@ -116,7 +116,7 @@ public class ChooseContactsActivity extends BaseActivity<FragmentContactsBinding
             for (ContatsChildBean contatsChildBean : contactsAdapter.getData()) {
                 for (ContatsFriendBean friendBean : contatsChildBean.getList()) {
                     if (friendBean.isCheck()) {
-                        checkIds = checkIds + friendBean.getID() + ",";
+                        checkIds = checkIds + friendBean.getFriend_id() + ",";
                     }
                 }
             }

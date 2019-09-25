@@ -15,7 +15,7 @@ public class MKey {
 
     public static final String NICKNAME = "nickname";
 
-    public static final String SEARCH_CONTENT= "search-content";
+    public static final String SEARCH_CONTENT = "search-content";
 
     public static final String PHONE1 = "phone1";
 
@@ -34,6 +34,8 @@ public class MKey {
     public static final String BANK_CARD = "bank_card";
 
     public static final String ID = "id";
+
+    public static final String USER_ID = "user_id";
 
     public static final String MODE = "mode";
 

@@ -33,4 +33,8 @@ public class UserEvent {
 
     }
 
+    public static class ZHUANZHUANG_SUC_EVENT {
+
+    }
+
 }

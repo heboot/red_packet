@@ -19,6 +19,16 @@ public class BankListBean implements Serializable {
     private String card;
     private String create_time;
 
+    private String option;
+
+    public String getOption() {
+        return option;
+    }
+
+    public void setOption(String option) {
+        this.option = option;
+    }
+
     public int getID() {
         return ID;
     }

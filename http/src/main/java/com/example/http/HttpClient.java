@@ -13,8 +13,10 @@ import com.waw.hr.mutils.bean.CreateRedPackageChildBean;
 import com.waw.hr.mutils.bean.GetRedpackageBean;
 import com.waw.hr.mutils.bean.GroupDetaiInfoBean;
 import com.waw.hr.mutils.bean.GroupInfoBean;
+import com.waw.hr.mutils.bean.GroupUserListBean;
 import com.waw.hr.mutils.bean.HelpBean;
 import com.waw.hr.mutils.bean.LoginBean;
+import com.waw.hr.mutils.bean.MyGroupBean;
 import com.waw.hr.mutils.bean.NewFriendListBean;
 import com.waw.hr.mutils.bean.SearchContatsBean;
 import com.waw.hr.mutils.bean.UserInfoBean;
@@ -78,6 +80,11 @@ public interface HttpClient {
 
 
     @FormUrlEncoded
+    @POST("in/upNName")
+    Observable<BaseBean<Object>> upNName(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+
+    @FormUrlEncoded
     @POST("in/uUpname")
     Observable<BaseBean<Object>> uUpname(@Header("token") String token, @FieldMap Map<String, Object> params);
 
@@ -115,8 +122,29 @@ public interface HttpClient {
     @POST("in/fIndex")
     Observable<BaseBean<ContatsListBean>> fIndex(@Header("token") String token);
 
+
+    @FormUrlEncoded
+    @POST("in/gUlist")
+    Observable<BaseBean<GroupUserListBean>> gUlist(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+
+    @FormUrlEncoded
+    @POST("in/gAdmin")
+    Observable<BaseBean<Object>> gAdmin(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+
+    @FormUrlEncoded
+    @POST("in/gDelUser")
+    Observable<BaseBean<Object>> gDelUser(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+
     @POST("in/fSCon")
     Observable<BaseBean<List<NewFriendListBean>>> fSCon(@Header("token") String token);
+
+
+    @POST("in/gIndex")
+    Observable<BaseBean<List<MyGroupBean>>> gIndex(@Header("token") String token);
+
 
     @POST("in/fConsent")
     Observable<BaseBean<Object>> fConsent(@Header("token") String token);
@@ -142,8 +170,18 @@ public interface HttpClient {
 
 
     @FormUrlEncoded
+    @POST("in/fReBla")
+    Observable<BaseBean<Object>> fReBla(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+
+    @FormUrlEncoded
     @POST("in/tCreate")
     Observable<BaseBean<CreateRedPackageChildBean>> tCreate(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("in/tTransfer")
+    Observable<BaseBean<Object>> tTransfer(@Header("token") String token, @FieldMap Map<String, Object> params);
+
 
     @FormUrlEncoded
     @POST("in/uRePss")
@@ -152,6 +190,34 @@ public interface HttpClient {
     @FormUrlEncoded
     @POST("in/gInfo")
     Observable<BaseBean<GroupDetaiInfoBean>> gInfo(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+
+    @FormUrlEncoded
+    @POST("in/upBannet")
+    Observable<BaseBean<Object>> upBannet(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("in/upChaTop")
+    Observable<BaseBean<Object>> upChaTop(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("in/upRejct")
+    Observable<BaseBean<Object>> upRejct(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+
+    @FormUrlEncoded
+    @POST("in/upInvite")
+    Observable<BaseBean<Object>> upInvite(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+
+    @FormUrlEncoded
+    @POST("in/gTitle")
+    Observable<BaseBean<Object>> gTitle(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+
+    @FormUrlEncoded
+    @POST("in/gNoice")
+    Observable<BaseBean<Object>> gNoice(@Header("token") String token, @FieldMap Map<String, Object> params);
 
 
     @POST("in/bRead")
@@ -168,6 +234,11 @@ public interface HttpClient {
     @FormUrlEncoded
     @POST("in/tGetMoney")
     Observable<BaseBean<GetRedpackageBean>> tGetMoney(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("in/bGetTransfer")
+    Observable<BaseBean<Map>> bGetTransfer(@Header("token") String token, @FieldMap Map<String, Object> params);
+
 
     @FormUrlEncoded
     @POST("in/gCreate")

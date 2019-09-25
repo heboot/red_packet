@@ -58,7 +58,7 @@ public class ConversationActivity extends BaseActivity<ConversationBinding> {
             if (mConversationType == Conversation.ConversationType.GROUP) {
                 IntentUtils.intent2GroupDetailActivity(mTargetId);
             } else {
-                IntentUtils.intent2ChatDetailActivity();
+                IntentUtils.intent2ChatDetailActivity(mTargetId);
             }
         });
     }

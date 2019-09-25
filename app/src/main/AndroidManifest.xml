@@ -84,6 +84,28 @@
 
         <activity android:name=".activity.user.BalanceListActivity"></activity>
 
+        <activity android:name=".activity.common.EditTextAreaActivity"></activity>
+
+        <activity android:name=".activity.chat.MyGroupListActivity"></activity>
+
+        <activity android:name=".activity.chat.GroupManagerActivity"></activity>
+
+        <activity android:name=".activity.chat.AddGroupUserActivity"></activity>
+
+        <activity android:name=".activity.chat.SetGroupManagerActivity"></activity>
+
+        <activity android:name=".activity.chat.DelGroupUserActivity"></activity>
+
+        <activity android:name=".activity.chat.GroupUserListActivity"></activity>
+
+        <activity android:name=".activity.chat.AlterGroupNotiActivity"></activity>
+
+        <activity android:name=".activity.contacts.BlackUserListActivity"></activity>
+
+        <activity android:name=".activity.user.TransferAccountActivity"></activity>
+
+        <activity android:name=".activity.redpackage.ZhuanZhangResultActivity"></activity>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.zonghong.redpacket.FileProvider"

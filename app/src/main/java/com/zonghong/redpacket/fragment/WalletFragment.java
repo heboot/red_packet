@@ -48,6 +48,7 @@ public class WalletFragment extends BaseFragment<FragmentWalletBinding> {
 
     @Override
     public void initData() {
+        balance();
     }
 
     @Override
@@ -68,6 +69,7 @@ public class WalletFragment extends BaseFragment<FragmentWalletBinding> {
         HttpClient.Builder.getServer().bRead(UserService.getInstance().getToken()).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Map>() {
             @Override
             public void onSuccess(BaseBean<Map> baseBean) {
+                UserService.getInstance().setBalance(String.valueOf((double) baseBean.getData().get("balance")));
                 binding.tvBalance.setText((double) baseBean.getData().get("balance") + "");
                 if ((double) baseBean.getData().get("bank") == 1) {
                     binding.tvCash.setOnClickListener((v) -> {

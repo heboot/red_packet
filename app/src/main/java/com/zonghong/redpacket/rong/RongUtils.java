@@ -84,8 +84,32 @@ public class RongUtils {
         RongIM.getInstance().startConversation(MAPP.mapp.getCurrentActivity(), Conversation.ConversationType.PRIVATE, toUserId, toUserName);
     }
 
+    public static void sendZhuanzhuangRedPackageMessage(CreateRedPackageChildBean createRedPackageChildBean) {
+        RedPackageZhuanZhangChatMessage redPackageChatMessage = new RedPackageZhuanZhangChatMessage(JSON.toJSONString(createRedPackageChildBean).getBytes());
+        Message message = new Message();
+        message.setConversationType(Conversation.ConversationType.PRIVATE);
+        message.setTargetId(createRedPackageChildBean.getUser_id());
+        message.setContent(redPackageChatMessage);
+        message.setMessageDirection(io.rong.imlib.model.Message.MessageDirection.SEND);
+        RongIM.getInstance().sendMessage(message, "", "", new IRongCallback.ISendMessageCallback() {
+            @Override
+            public void onAttached(Message message) {
+                LogUtil.e("SEND MESSAGE", "onAttached");
+            }
+
+            @Override
+            public void onSuccess(Message message) {
+                LogUtil.e("SEND MESSAGE", "onSuccess");
+            }
+
+            @Override
+            public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+                LogUtil.e("SEND MESSAGE", "onError");
+            }
+        });
+    }
+
     public static void sendRedPackageMessage(CreateRedPackageChildBean createRedPackageChildBean) {
-        LogUtil.e("SEND MESSAGE", JSON.toJSONString(createRedPackageChildBean));
         RedPackageChatMessage redPackageChatMessage = new RedPackageChatMessage(JSON.toJSONString(createRedPackageChildBean).getBytes());
         Message message = new Message();
         if (StringUtils.isEmpty(createRedPackageChildBean.getGroup_id())) {
@@ -159,6 +183,18 @@ public class RongUtils {
 
             }
         });
+    }
+
+    public static void setConversationToTop(Conversation.ConversationType type, String targetId) {
+        /**
+         * 设置某一会话为置顶或者取消置顶，回调方式获取设置是否成功。
+         *
+         * @param conversationType 会话类型。
+         * @param id               目标 Id。根据不同的 conversationType，可能是用户 Id、群组 Id 或聊天室 Id。
+         * @param isTop            是否置顶。
+         * @param callback         设置置顶或取消置顶是否成功的回调。
+         */
+        RongIM.getInstance().setConversationToTop(type, targetId, true, null);
     }
 
 }

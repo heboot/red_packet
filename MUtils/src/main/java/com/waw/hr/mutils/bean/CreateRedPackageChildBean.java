@@ -23,6 +23,36 @@ public class CreateRedPackageChildBean implements Serializable {
 
     private String redName;
 
+    private String money;
+
+    private String noUserContent;
+
+    private String userContent;
+
+    public String getNoUserContent() {
+        return noUserContent;
+    }
+
+    public void setNoUserContent(String noUserContent) {
+        this.noUserContent = noUserContent;
+    }
+
+    public String getUserContent() {
+        return userContent;
+    }
+
+    public void setUserContent(String userContent) {
+        this.userContent = userContent;
+    }
+
+    public String getMoney() {
+        return money;
+    }
+
+    public void setMoney(String money) {
+        this.money = money;
+    }
+
     public String getImage() {
         return image;
     }

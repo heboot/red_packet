@@ -27,6 +27,8 @@ import com.zonghong.redpacket.rong.RedPackageChatMessage;
 import com.zonghong.redpacket.rong.RedPackageChatMessageView;
 import com.zonghong.redpacket.rong.RedPackageChatOpenMessage;
 import com.zonghong.redpacket.rong.RedPackageChatTipMessageView;
+import com.zonghong.redpacket.rong.RedPackageZhuanZhangChatMessage;
+import com.zonghong.redpacket.rong.RedPackageZhuanzhangChatMessageView;
 import com.zonghong.redpacket.service.UserService;
 
 import java.util.HashMap;
@@ -93,9 +95,11 @@ public class MAPP extends Application {
         RongIM.init(this);
         RongIM.registerMessageType(RedPackageChatMessage.class);
         RongIM.registerMessageType(RedPackageChatOpenMessage.class);
+        RongIM.registerMessageType(RedPackageZhuanZhangChatMessage.class);
         setMyExtensionModule();
         RongIM.getInstance().registerMessageTemplate(new RedPackageChatMessageView());
         RongIM.getInstance().registerMessageTemplate(new RedPackageChatTipMessageView());
+        RongIM.getInstance().registerMessageTemplate(new RedPackageZhuanzhangChatMessageView());
     }
 
     public void setMyExtensionModule() {

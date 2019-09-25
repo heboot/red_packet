@@ -3,7 +3,8 @@
 
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="@dimen/x94"
-        android:layout_height="@dimen/y120">
+        android:layout_height="@dimen/y120"
+        android:background="#fff">
 
         <com.qmuiteam.qmui.widget.QMUIRadiusImageView
             android:id="@+id/iv_avatar"

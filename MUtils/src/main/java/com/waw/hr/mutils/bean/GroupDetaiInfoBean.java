@@ -1,8 +1,9 @@
 package com.waw.hr.mutils.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class GroupDetaiInfoBean {
+public class GroupDetaiInfoBean implements Serializable {
 
 
     /**
@@ -39,7 +40,7 @@ public class GroupDetaiInfoBean {
         this.groupUserInfo = groupUserInfo;
     }
 
-    public static class MyGInfoBean {
+    public static class MyGInfoBean implements Serializable {
         /**
          * admin : 3
          * nick_name : 花开富贵
@@ -105,7 +106,7 @@ public class GroupDetaiInfoBean {
         }
     }
 
-    public static class GroupInfoBean {
+    public static class GroupInfoBean implements Serializable {
         /**
          * ID : 444
          * title : 花开富贵的群聊
@@ -181,7 +182,7 @@ public class GroupDetaiInfoBean {
         }
     }
 
-    public static class GroupUserInfoBean {
+    public static class GroupUserInfoBean implements Serializable {
         /**
          * user_id : 82
          * group_name : 成都

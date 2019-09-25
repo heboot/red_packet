@@ -7,10 +7,11 @@
         android:layout_height="@dimen/y80">
 
         <ImageView
+            android:id="@+id/iv_img"
             android:layout_width="@dimen/x28"
             android:layout_height="@dimen/y28"
             android:layout_marginLeft="@dimen/x13"
-            android:background="@mipmap/icon_bank"
+            android:src="@mipmap/icon_bank"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
