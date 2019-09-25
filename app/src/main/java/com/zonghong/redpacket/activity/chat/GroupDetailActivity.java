@@ -13,6 +13,7 @@ import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.adapter.group.GroupUserAdapter;
 import com.zonghong.redpacket.base.BaseActivity;
 import com.zonghong.redpacket.common.AlterTextType;
+import com.zonghong.redpacket.common.QRCodeType;
 import com.zonghong.redpacket.databinding.ActivityGroupDetailBinding;
 import com.zonghong.redpacket.http.HttpObserver;
 import com.zonghong.redpacket.rong.RongUtils;
@@ -68,6 +69,7 @@ public class GroupDetailActivity extends BaseActivity<ActivityGroupDetailBinding
             }
         });
         binding.tvQrcode.setOnClickListener((v) -> {
+            IntentUtils.intent2QRCodeActivity(QRCodeType.GROUP, groupDetaiInfoBean.getGroupInfo().getTitle(), groupDetaiInfoBean.getGroupInfo().getImg(), null, groupDetaiInfoBean.getGroupInfo().getID() + "");
         });
         binding.sbSetGroupTop.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

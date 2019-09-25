@@ -137,6 +137,14 @@ public class DialogUtils {
         return qmuiBottomSheet;
     }
 
+    public static QMUIBottomSheet getRedpackageLogSheet(Context context, QMUIBottomSheet.BottomListSheetBuilder.OnSheetItemClickListener listener) {
+        QMUIBottomSheet qmuiBottomSheet = new QMUIBottomSheet.BottomListSheetBuilder(context)
+                .addItem("收到的红包")
+                .addItem("发出的红包").setOnSheetItemClickListener(listener)
+                .build();
+        return qmuiBottomSheet;
+    }
+
     public static QMUIBottomSheet getAvatarBottomSheet(Context context, QMUIBottomSheet.BottomListSheetBuilder.OnSheetItemClickListener listener) {
         QMUIBottomSheet qmuiBottomSheet = new QMUIBottomSheet.BottomListSheetBuilder(context)
                 .addItem("拍照")

@@ -27,6 +27,11 @@ public class MKey {
 
     public static final String ID_CARD = "id_card";
 
+    public static final String AVATAR = "avatar";
+
+
+    public static final String SEX = "SEX";
+
     public static final String NAME = "name";
 
     public static final String INFO = "info";

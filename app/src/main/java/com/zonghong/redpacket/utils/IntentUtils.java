@@ -24,12 +24,14 @@ import com.zonghong.redpacket.activity.redpackage.ZhuanZhangResultActivity;
 import com.zonghong.redpacket.activity.user.AlterPwdActivity;
 import com.zonghong.redpacket.activity.user.AlterTextActivity;
 import com.zonghong.redpacket.activity.user.ChooseBankActivity;
+import com.zonghong.redpacket.activity.user.QRCodeActivity;
 import com.zonghong.redpacket.activity.user.RechargeCashActivity;
 import com.zonghong.redpacket.activity.user.TransferAccountActivity;
 import com.zonghong.redpacket.activity.user.VerifyCodeActivity;
 import com.zonghong.redpacket.common.AlterTextType;
 import com.zonghong.redpacket.common.CheckCodeType;
 import com.zonghong.redpacket.common.ContactsDetailType;
+import com.zonghong.redpacket.common.QRCodeType;
 import com.zonghong.redpacket.common.RechargeCashType;
 import com.zonghong.redpacket.common.RedPackageType;
 
@@ -193,6 +195,16 @@ public class IntentUtils {
         intent = new Intent(MAPP.mapp.getCurrentActivity(), ZhuanZhangResultActivity.class);
         intent.putExtra(MKey.DATA, sum);
         intent.putExtra(MKey.TITLE, desc);
+        MAPP.mapp.getCurrentActivity().startActivity(intent);
+    }
+
+    public static void intent2QRCodeActivity(QRCodeType qrCodeType, String name, String avatar, String sex, String accountId) {
+        intent = new Intent(MAPP.mapp.getCurrentActivity(), QRCodeActivity.class);
+        intent.putExtra(MKey.TYPE, qrCodeType);
+        intent.putExtra(MKey.NAME, name);
+        intent.putExtra(MKey.AVATAR, avatar);
+        intent.putExtra(MKey.SEX, sex);
+        intent.putExtra(MKey.ID, accountId);
         MAPP.mapp.getCurrentActivity().startActivity(intent);
     }
 

@@ -10,6 +10,7 @@ import com.zonghong.redpacket.adapter.RedpackageLogAdapter;
 import com.zonghong.redpacket.base.BaseActivity;
 import com.zonghong.redpacket.databinding.ActivityRedpackageResultBinding;
 import com.zonghong.redpacket.utils.ImageUtils;
+import com.zonghong.redpacket.utils.IntentUtils;
 
 public class RedPageResultActivity extends BaseActivity<ActivityRedpackageResultBinding> {
 
@@ -47,7 +48,7 @@ public class RedPageResultActivity extends BaseActivity<ActivityRedpackageResult
             finish();
         });
         binding.tvRedpackageLog.setOnClickListener((v) -> {
-            // TODO: 2019-09-17 去红包日志
+            IntentUtils.doIntent(RedpackageLogActivity.class);
         });
     }
 }

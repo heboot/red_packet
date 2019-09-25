@@ -18,6 +18,7 @@ import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.activity.loginregister.LoginActivity;
 import com.zonghong.redpacket.base.BaseActivity;
 import com.zonghong.redpacket.common.AlterTextType;
+import com.zonghong.redpacket.common.QRCodeType;
 import com.zonghong.redpacket.databinding.ActivityInfoBinding;
 import com.zonghong.redpacket.http.HttpObserver;
 import com.zonghong.redpacket.rong.RongUtils;
@@ -83,7 +84,8 @@ public class InfoActivity extends BaseActivity<ActivityInfoBinding> {
             IntentUtils.intent2AlterTextActivity(AlterTextType.NICK_NAME, UserService.getInstance().getUserInfoBean().getNick_name());
         });
         binding.tvCodeTitle.setOnClickListener((v) -> {
-            IntentUtils.doIntent(QRCodeActivity.class);
+            IntentUtils.intent2QRCodeActivity(QRCodeType.USER, UserService.getInstance().getUserInfoBean().getNick_name(), UserService.getInstance().getUserInfoBean().getImg(), UserService.getInstance().getUserInfoBean().getSex() + "", UserService.getInstance().getUserInfoBean().getAccount_id());
+//            IntentUtils.doIntent(QRCodeActivity.class);
         });
 
         binding.tvAvatar.setOnClickListener((v) -> {

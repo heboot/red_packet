@@ -18,6 +18,7 @@ import com.waw.hr.mutils.bean.HelpBean;
 import com.waw.hr.mutils.bean.LoginBean;
 import com.waw.hr.mutils.bean.MyGroupBean;
 import com.waw.hr.mutils.bean.NewFriendListBean;
+import com.waw.hr.mutils.bean.RedpackageLogBean;
 import com.waw.hr.mutils.bean.SearchContatsBean;
 import com.waw.hr.mutils.bean.UserInfoBean;
 
@@ -122,6 +123,10 @@ public interface HttpClient {
     @POST("in/fIndex")
     Observable<BaseBean<ContatsListBean>> fIndex(@Header("token") String token);
 
+
+    @FormUrlEncoded
+    @POST("in/rList")
+    Observable<BaseBean<RedpackageLogBean>> rList(@Header("token") String token, @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
     @POST("in/gUlist")
