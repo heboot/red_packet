@@ -52,7 +52,7 @@ public class ContactsAdapter extends BaseQuickAdapter<ContatsFriendBean, BaseVie
             }
         });
 
-        binding.tvName.setText(item.getReal_name());
+        binding.tvName.setText(item.getNick_name());
         ImageUtils.showAvatar(item.getImage(), binding.ivAvatar);
 
         if (!isChoose) {

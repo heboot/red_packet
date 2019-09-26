@@ -1,14 +1,22 @@
 package com.zonghong.redpacket.fragment;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.Toast;
 
+import com.uuzuche.lib_zxing.activity.CaptureActivity;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
+import com.waw.hr.mutils.ToastUtils;
+import com.zonghong.redpacket.MAPP;
+import com.zonghong.redpacket.MainActivity;
 import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.activity.contacts.ChooseContactsActivity;
 import com.zonghong.redpacket.activity.contacts.SearchContactsActivity;
 import com.zonghong.redpacket.base.BaseFragment;
+import com.zonghong.redpacket.common.ContactsDetailType;
 import com.zonghong.redpacket.databinding.FragmentConversationBinding;
 import com.zonghong.redpacket.utils.IntentUtils;
 import com.zonghong.redpacket.view.MsgMorePopView;
@@ -20,6 +28,7 @@ public class MConversationListFragment extends BaseFragment<FragmentConversation
 
     private ConversationListFragment conversationListFragment;
 
+    private int REQUEST_CODE = 988;
 
     public static MConversationListFragment newInstance() {
         Bundle args = new Bundle();
@@ -56,7 +65,6 @@ public class MConversationListFragment extends BaseFragment<FragmentConversation
         super.onActivityCreated(savedInstanceState);
 
     }
-
 
 
     @Override
@@ -96,5 +104,38 @@ public class MConversationListFragment extends BaseFragment<FragmentConversation
             IntentUtils.doIntent(SearchContactsActivity.class);
             binding.includeMsgMore.getRoot().setVisibility(getView().GONE);
         });
+        binding.includeMsgMore.tvScan.setOnClickListener((v) -> {
+            binding.includeMsgMore.getRoot().setVisibility(getView().GONE);
+            Intent intent = new Intent(_mActivity, CaptureActivity.class);
+            startActivityForResult(intent, REQUEST_CODE);
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+        /**
+         * 处理二维码扫描结果
+         */
+        if (requestCode == REQUEST_CODE) {
+            //处理扫描结果（在界面上显示）
+            if (null != data) {
+                Bundle bundle = data.getExtras();
+                if (bundle == null) {
+                    return;
+                }
+                if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
+                    String result = bundle.getString(CodeUtils.RESULT_STRING);
+                    if (result.indexOf("u") > -1) {
+                        IntentUtils.intent2ContactsDetailActivity(result.substring(1, result.length()), ContactsDetailType.NORMAL);
+                    } else if (result.indexOf("g") > -1) {
+                        ToastUtils.show(MAPP.mapp, result);
+//                        IntentUtils.intent2ContactsDetailActivity(result.substring(1, result.length()), ContactsDetailType.NORMAL);
+                    }
+                } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
+                    Toast.makeText(MAPP.mapp, "解析二维码失败", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
     }
 }

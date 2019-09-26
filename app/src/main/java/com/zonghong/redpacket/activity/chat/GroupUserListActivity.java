@@ -28,6 +28,8 @@ public class GroupUserListActivity extends BaseActivity<FragmentContactsBinding>
 
     private String groupId;
 
+    private int admin;
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_contacts;
@@ -43,6 +45,7 @@ public class GroupUserListActivity extends BaseActivity<FragmentContactsBinding>
     @Override
     public void initData() {
         groupId = (String) getIntent().getExtras().get(MKey.ID);
+        admin = (int) getIntent().getExtras().get(MKey.TYPE);
         list();
     }
 
@@ -58,7 +61,7 @@ public class GroupUserListActivity extends BaseActivity<FragmentContactsBinding>
             public void onSuccess(BaseBean<GroupUserListBean> baseBean) {
                 if (contactsAdapter == null) {
                     if (baseBean.getData().getGUser() != null) {
-                        contactsAdapter = new GroupUserListAdapter(baseBean.getData().getGUser(), groupId);
+                        contactsAdapter = new GroupUserListAdapter(baseBean.getData().getGUser(), groupId, admin);
                         binding.rvList.setAdapter(contactsAdapter);
                     }
                 } else {

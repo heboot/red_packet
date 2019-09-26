@@ -24,9 +24,12 @@ public class GroupUserAdapter extends BaseQuickAdapter<GroupDetaiInfoBean.GroupU
 
     private String groupId;
 
-    public GroupUserAdapter(@Nullable List<GroupDetaiInfoBean.GroupUserInfoBean> data, String groupId) {
+    private int admin;
+
+    public GroupUserAdapter(@Nullable List<GroupDetaiInfoBean.GroupUserInfoBean> data, String groupId, int admin) {
         super(R.layout.item_group_user, data);
         this.groupId = groupId;
+        this.admin = admin;
     }
 
 
@@ -48,7 +51,7 @@ public class GroupUserAdapter extends BaseQuickAdapter<GroupDetaiInfoBean.GroupU
             } else if (!StringUtils.isEmpty(item.getOption()) && item.getOption().equals("jian")) {
                 IntentUtils.intent2DelGroupUserActivtiy(groupId);
             } else {
-                IntentUtils.intent2ContactsDetailActivity(item.getUser_id() + "", groupId, ContactsDetailType.GROUP);
+                IntentUtils.intent2ContactsDetailActivity(item.getUser_id() + "", groupId, admin > 1 ? ContactsDetailType.GROUP : ContactsDetailType.NORMAL);
             }
         });
 

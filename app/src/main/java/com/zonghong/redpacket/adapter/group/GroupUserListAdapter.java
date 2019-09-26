@@ -20,9 +20,12 @@ public class GroupUserListAdapter extends BaseQuickAdapter<GroupUserListBean.GUs
 
     private String groupId;
 
-    public GroupUserListAdapter(@Nullable List<GroupUserListBean.GUserBean> data, String groupId) {
+    private int admin;
+
+    public GroupUserListAdapter(@Nullable List<GroupUserListBean.GUserBean> data, String groupId, int admin) {
         super(R.layout.item_group_user, data);
         this.groupId = groupId;
+        this.admin = admin;
     }
 
 
@@ -32,7 +35,7 @@ public class GroupUserListAdapter extends BaseQuickAdapter<GroupUserListBean.GUs
         binding.tvName.setText(item.getNick_name());
 
         binding.getRoot().setOnClickListener(view -> {
-            IntentUtils.intent2ContactsDetailActivity(item.getUser_id() + "", groupId, ContactsDetailType.GROUP);
+            IntentUtils.intent2ContactsDetailActivity(item.getUser_id() + "", groupId, admin > 1 ? ContactsDetailType.GROUP : ContactsDetailType.NORMAL);
         });
 
     }

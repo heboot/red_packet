@@ -17,9 +17,28 @@ public class UserInfoBean {
 
     private int sign;
 
+    private int black;
+
+    private int bannet_chat;
+
     //查看用户的信息对当前用户的关系; 0处于非好友; 1是处于待同意; 2是处于好友; 4是处于黑名单
     private int status;
 
+    public int getBlack() {
+        return black;
+    }
+
+    public void setBlack(int black) {
+        this.black = black;
+    }
+
+    public int getBannet_chat() {
+        return bannet_chat;
+    }
+
+    public void setBannet_chat(int bannet_chat) {
+        this.bannet_chat = bannet_chat;
+    }
 
     public String getAccount_id() {
         return account_id;

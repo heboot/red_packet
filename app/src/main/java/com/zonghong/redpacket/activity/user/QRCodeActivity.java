@@ -40,7 +40,13 @@ public class QRCodeActivity extends BaseActivity<ActivityQrcodeBinding> {
         accountId = getIntent().getStringExtra(MKey.ID);
 
 
-        Bitmap mBitmap = CodeUtils.createImage(accountId, getResources().getDimensionPixelOffset(R.dimen.x211), getResources().getDimensionPixelOffset(R.dimen.y211), null);
+        String qrId = "";
+        if (qrCodeType == QRCodeType.USER) {
+            qrId = "u" + accountId;
+        } else {
+            qrId = "g" + accountId;
+        }
+        Bitmap mBitmap = CodeUtils.createImage(qrId, getResources().getDimensionPixelOffset(R.dimen.x211), getResources().getDimensionPixelOffset(R.dimen.y211), null);
         binding.ivCode.setImageBitmap(mBitmap);
 
         if (qrCodeType == QRCodeType.GROUP) {

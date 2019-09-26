@@ -93,7 +93,7 @@ public class GroupDetailActivity extends BaseActivity<ActivityGroupDetailBinding
             IntentUtils.intent2AlterTextActivityByGroup(AlterTextType.GROUP_MY_NAME, groupDetaiInfoBean.getMyGInfo().getNick_name(), String.valueOf(groupDetaiInfoBean.getGroupInfo().getID()), null);
         });
         binding.tvAll.setOnClickListener((v) -> {
-            IntentUtils.intent2GroupUserListActivity(String.valueOf(groupDetaiInfoBean.getGroupInfo().getID()));
+            IntentUtils.intent2GroupUserListActivity(String.valueOf(groupDetaiInfoBean.getGroupInfo().getID()), groupDetaiInfoBean.getMyGInfo().getAdmin());
         });
         binding.tvGroupNoti.setOnClickListener(view -> {
             if (groupDetaiInfoBean.getMyGInfo().getAdmin() > 1) {
@@ -177,26 +177,26 @@ public class GroupDetailActivity extends BaseActivity<ActivityGroupDetailBinding
     }
 
     private void showGroupUsersInfo(GroupDetaiInfoBean groupDetaiInfoBean) {
-        if (groupDetaiInfoBean.getMyGInfo().getAdmin() == 3) {
+        if (groupDetaiInfoBean.getMyGInfo().getAdmin() > 1) {
             List<GroupDetaiInfoBean.GroupUserInfoBean> users = new ArrayList();
-            if (groupDetaiInfoBean.getGroupUserInfo().size() >= 4) {
-                users = groupDetaiInfoBean.getGroupUserInfo().subList(0, 4);
+            if (groupDetaiInfoBean.getGroupUserInfo().size() >= 6) {
+                users = groupDetaiInfoBean.getGroupUserInfo().subList(0, 6);
                 binding.tvAll.setVisibility(View.VISIBLE);
             } else {
                 users = groupDetaiInfoBean.getGroupUserInfo();
             }
             users.add(new GroupDetaiInfoBean.GroupUserInfoBean("jia"));
             users.add(new GroupDetaiInfoBean.GroupUserInfoBean("jian"));
-            groupUserAdapter = new GroupUserAdapter(users, groupId);
+            groupUserAdapter = new GroupUserAdapter(users, groupId, groupDetaiInfoBean.getMyGInfo().getAdmin());
         } else {
             List<GroupDetaiInfoBean.GroupUserInfoBean> users = new ArrayList();
-            if (groupDetaiInfoBean.getGroupUserInfo().size() >= 6) {
-                users = groupDetaiInfoBean.getGroupUserInfo().subList(0, 5);
+            if (groupDetaiInfoBean.getGroupUserInfo().size() >= 8) {
+                users = groupDetaiInfoBean.getGroupUserInfo().subList(0, 7);
                 binding.tvAll.setVisibility(View.VISIBLE);
             } else {
                 users = groupDetaiInfoBean.getGroupUserInfo();
             }
-            groupUserAdapter = new GroupUserAdapter(users, groupId);
+            groupUserAdapter = new GroupUserAdapter(users, groupId, groupDetaiInfoBean.getMyGInfo().getAdmin());
         }
         binding.rvList.setAdapter(groupUserAdapter);
     }

@@ -225,13 +225,13 @@ public class PayDialog extends DialogFragment {
         payDialogType = (PayDialogType) getArguments().get(MKey.TYPE);
         money = getArguments().getFloat(MKey.MONEY);
         toId = getArguments().getString(MKey.USER_ID);
-
+        bankId = getArguments().getString(MKey.ID);
         if (payDialogType == PayDialogType.REDPACKAGE) {
             redPackageType = (RedPackageType) getArguments().get("toType");
             num = (String) getArguments().get("num");
             remark = (String) getArguments().get("remark");
         } else if (payDialogType == PayDialogType.ZHUANZHUANG) {
-            bankId = getArguments().getString(MKey.ID);
+
             nick = getArguments().getString(MKey.NICKNAME);
         }
 
@@ -342,6 +342,7 @@ public class PayDialog extends DialogFragment {
 
             @Override
             public void onError(BaseBean<Object> baseBean) {
+                dismiss();
                 ToastUtils.show(MAPP.mapp, baseBean.getMsg());
             }
         });
@@ -370,6 +371,7 @@ public class PayDialog extends DialogFragment {
 
             @Override
             public void onError(BaseBean<Object> baseBean) {
+                dismiss();
                 ToastUtils.show(MAPP.mapp, baseBean.getMsg());
             }
         });
@@ -389,6 +391,7 @@ public class PayDialog extends DialogFragment {
 
             @Override
             public void onError(BaseBean<Object> baseBean) {
+                dismiss();
                 ToastUtils.show(MAPP.mapp, baseBean.getMsg());
             }
         });
@@ -408,6 +411,7 @@ public class PayDialog extends DialogFragment {
 
             @Override
             public void onError(BaseBean<Object> baseBean) {
+                dismiss();
                 ToastUtils.show(MAPP.mapp, baseBean.getMsg());
             }
         });
@@ -452,7 +456,8 @@ public class PayDialog extends DialogFragment {
 
             @Override
             public void onError(BaseBean<CreateRedPackageChildBean> baseBean) {
-
+                dismiss();
+                ToastUtils.show(MAPP.mapp, baseBean.getMsg());
             }
         });
     }

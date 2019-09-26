@@ -44,7 +44,7 @@ public class BlackUserListActivity extends BaseActivity<FragmentContactsBinding>
 
     @Override
     public void initUI() {
-        binding.includeToolbar.vBack.setVisibility(View.GONE);
+        setBackVisibility(View.VISIBLE);
         binding.includeToolbar.tvTitle.setText("黑名单");
         binding.rvList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
     }

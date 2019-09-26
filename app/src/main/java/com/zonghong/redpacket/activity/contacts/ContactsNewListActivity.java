@@ -80,7 +80,7 @@ public class ContactsNewListActivity extends BaseActivity<ActivityNewContactsLis
 
     public void apply(String id) {
         params.put("my_id", id);
-        HttpClient.Builder.getServer().fConsent(UserService.getInstance().getToken()).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
+        HttpClient.Builder.getServer().fConsent(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
                 tipDialog = DialogUtils.getSuclDialog(ContactsNewListActivity.this, baseBean.getMsg(), true);

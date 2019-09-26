@@ -1,21 +1,28 @@
 package com.zonghong.redpacket.activity.contacts;
 
+import android.content.DialogInterface;
 import android.view.View;
 import android.widget.CompoundButton;
 
 import com.example.http.HttpClient;
 import com.waw.hr.mutils.DialogUtils;
 import com.waw.hr.mutils.MKey;
+import com.waw.hr.mutils.StringUtils;
 import com.waw.hr.mutils.base.BaseBean;
 import com.waw.hr.mutils.bean.SearchContatsBean;
 import com.waw.hr.mutils.bean.UserInfoBean;
 import com.zonghong.redpacket.R;
+import com.zonghong.redpacket.activity.chat.GroupDetailActivity;
+import com.zonghong.redpacket.activity.chat.GroupManagerActivity;
 import com.zonghong.redpacket.base.BaseActivity;
+import com.zonghong.redpacket.common.AlterTextType;
 import com.zonghong.redpacket.common.ContactsDetailType;
 import com.zonghong.redpacket.databinding.ActivityContactsDetailBinding;
 import com.zonghong.redpacket.http.HttpObserver;
+import com.zonghong.redpacket.rong.RongUtils;
 import com.zonghong.redpacket.service.UserService;
 import com.zonghong.redpacket.utils.ImageUtils;
+import com.zonghong.redpacket.utils.IntentUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -60,12 +67,21 @@ public class ContactsDetailActivity extends BaseActivity<ActivityContactsDetailB
         userInfo();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (userInfoBean != null) {
+            userInfo();
+        }
+    }
 
     private void userInfo() {
         loadingDialog.show();
         params = new HashMap<>();
         params.put("id", userId);
-        params.put("addFriend", "");
+        if (!StringUtils.isEmpty(groupId)) {
+            params.put("group_id", groupId);
+        }
         HttpClient.Builder.getServer().userInfo(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<UserInfoBean>() {
             @Override
             public void onSuccess(BaseBean<UserInfoBean> baseBean) {
@@ -74,18 +90,33 @@ public class ContactsDetailActivity extends BaseActivity<ActivityContactsDetailB
                 binding.tvName.setText(userInfoBean.getNick_name());
                 ImageUtils.showAvatar(userInfoBean.getImg(), binding.ivAvatar);
                 binding.tvNo.setText(userInfoBean.getAccount_id());
-//                查看用户的信息对当前用户的关系; 0处于非好友; 1是处于待同意; 2是处于好友; 4是处于黑名单
+//                查看用户的信息对当前用户的关系; 0处于非好友;  2是处于好友;
                 if (userInfoBean.getStatus() == 0) {
+                    binding.tvSetRemark.setVisibility(View.GONE);
                     binding.tvAdd.setText("添加好友");
                     binding.tvAdd.setEnabled(true);
                 } else if (userInfoBean.getStatus() == 1) {
-                    binding.tvAdd.setVisibility(View.GONE);
-                } else if (userInfoBean.getStatus() == 2) {
+                    binding.tvSetRemark.setVisibility(View.VISIBLE);
+                    binding.tvAdd.setText("发消息");
                     binding.tvDel.setVisibility(View.VISIBLE);
-                } else if (userInfoBean.getStatus() == 3) {
+                    binding.tvAdd.setEnabled(true);
+                } else if (userInfoBean.getStatus() == 2) {
                     binding.tvAdd.setVisibility(View.GONE);
+                    binding.tvSetRemark.setVisibility(View.VISIBLE);
+                    binding.tvDel.setVisibility(View.VISIBLE);
+                }
+
+                if (baseBean.getData().getBlack() == 1) {
                     binding.sbAddBlack.setCheckedNoEvent(true);
                 }
+
+                if (contactsDetailType == ContactsDetailType.GROUP) {
+                    if (baseBean.getData().getBannet_chat() == 1) {
+                        binding.sbBanned.setCheckedNoEvent(true);
+                    }
+                    binding.sbAddBlack.setVisibility(View.VISIBLE);
+                }
+
             }
 
             @Override
@@ -100,7 +131,12 @@ public class ContactsDetailActivity extends BaseActivity<ActivityContactsDetailB
     @Override
     public void initListener() {
         binding.tvAdd.setOnClickListener((v) -> {
-            add();
+            if (userInfoBean.getStatus() == 1) {
+                RongUtils.toChat(userId, userInfoBean.getNick_name());
+            } else {
+                add();
+            }
+
         });
         binding.sbAddBlack.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -110,6 +146,43 @@ public class ContactsDetailActivity extends BaseActivity<ActivityContactsDetailB
                 } else {
                     removeBlack();
                 }
+            }
+        });
+        binding.sbBanned.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                upAdmInavite();
+            }
+        });
+        binding.tvDel.setOnClickListener((v) -> {
+            delFriend();
+        });
+        binding.tvSetRemark.setOnClickListener(view -> {
+            IntentUtils.intent2AlterTextActivityByContcactsDetail(AlterTextType.FRIEND_NAME, binding.tvName.getText().toString(), userId);
+        });
+    }
+
+
+    public void apply(String id) {
+        params = new HashMap<>();
+        params.put("my_id", id);
+        HttpClient.Builder.getServer().fConsent(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
+            @Override
+            public void onSuccess(BaseBean<Object> baseBean) {
+                tipDialog = DialogUtils.getSuclDialog(ContactsDetailActivity.this, baseBean.getMsg(), true);
+                tipDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        finish();
+                    }
+                });
+                tipDialog.show();
+            }
+
+            @Override
+            public void onError(BaseBean<Object> baseBean) {
+                tipDialog = DialogUtils.getFailDialog(ContactsDetailActivity.this, baseBean.getMsg(), true);
+                tipDialog.show();
             }
         });
     }
@@ -156,6 +229,50 @@ public class ContactsDetailActivity extends BaseActivity<ActivityContactsDetailB
         });
     }
 
+    private void delFriend() {
+        params.put("friend_id", userId);
+        HttpClient.Builder.getServer().fDel(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
+            @Override
+            public void onSuccess(BaseBean<Object> baseBean) {
+                tipDialog = DialogUtils.getSuclDialog(ContactsDetailActivity.this, baseBean.getMsg(), true);
+                tipDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        finish();
+                    }
+                });
+                tipDialog.show();
+            }
+
+            @Override
+            public void onError(BaseBean<Object> baseBean) {
+                tipDialog = DialogUtils.getFailDialog(ContactsDetailActivity.this, baseBean.getMsg(), true);
+                tipDialog.show();
+            }
+        });
+    }
+
+    private void upAdmInavite() {
+        params = new HashMap<>();
+        params.put("group_id", groupId);
+        params.put("bannet_chat", binding.sbBanned.isChecked() ? 1 : 0);
+        params.put("id", userId);
+        HttpClient.Builder.getServer().upAdmInavite(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
+            @Override
+            public void onSuccess(BaseBean<Object> baseBean) {
+                tipDialog = DialogUtils.getSuclDialog(ContactsDetailActivity.this, baseBean.getMsg(), true);
+                tipDialog.show();
+            }
+
+            @Override
+            public void onError(BaseBean<Object> baseBean) {
+                tipDialog = DialogUtils.getFailDialog(ContactsDetailActivity.this, baseBean.getMsg(), true);
+                tipDialog.show();
+            }
+        });
+    }
+
+
     private void add() {
         loadingDialog.show();
         params = new HashMap<>();
@@ -166,6 +283,12 @@ public class ContactsDetailActivity extends BaseActivity<ActivityContactsDetailB
             public void onSuccess(BaseBean<Boolean> baseBean) {
                 loadingDialog.dismiss();
                 tipDialog = DialogUtils.getSuclDialog(ContactsDetailActivity.this, baseBean.getMsg(), true);
+                tipDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        finish();
+                    }
+                });
                 tipDialog.show();
             }
 

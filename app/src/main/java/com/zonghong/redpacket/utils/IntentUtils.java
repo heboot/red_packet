@@ -34,6 +34,7 @@ import com.zonghong.redpacket.common.ContactsDetailType;
 import com.zonghong.redpacket.common.QRCodeType;
 import com.zonghong.redpacket.common.RechargeCashType;
 import com.zonghong.redpacket.common.RedPackageType;
+import com.zonghong.redpacket.service.UserService;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -73,6 +74,9 @@ public class IntentUtils {
     }
 
     public static void intent2ContactsDetailActivity(String userId, ContactsDetailType contactsDetailType) {
+        if (UserService.getInstance().getUserId().equals(userId)) {
+            return;
+        }
         intent = new Intent(MAPP.mapp.getCurrentActivity(), ContactsDetailActivity.class);
         intent.putExtra(MKey.USER_ID, userId);
         intent.putExtra(MKey.TYPE, contactsDetailType);
@@ -80,7 +84,11 @@ public class IntentUtils {
     }
 
     public static void intent2ContactsDetailActivity(String userId, String groupId, ContactsDetailType contactsDetailType) {
+        if (UserService.getInstance().getUserId().equals(userId)) {
+            return;
+        }
         intent = new Intent(MAPP.mapp.getCurrentActivity(), ContactsDetailActivity.class);
+
         intent.putExtra(MKey.USER_ID, userId);
         intent.putExtra(MKey.ID, groupId);
         intent.putExtra(MKey.TYPE, contactsDetailType);
@@ -112,12 +120,22 @@ public class IntentUtils {
         MAPP.mapp.getCurrentActivity().startActivity(intent);
     }
 
+    public static void intent2AlterTextActivityByContcactsDetail(AlterTextType alterTextType, String oldValue, String userId) {
+        intent = new Intent(MAPP.mapp.getCurrentActivity(), AlterTextActivity.class);
+        intent.putExtra(MKey.TYPE, alterTextType);
+        intent.putExtra(MKey.DATA, oldValue);
+        intent.putExtra(MKey.ID, userId);
+
+        MAPP.mapp.getCurrentActivity().startActivity(intent);
+    }
+
     public static void intent2AlterTextActivityByGroup(AlterTextType alterTextType, String oldValue, String groupId, String userId) {
         intent = new Intent(MAPP.mapp.getCurrentActivity(), AlterTextActivity.class);
         intent.putExtra(MKey.TYPE, alterTextType);
         intent.putExtra(MKey.DATA, oldValue);
         intent.putExtra(MKey.ID, groupId);
         intent.putExtra(MKey.USER_ID, userId);
+
         MAPP.mapp.getCurrentActivity().startActivity(intent);
     }
 
@@ -185,9 +203,10 @@ public class IntentUtils {
         MAPP.mapp.getCurrentActivity().startActivity(intent);
     }
 
-    public static void intent2GroupUserListActivity(String groupId) {
+    public static void intent2GroupUserListActivity(String groupId, int admin) {
         intent = new Intent(MAPP.mapp.getCurrentActivity(), GroupUserListActivity.class);
         intent.putExtra(MKey.ID, groupId);
+        intent.putExtra(MKey.TYPE, admin);
         MAPP.mapp.getCurrentActivity().startActivity(intent);
     }
 

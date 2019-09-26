@@ -37,7 +37,7 @@
             android:layout_marginRight="@dimen/x16"
             android:background="@drawable/bg_rect_1f2732_15"
             android:gravity="center"
-            android:text="查看"
+            android:text="同意"
             android:textColor="#fff8d347"
             android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="parent"

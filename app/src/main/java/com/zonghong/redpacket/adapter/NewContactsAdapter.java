@@ -8,8 +8,10 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.waw.hr.mutils.bean.NewFriendListBean;
 import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.activity.contacts.ContactsNewListActivity;
+import com.zonghong.redpacket.common.ContactsDetailType;
 import com.zonghong.redpacket.databinding.ItemNewFriendBinding;
 import com.zonghong.redpacket.utils.ImageUtils;
+import com.zonghong.redpacket.utils.IntentUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -32,5 +34,8 @@ public class NewContactsAdapter extends BaseQuickAdapter<NewFriendListBean, Base
         binding.tvOption.setOnClickListener((v) -> {
             weakReference.get().apply(String.valueOf(item.getMy_id()));
         });
+//        binding.getRoot().setOnClickListener((v) -> {
+//            IntentUtils.intent2ContactsDetailActivity(item.getMy_id() + "", ContactsDetailType.NORMAL);
+//        });
     }
 }

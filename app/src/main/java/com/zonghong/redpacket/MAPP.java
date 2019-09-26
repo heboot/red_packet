@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.example.http.HttpClient;
+import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 import com.waw.hr.mutils.DialogUtils;
 import com.waw.hr.mutils.LogUtil;
 import com.waw.hr.mutils.MKey;
@@ -20,6 +21,7 @@ import com.zonghong.redpacket.activity.contacts.SearchContactsActivity;
 import com.zonghong.redpacket.adapter.SearchContactsAdapter;
 import com.zonghong.redpacket.http.HttpObserver;
 import com.zonghong.redpacket.listenter.MActivtiyLifecycleCallBack;
+import com.zonghong.redpacket.listenter.MyConversationClickListener;
 import com.zonghong.redpacket.listenter.MyGroupInfoProvider;
 import com.zonghong.redpacket.listenter.MyUserInfoProvider;
 import com.zonghong.redpacket.rong.CustomDefaultExtensionModule;
@@ -61,11 +63,13 @@ public class MAPP extends Application {
         registerMessageTemplate();
         registerMessageListener();
         registerProvider();
+        ZXingLibrary.initDisplayOpinion(this);
     }
 
     private void registerProvider() {
         RongIM.setUserInfoProvider(new MyUserInfoProvider(), true);
         RongIM.setGroupInfoProvider(new MyGroupInfoProvider(), true);
+        RongIM.setConversationClickListener(new MyConversationClickListener());
     }
 
 

@@ -86,6 +86,10 @@ public interface HttpClient {
 
 
     @FormUrlEncoded
+    @POST("in/fRealName")
+    Observable<BaseBean<Object>> fRealName(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
     @POST("in/uUpname")
     Observable<BaseBean<Object>> uUpname(@Header("token") String token, @FieldMap Map<String, Object> params);
 
@@ -151,8 +155,9 @@ public interface HttpClient {
     Observable<BaseBean<List<MyGroupBean>>> gIndex(@Header("token") String token);
 
 
+    @FormUrlEncoded
     @POST("in/fConsent")
-    Observable<BaseBean<Object>> fConsent(@Header("token") String token);
+    Observable<BaseBean<Object>> fConsent(@Header("token") String token, @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
     @POST("in/groupInfo")
@@ -193,6 +198,11 @@ public interface HttpClient {
     Observable<BaseBean<Object>> uRePss(@FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
+    @POST("in/fDel")
+    Observable<BaseBean<Object>> fDel(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+
+    @FormUrlEncoded
     @POST("in/gInfo")
     Observable<BaseBean<GroupDetaiInfoBean>> gInfo(@Header("token") String token, @FieldMap Map<String, Object> params);
 
@@ -200,6 +210,11 @@ public interface HttpClient {
     @FormUrlEncoded
     @POST("in/upBannet")
     Observable<BaseBean<Object>> upBannet(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("in/upAdmInavite")
+    Observable<BaseBean<Object>> upAdmInavite(@Header("token") String token, @FieldMap Map<String, Object> params);
+
 
     @FormUrlEncoded
     @POST("in/upChaTop")
