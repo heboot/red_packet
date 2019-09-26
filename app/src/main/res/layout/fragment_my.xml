@@ -131,7 +131,7 @@
             android:background="#fff"
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/x57"
-            android:text="设置（点我退出）"
+            android:text="设置"
             android:textColor="#ff000000"
             android:textSize="18sp"
             app:layout_constraintLeft_toLeftOf="parent"

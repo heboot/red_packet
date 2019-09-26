@@ -42,7 +42,7 @@ public class QRCodeActivity extends BaseActivity<ActivityQrcodeBinding> {
 
         String qrId = "";
         if (qrCodeType == QRCodeType.USER) {
-            qrId = "u" + accountId;
+            qrId = "u" + UserService.getInstance().getUserId();
         } else {
             qrId = "g" + accountId;
         }

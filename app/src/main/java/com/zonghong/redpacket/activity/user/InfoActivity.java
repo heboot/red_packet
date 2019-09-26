@@ -84,7 +84,7 @@ public class InfoActivity extends BaseActivity<ActivityInfoBinding> {
             IntentUtils.intent2AlterTextActivity(AlterTextType.NICK_NAME, UserService.getInstance().getUserInfoBean().getNick_name());
         });
         binding.tvCodeTitle.setOnClickListener((v) -> {
-            IntentUtils.intent2QRCodeActivity(QRCodeType.USER, UserService.getInstance().getUserInfoBean().getNick_name(), UserService.getInstance().getUserInfoBean().getImg(), UserService.getInstance().getUserInfoBean().getSex() + "", "" + UserService.getInstance().getUserInfoBean().getID());
+            IntentUtils.intent2QRCodeActivity(QRCodeType.USER, UserService.getInstance().getUserInfoBean().getNick_name(), UserService.getInstance().getUserInfoBean().getImg(), UserService.getInstance().getUserInfoBean().getSex() + "", "" + UserService.getInstance().getUserInfoBean().getAccount_id());
 //            IntentUtils.doIntent(QRCodeActivity.class);
         });
 
