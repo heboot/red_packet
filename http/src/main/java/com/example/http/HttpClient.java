@@ -20,6 +20,7 @@ import com.waw.hr.mutils.bean.MyGroupBean;
 import com.waw.hr.mutils.bean.NewFriendListBean;
 import com.waw.hr.mutils.bean.RedpackageLogBean;
 import com.waw.hr.mutils.bean.SearchContatsBean;
+import com.waw.hr.mutils.bean.SearchDialogueListBean;
 import com.waw.hr.mutils.bean.UserInfoBean;
 
 import java.util.List;
@@ -129,6 +130,15 @@ public interface HttpClient {
 
 
     @FormUrlEncoded
+    @POST("in/gAddUser")
+    Observable<BaseBean<Object>> gAddUser(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+
+    @FormUrlEncoded
+    @POST("in/searchDialogueList")
+    Observable<BaseBean<SearchDialogueListBean>> searchDialogueList(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
     @POST("in/rList")
     Observable<BaseBean<RedpackageLogBean>> rList(@Header("token") String token, @FieldMap Map<String, Object> params);
 
@@ -168,6 +178,11 @@ public interface HttpClient {
 
     @POST("in/iHelp")
     Observable<BaseBean<HelpBean>> iHelp(@Header("token") String token);
+
+
+    @FormUrlEncoded
+    @POST("in/complaint")
+    Observable<BaseBean<Object>> complaint(@Header("token") String token, @FieldMap Map<String, Object> params);
 
 
     @FormUrlEncoded

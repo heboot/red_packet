@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <include
+            android:id="@+id/include_toolbar"
+            layout="@layout/layout_toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></include>
+
+        <TextView
+            android:id="@+id/tv_tousu1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y55"
+            android:background="#fff"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="@dimen/x15"
+            android:text="发布色情、广告对我造成骚扰"
+            android:textColor="#ff000000"
+            android:textSize="17sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_toolbar" />
+
+        <ImageView
+            android:id="@+id/iv1"
+            android:layout_width="@dimen/x18"
+            android:layout_height="@dimen/y18"
+            android:layout_marginRight="@dimen/x16"
+            android:background="@mipmap/icon_check_yellow"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_tousu1"
+            app:layout_constraintRight_toRightOf="@+id/tv_tousu1"
+            app:layout_constraintTop_toTopOf="@+id/tv_tousu1" />
+
+        <TextView
+            android:id="@+id/tv_tousu2"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y55"
+            android:background="#fff"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="@dimen/x15"
+            android:text="恶意传播广播"
+            android:textColor="#ff000000"
+            android:textSize="17sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tousu1" />
+
+        <ImageView
+            android:id="@+id/iv2"
+            android:layout_width="@dimen/x18"
+            android:layout_height="@dimen/y18"
+            android:layout_marginRight="@dimen/x16"
+            android:background="@mipmap/icon_check_yellow"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_tousu2"
+            app:layout_constraintRight_toRightOf="@+id/tv_tousu2"
+            app:layout_constraintTop_toTopOf="@+id/tv_tousu2" />
+
+        <TextView
+            android:id="@+id/tv_tousu3"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y55"
+            android:background="#fff"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="@dimen/x15"
+            android:text="通过不正当手段获取他人或公司机密"
+            android:textColor="#ff000000"
+            android:textSize="17sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tousu2" />
+
+        <ImageView
+            android:id="@+id/iv3"
+            android:layout_width="@dimen/x18"
+            android:layout_height="@dimen/y18"
+            android:layout_marginRight="@dimen/x16"
+            android:background="@mipmap/icon_check_yellow"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_tousu3"
+            app:layout_constraintRight_toRightOf="@+id/tv_tousu3"
+            app:layout_constraintTop_toTopOf="@+id/tv_tousu3" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

@@ -5,12 +5,15 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.http.HttpClient;
 import com.waw.hr.mutils.DialogUtils;
+import com.waw.hr.mutils.StringUtils;
 import com.waw.hr.mutils.base.BaseBean;
 import com.waw.hr.mutils.bean.ContatsChildBean;
 import com.waw.hr.mutils.bean.ContatsListBean;
@@ -29,6 +32,7 @@ import com.zonghong.redpacket.databinding.LayoutSearchBinding;
 import com.zonghong.redpacket.http.HttpObserver;
 import com.zonghong.redpacket.service.UserService;
 import com.zonghong.redpacket.utils.IntentUtils;
+import com.zonghong.redpacket.utils.SearchUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,8 +105,29 @@ public class ContactsFragment extends BaseFragment<FragmentContactsBinding> {
 
     private View getSearchView() {
         LayoutSearchBinding layoutSearchBinding = DataBindingUtil.inflate(LayoutInflater.from(_mActivity), R.layout.layout_search, null, false);
-        layoutSearchBinding.etKey.setOnClickListener((v) -> {
-            IntentUtils.doIntent(SearchContactsActivity.class);
+//        layoutSearchBinding.etKey.setOnClickListener((v) -> {
+//            IntentUtils.doIntent(SearchContactsActivity.class);
+//        });
+        layoutSearchBinding.etKey.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (StringUtils.isEmpty(charSequence) || charSequence.length() == 0) {
+                    list();
+                    return;
+                }
+                contactsAdapter.setNewData(SearchUtils.searchContacts(contactsAdapter.getData(), charSequence.toString()));
+                contactsAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
         });
         layoutSearchBinding.getRoot().setLayoutParams(new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDimensionPixelOffset(R.dimen.y55)));
         return layoutSearchBinding.getRoot();

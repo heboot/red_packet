@@ -51,6 +51,7 @@ public class QRCodeActivity extends BaseActivity<ActivityQrcodeBinding> {
 
         if (qrCodeType == QRCodeType.GROUP) {
             binding.ivSex.setVisibility(View.GONE);
+            binding.tvId.setVisibility(View.GONE);
             binding.tvInfo.setText("该二维码7天内有效，重新进入将更新");
         } else {
             binding.tvInfo.setText("扫描上方二维码，加我好友");

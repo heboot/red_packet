@@ -21,6 +21,8 @@ public class MKey {
 
     public static final String PHONE2 = "phone2";
 
+    public static final String GROUP = "GROUP";
+
     public static final String GET_USER = "get_user";
 
     public static final String CITY = "city";

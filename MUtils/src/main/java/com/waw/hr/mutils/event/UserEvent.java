@@ -37,4 +37,12 @@ public class UserEvent {
 
     }
 
+    public static class SEND_MINGPIAN_EVENT {
+
+    }
+
+    public static class SEND_REDPACKAGE_EVENT {
+
+    }
+
 }

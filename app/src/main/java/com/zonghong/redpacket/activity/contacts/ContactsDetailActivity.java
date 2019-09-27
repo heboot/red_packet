@@ -16,6 +16,7 @@ import com.zonghong.redpacket.activity.chat.GroupDetailActivity;
 import com.zonghong.redpacket.activity.chat.GroupManagerActivity;
 import com.zonghong.redpacket.base.BaseActivity;
 import com.zonghong.redpacket.common.AlterTextType;
+import com.zonghong.redpacket.common.ComplaintType;
 import com.zonghong.redpacket.common.ContactsDetailType;
 import com.zonghong.redpacket.databinding.ActivityContactsDetailBinding;
 import com.zonghong.redpacket.http.HttpObserver;
@@ -96,12 +97,11 @@ public class ContactsDetailActivity extends BaseActivity<ActivityContactsDetailB
                     binding.tvAdd.setText("添加好友");
                     binding.tvAdd.setEnabled(true);
                 } else if (userInfoBean.getStatus() == 1) {
-                    binding.tvSetRemark.setVisibility(View.VISIBLE);
-                    binding.tvAdd.setText("发消息");
-                    binding.tvDel.setVisibility(View.VISIBLE);
+                    binding.tvSetRemark.setVisibility(View.GONE);
+                    binding.tvAdd.setText("添加好友");
                     binding.tvAdd.setEnabled(true);
                 } else if (userInfoBean.getStatus() == 2) {
-                    binding.tvAdd.setVisibility(View.GONE);
+                    binding.tvAdd.setText("发消息");
                     binding.tvSetRemark.setVisibility(View.VISIBLE);
                     binding.tvDel.setVisibility(View.VISIBLE);
                 }
@@ -131,7 +131,7 @@ public class ContactsDetailActivity extends BaseActivity<ActivityContactsDetailB
     @Override
     public void initListener() {
         binding.tvAdd.setOnClickListener((v) -> {
-            if (userInfoBean.getStatus() == 1) {
+            if (userInfoBean.getStatus() == 2) {
                 RongUtils.toChat(userId, userInfoBean.getNick_name());
             } else {
                 add();
@@ -159,6 +159,9 @@ public class ContactsDetailActivity extends BaseActivity<ActivityContactsDetailB
         });
         binding.tvSetRemark.setOnClickListener(view -> {
             IntentUtils.intent2AlterTextActivityByContcactsDetail(AlterTextType.FRIEND_NAME, binding.tvName.getText().toString(), userId);
+        });
+        binding.tvTousu.setOnClickListener((v) -> {
+            IntentUtils.intent2ComplaintActivity(ComplaintType.USER, userId);
         });
     }
 

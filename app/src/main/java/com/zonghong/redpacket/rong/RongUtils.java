@@ -7,10 +7,12 @@ import com.waw.hr.mutils.LogUtil;
 import com.waw.hr.mutils.StringUtils;
 import com.waw.hr.mutils.bean.CreateRedPackageChildBean;
 import com.waw.hr.mutils.bean.GetRedpackageModel;
+import com.waw.hr.mutils.bean.MingPianBean;
 import com.waw.hr.mutils.event.MessageEvent;
 import com.waw.hr.mutils.event.UserEvent;
 import com.zonghong.redpacket.MAPP;
 import com.zonghong.redpacket.MainActivity;
+import com.zonghong.redpacket.common.SendMingPianType;
 import com.zonghong.redpacket.service.UserService;
 import com.zonghong.redpacket.utils.IntentUtils;
 
@@ -72,6 +74,10 @@ public class RongUtils {
         RongIM.getInstance().startConversation(MAPP.mapp.getCurrentActivity(), Conversation.ConversationType.GROUP, toUserId, toUserName);
     }
 
+    public static void toGroupChat(String toUserId, String toUserName, long time) {
+        RongIM.getInstance().startConversation(MAPP.mapp.getCurrentActivity(), Conversation.ConversationType.GROUP, toUserId, toUserName, time);
+    }
+
     public static void toChat(String toUserId, String toUserName) {
         /**
          * 启动单聊界面。
@@ -82,6 +88,18 @@ public class RongUtils {
          *                     获取该值, 再手动设置为聊天界面的标题。
          */
         RongIM.getInstance().startConversation(MAPP.mapp.getCurrentActivity(), Conversation.ConversationType.PRIVATE, toUserId, toUserName);
+    }
+
+    public static void toChatByTime(String toUserId, String toUserName, long time) {
+        /**
+         * 启动单聊界面。
+         *
+         * @param context      应用上下文。
+         * @param targetUserId 要与之聊天的用户 Id。
+         * @param title        聊天的标题，开发者需要在聊天界面通过 intent.getData().getQueryParameter("title")
+         *                     获取该值, 再手动设置为聊天界面的标题。
+         */
+        RongIM.getInstance().startConversation(MAPP.mapp.getCurrentActivity(), Conversation.ConversationType.PRIVATE, toUserId, toUserName, time);
     }
 
     public static void sendZhuanzhuangRedPackageMessage(CreateRedPackageChildBean createRedPackageChildBean) {
@@ -170,6 +188,37 @@ public class RongUtils {
             }
         });
     }
+
+
+    public static void sendMingPianMessage(SendMingPianType type, String toId, MingPianBean mingPianBean) {
+        MingPianMessage mingPianMessage = new MingPianMessage(JSON.toJSONString(mingPianBean).getBytes());
+        Message message = new Message();
+        if (type == SendMingPianType.USER) {
+            message.setConversationType(Conversation.ConversationType.PRIVATE);
+        } else {
+            message.setConversationType(Conversation.ConversationType.GROUP);
+        }
+        message.setContent(mingPianMessage);
+        message.setTargetId(toId);
+        message.setMessageDirection(io.rong.imlib.model.Message.MessageDirection.SEND);
+        RongIM.getInstance().sendMessage(message, "", "", new IRongCallback.ISendMessageCallback() {
+            @Override
+            public void onAttached(Message message) {
+                LogUtil.e("SEND MESSAGE", "onAttached");
+            }
+
+            @Override
+            public void onSuccess(Message message) {
+                LogUtil.e("SEND MESSAGE", "onSuccess");
+            }
+
+            @Override
+            public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+                LogUtil.e("SEND MESSAGE", "onError");
+            }
+        });
+    }
+
 
     public static void checkUnread() {
         RongIM.getInstance().getTotalUnreadCount(new RongIMClient.ResultCallback<Integer>() {

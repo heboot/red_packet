@@ -1,6 +1,8 @@
 package com.waw.hr.mutils.bean;
 
-public class UserInfoBean {
+import java.io.Serializable;
+
+public class UserInfoBean implements Serializable {
     /**
      * ID : 33
      * nick_name : 青椒的同桌

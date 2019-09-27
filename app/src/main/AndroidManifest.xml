@@ -108,6 +108,12 @@
 
         <activity android:name=".activity.redpackage.RedpackageLogActivity"></activity>
 
+        <activity android:name=".activity.common.ComplaintActivity"></activity>
+
+        <activity android:name=".activity.contacts.ChooseContactsSendMingPianActivity"></activity>
+
+        <activity android:name=".activity.chat.SearchMessageActivity"></activity>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.zonghong.redpacket.FileProvider"

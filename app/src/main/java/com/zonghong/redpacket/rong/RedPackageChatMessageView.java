@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.example.http.HttpClient;
+import com.waw.hr.mutils.LogUtil;
+import com.waw.hr.mutils.ToastUtils;
 import com.waw.hr.mutils.base.BaseBean;
 import com.waw.hr.mutils.bean.CreateRedPackageChildBean;
 import com.waw.hr.mutils.bean.GetRedpackageBean;
@@ -55,9 +57,18 @@ public class RedPackageChatMessageView extends IContainerItemProvider.MessagePro
     public void onItemClick(View view, int i, RedPackageChatMessage messageContent, UIMessage uiMessage) {
         // TODO: 2019-09-11 抢红包
         String s = new String(messageContent.encode());
+        LogUtil.e("解析红包消息", s);
         CreateRedPackageChildBean createRedPackageChildBean = JSON.parseObject(s, CreateRedPackageChildBean.class);
 //        RedPackageDialog redPackageDialog = RedPackageDialog.newInstance(String.valueOf(createRedPackageChildBean.getID()), uiMessage.getConversationType(), createRedPackageChildBean.getFrom_id(), createRedPackageChildBean);
 //        redPackageDialog.show(((FragmentActivity) MAPP.mapp.getCurrentActivity()).getSupportFragmentManager(), "");
+
+        if (uiMessage.getConversationType() == Conversation.ConversationType.PRIVATE) {
+            if (uiMessage.getSenderUserId().equals(UserService.getInstance().getUserId())) {
+                ToastUtils.show(MAPP.mapp, "不能领取自己的红包");
+                return;
+            }
+        }
+
         checkredpackage(String.valueOf(createRedPackageChildBean.getID()), uiMessage, createRedPackageChildBean);
     }
 

@@ -1,5 +1,6 @@
 package com.zonghong.redpacket.activity.chat;
 
+import android.content.DialogInterface;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -13,7 +14,9 @@ import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.adapter.group.GroupUserAdapter;
 import com.zonghong.redpacket.base.BaseActivity;
 import com.zonghong.redpacket.common.AlterTextType;
+import com.zonghong.redpacket.common.ComplaintType;
 import com.zonghong.redpacket.common.QRCodeType;
+import com.zonghong.redpacket.common.SearchMessageType;
 import com.zonghong.redpacket.databinding.ActivityGroupDetailBinding;
 import com.zonghong.redpacket.http.HttpObserver;
 import com.zonghong.redpacket.rong.RongUtils;
@@ -21,10 +24,13 @@ import com.zonghong.redpacket.service.UserService;
 import com.zonghong.redpacket.utils.IntentUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 
 public class GroupDetailActivity extends BaseActivity<ActivityGroupDetailBinding> {
@@ -100,7 +106,60 @@ public class GroupDetailActivity extends BaseActivity<ActivityGroupDetailBinding
                 IntentUtils.intent2AlterGroupNotiActivity(groupDetaiInfoBean.getGroupInfo().getNotice(), String.valueOf(groupDetaiInfoBean.getGroupInfo().getID()));
             }
         });
+        binding.tvComplain.setOnClickListener(view -> {
+            IntentUtils.intent2ComplaintActivity(ComplaintType.GROUP, groupId);
+        });
+        binding.tvDelExit.setOnClickListener(view -> {
+            delUser();
+        });
+        binding.tvClearGroupContent.setOnClickListener(view -> {
+            if (groupDetaiInfoBean.getMyGInfo().getAdmin() == 3) {
+                RongIM.getInstance().deleteMessages(Conversation.ConversationType.GROUP, groupId, new RongIMClient.ResultCallback<Boolean>() {
+                    @Override
+                    public void onSuccess(Boolean aBoolean) {
+                        tipDialog = DialogUtils.getFailDialog(GroupDetailActivity.this, "清除成功", true);
+                        tipDialog.show();
+                    }
 
+                    @Override
+                    public void onError(RongIMClient.ErrorCode errorCode) {
+                        tipDialog = DialogUtils.getFailDialog(GroupDetailActivity.this, "清除失败", true);
+                        tipDialog.show();
+                    }
+                });
+            } else {
+                tipDialog = DialogUtils.getFailDialog(GroupDetailActivity.this, "只有群主可以操作", true);
+                tipDialog.show();
+            }
+        });
+        binding.tvFindChatContent.setOnClickListener((v) -> {
+            IntentUtils.intent2SearchMessageActivity(SearchMessageType.GROUP, groupId, groupDetaiInfoBean.getGroupInfo().getTitle());
+        });
+    }
+
+    private void delUser() {
+        params = new HashMap<>();
+        params.put("group_id", groupId);
+        params.put("user_id", UserService.getInstance().getUserId());
+        HttpClient.Builder.getServer().gDelUser(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
+            @Override
+            public void onSuccess(BaseBean<Object> baseBean) {
+                tipDialog = DialogUtils.getSuclDialog(GroupDetailActivity.this, baseBean.getMsg(), true);
+                tipDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        finish();
+                    }
+                });
+                tipDialog.show();
+            }
+
+            @Override
+            public void onError(BaseBean<Object> baseBean) {
+                tipDialog = DialogUtils.getFailDialog(GroupDetailActivity.this, baseBean.getMsg(), true);
+                tipDialog.show();
+            }
+        });
     }
 
     private void upRejct() {

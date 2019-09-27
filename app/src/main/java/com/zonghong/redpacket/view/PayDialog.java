@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -314,8 +315,7 @@ public class PayDialog extends DialogFragment {
 
 
         });
-
-
+        QMUIKeyboardHelper.showKeyboard(binding.etPwd, false);
         return binding.getRoot();
     }
 
@@ -445,12 +445,13 @@ public class PayDialog extends DialogFragment {
                     baseBean.getData().setFrom_id(String.valueOf(toId));
                 }
 
-                baseBean.getData().setImage("");
+                baseBean.getData().setImage(UserService.getInstance().getUserInfoBean().getImg());
 //                baseBean.getData().setUser_id(UserService.getInstance().getUserId());
                 baseBean.getData().setDesc(remark);
-                baseBean.getData().setRedName(UserService.getUserService().getUserId());
+                baseBean.getData().setRedName(UserService.getUserService().getUserInfoBean().getNick_name());
                 RongUtils.sendRedPackageMessage(baseBean.getData());
                 remark = "";
+                EventBus.getDefault().post(new UserEvent.SEND_REDPACKAGE_EVENT());
                 dismiss();
             }
 
@@ -494,5 +495,11 @@ public class PayDialog extends DialogFragment {
         return super.onCreateDialog(savedInstanceState);
     }
 
-
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        QMUIKeyboardHelper.showKeyboard(binding.etPwd, false);
+        binding.etPwd.requestFocus();
+        getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+    }
 }

@@ -14,9 +14,12 @@ import com.zonghong.redpacket.activity.chat.GroupDetailActivity;
 import com.zonghong.redpacket.activity.chat.GroupManagerActivity;
 import com.zonghong.redpacket.activity.chat.AddGroupUserActivity;
 import com.zonghong.redpacket.activity.chat.GroupUserListActivity;
+import com.zonghong.redpacket.activity.chat.SearchMessageActivity;
 import com.zonghong.redpacket.activity.chat.SetGroupManagerActivity;
+import com.zonghong.redpacket.activity.common.ComplaintActivity;
 import com.zonghong.redpacket.activity.common.EditTextAreaActivity;
 import com.zonghong.redpacket.activity.common.TextActivity;
+import com.zonghong.redpacket.activity.contacts.ChooseContactsSendMingPianActivity;
 import com.zonghong.redpacket.activity.contacts.ContactsDetailActivity;
 import com.zonghong.redpacket.activity.redpackage.NewRedPackageActivity;
 import com.zonghong.redpacket.activity.redpackage.RedPageResultActivity;
@@ -30,10 +33,13 @@ import com.zonghong.redpacket.activity.user.TransferAccountActivity;
 import com.zonghong.redpacket.activity.user.VerifyCodeActivity;
 import com.zonghong.redpacket.common.AlterTextType;
 import com.zonghong.redpacket.common.CheckCodeType;
+import com.zonghong.redpacket.common.ComplaintType;
 import com.zonghong.redpacket.common.ContactsDetailType;
 import com.zonghong.redpacket.common.QRCodeType;
 import com.zonghong.redpacket.common.RechargeCashType;
 import com.zonghong.redpacket.common.RedPackageType;
+import com.zonghong.redpacket.common.SearchMessageType;
+import com.zonghong.redpacket.common.SendMingPianType;
 import com.zonghong.redpacket.service.UserService;
 
 import java.io.Serializable;
@@ -224,6 +230,30 @@ public class IntentUtils {
         intent.putExtra(MKey.AVATAR, avatar);
         intent.putExtra(MKey.SEX, sex);
         intent.putExtra(MKey.ID, accountId);
+        MAPP.mapp.getCurrentActivity().startActivity(intent);
+    }
+
+
+    public static void intent2ComplaintActivity(ComplaintType type, String toId) {
+        intent = new Intent(MAPP.mapp.getCurrentActivity(), ComplaintActivity.class);
+        intent.putExtra(MKey.TYPE, type);
+        intent.putExtra(MKey.ID, toId);
+        MAPP.mapp.getCurrentActivity().startActivity(intent);
+    }
+
+
+    public static void intent2ChooseSendMingpianActivity(String targetId, SendMingPianType type) {
+        intent = new Intent(MAPP.mapp.getCurrentActivity(), ChooseContactsSendMingPianActivity.class);
+        intent.putExtra(MKey.ID, targetId);
+        intent.putExtra(MKey.TYPE, type);
+        MAPP.mapp.getCurrentActivity().startActivity(intent);
+    }
+
+    public static void intent2SearchMessageActivity(SearchMessageType type, String targetId, String targetName) {
+        intent = new Intent(MAPP.mapp.getCurrentActivity(), SearchMessageActivity.class);
+        intent.putExtra(MKey.ID, targetId);
+        intent.putExtra(MKey.TYPE, type);
+        intent.putExtra(MKey.NAME, targetName);
         MAPP.mapp.getCurrentActivity().startActivity(intent);
     }
 

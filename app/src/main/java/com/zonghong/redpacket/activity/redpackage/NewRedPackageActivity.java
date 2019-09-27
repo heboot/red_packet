@@ -5,6 +5,7 @@ import android.view.View;
 import com.waw.hr.mutils.DialogUtils;
 import com.waw.hr.mutils.MKey;
 import com.waw.hr.mutils.StringUtils;
+import com.waw.hr.mutils.event.UserEvent;
 import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.base.BaseActivity;
 import com.zonghong.redpacket.common.PayDialogType;
@@ -12,6 +13,10 @@ import com.zonghong.redpacket.common.RedPackageType;
 import com.zonghong.redpacket.databinding.ActivityNewRedPackgeBinding;
 import com.zonghong.redpacket.utils.MoneyTextWatcher;
 import com.zonghong.redpacket.view.PayDialog;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class NewRedPackageActivity extends BaseActivity<ActivityNewRedPackgeBinding> {
 
@@ -28,6 +33,7 @@ public class NewRedPackageActivity extends BaseActivity<ActivityNewRedPackgeBind
 
     @Override
     public void initUI() {
+        EventBus.getDefault().register(this);
         setBackVisibility(View.VISIBLE);
         binding.includeToolbar.tvTitle.setText("发红包");
     }
@@ -43,6 +49,11 @@ public class NewRedPackageActivity extends BaseActivity<ActivityNewRedPackgeBind
         } else {
             groupId = (String) getIntent().getExtras().get(MKey.ID);
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(UserEvent.SEND_REDPACKAGE_EVENT event) {
+        finish();
     }
 
     @Override

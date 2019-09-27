@@ -3,6 +3,8 @@ package com.zonghong.redpacket.activity.contacts;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -26,6 +28,7 @@ import com.zonghong.redpacket.http.HttpObserver;
 import com.zonghong.redpacket.rong.RongUtils;
 import com.zonghong.redpacket.service.UserService;
 import com.zonghong.redpacket.utils.IntentUtils;
+import com.zonghong.redpacket.utils.SearchUtils;
 import com.zonghong.redpacket.view.PayDialog;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -71,8 +74,26 @@ public class ChooseContactsActivity extends BaseActivity<FragmentContactsBinding
 
     private View getSearchView() {
         LayoutSearchBinding layoutSearchBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.layout_search, null, false);
-        layoutSearchBinding.etKey.setOnClickListener((v) -> {
-            IntentUtils.doIntent(SearchContactsActivity.class);
+        layoutSearchBinding.etKey.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (StringUtils.isEmpty(charSequence) || charSequence.length() == 0) {
+                    list();
+                    return;
+                }
+                contactsAdapter.setNewData(SearchUtils.searchContacts(contactsAdapter.getData(), charSequence.toString()));
+                contactsAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
         });
         return layoutSearchBinding.getRoot();
     }

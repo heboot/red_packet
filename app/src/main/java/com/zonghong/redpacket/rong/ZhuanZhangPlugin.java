@@ -18,7 +18,7 @@ import io.rong.imlib.model.Conversation;
 public class ZhuanZhangPlugin implements IPluginModule {
     @Override
     public Drawable obtainDrawable(Context context) {
-        Drawable drawable = ContextCompat.getDrawable(context, R.drawable.icon_send_package);
+        Drawable drawable = ContextCompat.getDrawable(context, R.drawable.icon_zhuanzhang);
         return drawable;
     }
 

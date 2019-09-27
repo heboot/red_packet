@@ -25,6 +25,8 @@ import com.zonghong.redpacket.listenter.MyConversationClickListener;
 import com.zonghong.redpacket.listenter.MyGroupInfoProvider;
 import com.zonghong.redpacket.listenter.MyUserInfoProvider;
 import com.zonghong.redpacket.rong.CustomDefaultExtensionModule;
+import com.zonghong.redpacket.rong.MingPianMessage;
+import com.zonghong.redpacket.rong.MingPianMessageView;
 import com.zonghong.redpacket.rong.RedPackageChatMessage;
 import com.zonghong.redpacket.rong.RedPackageChatMessageView;
 import com.zonghong.redpacket.rong.RedPackageChatOpenMessage;
@@ -100,10 +102,13 @@ public class MAPP extends Application {
         RongIM.registerMessageType(RedPackageChatMessage.class);
         RongIM.registerMessageType(RedPackageChatOpenMessage.class);
         RongIM.registerMessageType(RedPackageZhuanZhangChatMessage.class);
+        RongIM.registerMessageType(MingPianMessage.class);
+
         setMyExtensionModule();
         RongIM.getInstance().registerMessageTemplate(new RedPackageChatMessageView());
         RongIM.getInstance().registerMessageTemplate(new RedPackageChatTipMessageView());
         RongIM.getInstance().registerMessageTemplate(new RedPackageZhuanzhangChatMessageView());
+        RongIM.getInstance().registerMessageTemplate(new MingPianMessageView());
     }
 
     public void setMyExtensionModule() {
