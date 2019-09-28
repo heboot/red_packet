@@ -13,6 +13,7 @@ import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.waw.hr.mutils.MStatusBarUtils;
 import com.waw.hr.mutils.rxbus.RxBus;
+import com.zonghong.redpacket.MAPP;
 import com.zonghong.redpacket.R;
 
 import org.greenrobot.eventbus.EventBus;
@@ -159,11 +160,14 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends FragmentAc
     @Override
     protected void onResume() {
         super.onResume();
+        MAPP.isShow = true;
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        dismissLoadingDialog();
+        MAPP.isShow = false;
     }
 
 

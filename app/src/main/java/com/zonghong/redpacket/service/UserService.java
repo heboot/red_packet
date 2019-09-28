@@ -8,6 +8,8 @@ import com.zonghong.redpacket.MAPP;
 import com.zonghong.redpacket.activity.loginregister.LoginActivity;
 import com.zonghong.redpacket.utils.IntentUtils;
 
+import io.rong.imkit.RongIM;
+
 public class UserService {
 
     private String token;
@@ -35,6 +37,7 @@ public class UserService {
         setUserId("");
         setRy_token("");
         setToken("");
+        RongIM.getInstance().logout();
         IntentUtils.doIntent(LoginActivity.class);
     }
 

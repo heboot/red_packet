@@ -3,6 +3,8 @@ package com.zonghong.redpacket.utils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.zonghong.redpacket.R;
 
 public class ImageUtils {
 

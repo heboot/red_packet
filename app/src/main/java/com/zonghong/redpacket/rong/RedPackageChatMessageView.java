@@ -2,6 +2,7 @@ package com.zonghong.redpacket.rong;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
 import android.support.v4.app.FragmentActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -31,10 +32,13 @@ import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import io.rong.imageloader.core.ImageLoader;
 import io.rong.imkit.model.ProviderTag;
 import io.rong.imkit.model.UIMessage;
 import io.rong.imkit.widget.provider.IContainerItemProvider;
 import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.Message;
+import io.rong.message.utils.BitmapUtil;
 
 @ProviderTag(messageContent = RedPackageChatMessage.class, showReadState = true)
 public class RedPackageChatMessageView extends IContainerItemProvider.MessageProvider<RedPackageChatMessage> {
@@ -45,6 +49,14 @@ public class RedPackageChatMessageView extends IContainerItemProvider.MessagePro
         MessageRedpackageChatBinding messageRedpackageChatBinding = DataBindingUtil.bind(view);
         String s = new String(messageContent.encode());
         CreateRedPackageChildBean createRedPackageChildBean = JSON.parseObject(s, CreateRedPackageChildBean.class);
+
+        if (uiMessage.getMessageDirection() == Message.MessageDirection.SEND) {
+            messageRedpackageChatBinding.getRoot().setBackgroundResource(R.drawable.rc_ic_bubble_no_right);
+        } else {
+            messageRedpackageChatBinding.getRoot().setBackgroundResource(R.drawable.rc_ic_bubble_no_left);
+        }
+
+
         messageRedpackageChatBinding.tvDes.setText(createRedPackageChildBean.getDesc());
     }
 

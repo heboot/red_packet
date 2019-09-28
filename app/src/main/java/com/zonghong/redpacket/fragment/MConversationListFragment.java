@@ -93,24 +93,10 @@ public class MConversationListFragment extends BaseFragment<FragmentConversation
 
         conversationListFragment.setUri(uri);
 
-        Conversation.ConversationType[] types = {Conversation.ConversationType.PRIVATE, Conversation.ConversationType.GROUP};
-
-
-        conversationListFragment.getConversationList(types, new IHistoryDataResultCallback<List<Conversation>>() {
-            @Override
-            public void onResult(List<Conversation> conversations) {
-
-                LogUtil.e("会话列表>>>", JSON.toJSONString(conversations));
-            }
-
-            @Override
-            public void onError() {
-
-            }
-        }, false);
-
-
         getFragmentManager().beginTransaction().add(R.id.llyt_container, conversationListFragment).commit();
+
+
+        binding.includeSearch.etKey.setFocusable(false);
 
     }
 
@@ -268,7 +254,7 @@ public class MConversationListFragment extends BaseFragment<FragmentConversation
                     if (result.indexOf("u") > -1) {
                         IntentUtils.intent2ContactsDetailActivity(result.substring(1, result.length()), ContactsDetailType.NORMAL);
                     } else if (result.indexOf("g") > -1) {
-                        addGroup(result);
+                        addGroup(result.substring(1));
 //                        IntentUtils.intent2ContactsDetailActivity(result.substring(1, result.length()), ContactsDetailType.NORMAL);
                     }
                 } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {

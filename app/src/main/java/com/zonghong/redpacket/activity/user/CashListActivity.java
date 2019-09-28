@@ -3,10 +3,14 @@ package com.zonghong.redpacket.activity.user;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.http.HttpClient;
+import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout;
 import com.waw.hr.mutils.DialogUtils;
+import com.waw.hr.mutils.ToastUtils;
 import com.waw.hr.mutils.base.BaseBean;
 import com.waw.hr.mutils.bean.CashListBean;
+import com.zonghong.redpacket.MAPP;
 import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.adapter.CashLogAdapter;
 import com.zonghong.redpacket.base.BaseActivity;
@@ -43,12 +47,28 @@ public class CashListActivity extends BaseActivity<ActivityCashLogBinding> {
 
     @Override
     public void initListener() {
+        binding.mrv.setOnPullListener(new QMUIPullRefreshLayout.OnPullListener() {
+            @Override
+            public void onMoveTarget(int offset) {
 
+            }
+
+            @Override
+            public void onMoveRefreshView(int offset) {
+
+            }
+
+            @Override
+            public void onRefresh() {
+                page = 1;
+                cashList();
+            }
+        });
     }
 
 
     private void cashList() {
-        loadingDialog.show();
+//        loadingDialog.show();
         params = new HashMap<>();
         HttpClient.Builder.getServer().bEmHistory(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<CashListBean>() {
             @Override
@@ -57,6 +77,18 @@ public class CashListActivity extends BaseActivity<ActivityCashLogBinding> {
                 if (cashLogAdapter == null) {
                     if (baseBean.getData() != null) {
                         cashLogAdapter = new CashLogAdapter(baseBean.getData().getList());
+                        cashLogAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+                            @Override
+                            public void onLoadMoreRequested() {
+                                if (page + 1 >= total) {
+                                    cashLogAdapter.loadMoreComplete();
+                                    ToastUtils.show(MAPP.mapp, "已经是最后一页了");
+                                    return;
+                                }
+                                page = page + 1;
+                                cashList();
+                            }
+                        }, binding.rvList);
                         binding.rvList.setAdapter(cashLogAdapter);
                     }
                 } else {
@@ -64,6 +96,7 @@ public class CashListActivity extends BaseActivity<ActivityCashLogBinding> {
                     cashLogAdapter.setNewData(baseBean.getData().getList());
                     cashLogAdapter.notifyDataSetChanged();
                 }
+                cashLogAdapter.loadMoreComplete();
             }
 
             @Override

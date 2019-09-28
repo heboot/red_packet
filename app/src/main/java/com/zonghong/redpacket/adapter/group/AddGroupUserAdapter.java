@@ -31,16 +31,20 @@ public class AddGroupUserAdapter extends BaseQuickAdapter<ContatsFriendBean, Bas
         ItemContactsBinding binding = DataBindingUtil.bind(helper.itemView);
         binding.cb.setVisibility(View.VISIBLE);
 
-        binding.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    item.setCheck(true);
-                } else {
-                    item.setCheck(false);
+        if (item.getExist() == 0) {
+            binding.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if (b) {
+                        item.setCheck(true);
+                    } else {
+                        item.setCheck(false);
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            binding.cb.setOnClickListener(null);
+        }
 
 
         if (item.getExist() == 1) {
@@ -49,7 +53,7 @@ public class AddGroupUserAdapter extends BaseQuickAdapter<ContatsFriendBean, Bas
             binding.cb.setChecked(false);
         }
 
-        binding.tvName.setText(item.getReal_name());
+        binding.tvName.setText(item.getNick_name());
         ImageUtils.showAvatar(item.getImage(), binding.ivAvatar);
 
 //        if (!isChoose) {

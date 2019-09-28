@@ -15,15 +15,27 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"></include>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_list"
+
+        <com.zonghong.redpacket.view.MRefreshView
+            android:id="@+id/mrv"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="#fff"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include_toolbar"></android.support.v7.widget.RecyclerView>
+            app:layout_constraintTop_toBottomOf="@+id/include_toolbar">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#fff"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/include_toolbar"></android.support.v7.widget.RecyclerView>
+        </com.zonghong.redpacket.view.MRefreshView>
 
     </android.support.constraint.ConstraintLayout>
 </layout>

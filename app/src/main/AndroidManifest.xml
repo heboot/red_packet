@@ -13,12 +13,12 @@
     <application
         android:name=".MAPP"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon_app"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/icon_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.loginregister.LoginActivity">
+        <activity android:name=".activity.common.LoadingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,7 +28,22 @@
 
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleInstance"></activity>
+            android:launchMode="singleInstance">
+
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.zonghong.redpacket"
+                    android:pathPrefix="/push_message"
+                    android:scheme="rong" />
+            </intent-filter>
+
+        </activity>
+
+        <activity android:name=".activity.loginregister.LoginActivity"></activity>
 
         <activity android:name=".activity.loginregister.RegisterActivity"></activity>
 
@@ -129,6 +144,7 @@
             android:name=".activity.ConversationActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
+
             android:windowSoftInputMode="stateHidden|adjustResize">
 
             <intent-filter>

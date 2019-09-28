@@ -5,9 +5,11 @@ import com.alibaba.fastjson.JSON;
 import com.waw.hr.mutils.LogUtil;
 import com.waw.hr.mutils.MCode;
 import com.waw.hr.mutils.NetWorkUtils;
+import com.waw.hr.mutils.ToastUtils;
 import com.waw.hr.mutils.base.BaseBean;
 import com.zonghong.redpacket.MAPP;
 import com.zonghong.redpacket.activity.loginregister.LoginActivity;
+import com.zonghong.redpacket.service.UserService;
 import com.zonghong.redpacket.utils.IntentUtils;
 
 import io.reactivex.Observer;
@@ -41,7 +43,8 @@ public abstract class HttpObserver<T> implements Observer<BaseBean<T>> {
         LogUtil.e(TAG, JSON.toJSONString(baseBean));
         if (baseBean.getCode() != MCode.HTTP_CODE.SUCCESS || baseBean == null) {
             if (baseBean.getCode() == MCode.HTTP_CODE.TOKEN_ERROR) {
-                IntentUtils.doIntent(LoginActivity.class);
+//                IntentUtils.doIntent(LoginActivity.class);
+                UserService.getInstance().logout();
             }
             this.disposable.dispose();
             try {
@@ -61,6 +64,7 @@ public abstract class HttpObserver<T> implements Observer<BaseBean<T>> {
 
     @Override
     public void onError(Throwable e) {
+        ToastUtils.show(MAPP.mapp, e.getMessage());
         e.printStackTrace();
     }
 

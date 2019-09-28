@@ -49,12 +49,15 @@ import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.UserInfo;
+import io.rong.push.RongPushClient;
 
 public class MAPP extends Application {
 
     public static MAPP mapp;
 
     private Activity currentActivity;
+
+    public static boolean isShow;
 
 
     @Override
@@ -66,6 +69,8 @@ public class MAPP extends Application {
         registerMessageListener();
         registerProvider();
         ZXingLibrary.initDisplayOpinion(this);
+
+
     }
 
     private void registerProvider() {
