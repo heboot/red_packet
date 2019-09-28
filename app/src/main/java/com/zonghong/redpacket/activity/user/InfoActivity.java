@@ -173,6 +173,11 @@ public class InfoActivity extends BaseActivity<ActivityInfoBinding> {
             public void onSuccess(BaseBean<Object> baseBean) {
                 loadingDialog.dismiss();
                 tipDialog = DialogUtils.getSuclDialog(InfoActivity.this, baseBean.getMsg(), true);
+                if (sex == 1) {
+                    binding.tvSex.setText("男");
+                } else {
+                    binding.tvSex.setText("女");
+                }
                 tipDialog.show();
             }
 

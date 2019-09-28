@@ -16,4 +16,8 @@ public class ImageUtils {
         Glide.with(image.getContext()).load(redId).into(image);
     }
 
+    public static void showImage(String redId, ImageView image) {
+        Glide.with(image.getContext()).load(redId).into(image);
+    }
+
 }

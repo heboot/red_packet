@@ -1,7 +1,5 @@
 package com.zonghong.redpacket.rong;
 
-import android.text.method.Touch;
-
 import com.alibaba.fastjson.JSON;
 import com.waw.hr.mutils.LogUtil;
 import com.waw.hr.mutils.StringUtils;
@@ -16,7 +14,8 @@ import com.zonghong.redpacket.common.SendMingPianType;
 import com.zonghong.redpacket.service.UserService;
 import com.zonghong.redpacket.utils.IntentUtils;
 
-import io.rong.eventbus.EventBus;
+import org.greenrobot.eventbus.EventBus;
+
 import io.rong.imkit.RongIM;
 import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
@@ -55,8 +54,8 @@ public class RongUtils {
             @Override
             public void onSuccess(String userid) {
                 UserService.getInstance().setUserId(userid);
-                EventBus.getDefault().post(new UserEvent.LOGIN_SUC_EVENT());
                 IntentUtils.doIntent(MainActivity.class);
+                EventBus.getDefault().post(new UserEvent.LOGIN_SUC_EVENT());
             }
 
             /**

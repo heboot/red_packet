@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.example.http.HttpClient;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.waw.hr.mutils.base.BaseBean;
 import com.waw.hr.mutils.bean.CreateRedPackageChildBean;
 import com.waw.hr.mutils.bean.GetRedpackageBean;
@@ -58,6 +59,9 @@ public class RedPackageZhuanzhangChatMessageView extends IContainerItemProvider.
 
     @Override
     public void onItemClick(View view, int i, RedPackageZhuanZhangChatMessage messageContent, UIMessage uiMessage) {
+
+
+
         String s = new String(messageContent.encode());
         CreateRedPackageChildBean createRedPackageChildBean = JSON.parseObject(s, CreateRedPackageChildBean.class);
         if (uiMessage.getTargetId().equals(UserService.getInstance().getUserId())) {
@@ -79,7 +83,7 @@ public class RedPackageZhuanzhangChatMessageView extends IContainerItemProvider.
         HttpClient.Builder.getServer().bGetTransfer(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Map>() {
             @Override
             public void onSuccess(BaseBean<Map> baseBean) {
-                IntentUtils.intent2ZhuanzhuangResultActivity((String) baseBean.getData().get("sum"), desc);
+                Toast.makeText(MAPP.mapp, baseBean.getMsg(), Toast.LENGTH_LONG).show();
             }
 
             @Override

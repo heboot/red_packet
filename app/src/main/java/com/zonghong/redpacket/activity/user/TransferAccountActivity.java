@@ -46,7 +46,7 @@ public class TransferAccountActivity extends BaseActivity<ActivityRechargeBindin
 
     private PayDialog payDialog;
 
-    private BankListBean currentBank;
+//    private BankListBean currentBank;
 
     private QMUIDialog qmuiDialog;
 
@@ -78,14 +78,16 @@ public class TransferAccountActivity extends BaseActivity<ActivityRechargeBindin
     public void initData() {
         toId = getIntent().getStringExtra(MKey.USER_ID);
         userInfo();
-        bankList();
+//        bankList();
+        binding.tvCard.setText(UserService.getInstance().getBalance());
     }
+
 
     @Override
     protected void onResume() {
         super.onResume();
         if (qmuiDialog != null) {
-            bankList();
+//            bankList();
             userInfo();
         }
     }
@@ -93,9 +95,6 @@ public class TransferAccountActivity extends BaseActivity<ActivityRechargeBindin
     @Override
     public void initListener() {
         binding.etMoney.addTextChangedListener(new RechargeMoneyTextWatcher(binding.etMoney));
-        binding.tvCard.setOnClickListener((v) -> {
-            IntentUtils.intent2ChooseBankActivity(type);
-        });
         binding.tvSubmit.setOnClickListener((v) -> {
 
 
@@ -112,7 +111,7 @@ public class TransferAccountActivity extends BaseActivity<ActivityRechargeBindin
             }
 
 
-            payDialog = PayDialog.newInstance(PayDialogType.ZHUANZHUANG, Float.parseFloat((String) binding.etMoney.getText().toString()), toId, String.valueOf(currentBank.getID()), userInfoBean.getNick_name());
+            payDialog = PayDialog.newInstance(PayDialogType.ZHUANZHUANG, Float.parseFloat((String) binding.etMoney.getText().toString()), toId, "0", userInfoBean.getNick_name());
             payDialog.show(getSupportFragmentManager(), "");
         });
         binding.includeToolbar.tvRight.setOnClickListener((v) -> {
@@ -121,13 +120,13 @@ public class TransferAccountActivity extends BaseActivity<ActivityRechargeBindin
     }
 
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void onEvent(UserEvent.CHOOSE_BANK_EVENT event) {
-        currentBank = event.getBankListBean();
-        binding.tvCard.setText(event.getBankListBean().getBank_name());
-    }
+//    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+//    public void onEvent(UserEvent.CHOOSE_BANK_EVENT event) {
+////        currentBank = event.getBankListBean();
+//        binding.tvCard.setText(event.getBankListBean().getBank_name());
+//    }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(UserEvent.ZHUANZHUANG_SUC_EVENT event) {
         finish();
     }
@@ -159,7 +158,7 @@ public class TransferAccountActivity extends BaseActivity<ActivityRechargeBindin
                 loadingDialog.dismiss();
                 if (baseBean.getData() != null && baseBean.getData().size() > 0) {
                     binding.tvCard.setText(baseBean.getData().get(0).getBank_name());
-                    currentBank = baseBean.getData().get(0);
+//                    currentBank = baseBean.getData().get(0);
                 } else {
                     if (qmuiDialog == null) {
                         qmuiDialog = new QMUIDialog.MessageDialogBuilder(TransferAccountActivity.this)

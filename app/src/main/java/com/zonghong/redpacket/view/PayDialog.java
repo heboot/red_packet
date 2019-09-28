@@ -156,6 +156,17 @@ public class PayDialog extends DialogFragment {
         getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
     }
 
+    private void setNoChooseView() {
+        binding.rvList.setVisibility(View.GONE);
+        binding.vClose.setVisibility(View.GONE);
+        binding.tvPaytype.setVisibility(View.GONE);
+        binding.tvPaytext.setVisibility(View.GONE);
+        binding.ivClose.setVisibility(View.VISIBLE);
+
+
+        binding.ivIcon.setVisibility(View.GONE);
+        binding.tvTypeTitle.setVisibility(View.GONE);
+    }
 
     private void setChooseView() {
         binding.tvTitle.setText("选择支付方式");
@@ -232,7 +243,6 @@ public class PayDialog extends DialogFragment {
             num = (String) getArguments().get("num");
             remark = (String) getArguments().get("remark");
         } else if (payDialogType == PayDialogType.ZHUANZHUANG) {
-
             nick = getArguments().getString(MKey.NICKNAME);
         }
 
@@ -240,9 +250,11 @@ public class PayDialog extends DialogFragment {
         switch (payDialogType) {
             case CASH:
                 binding.tvType.setText("提现");
+                setNoChooseView();
                 break;
             case RECHARGE:
                 binding.tvType.setText("充值");
+                setNoChooseView();
                 break;
             case CREATE_GROUP:
                 binding.tvType.setText("创建群组");
@@ -250,6 +262,7 @@ public class PayDialog extends DialogFragment {
                 break;
             case ZHUANZHUANG:
                 binding.tvType.setText("转账");
+                setNoChooseView();
 //                setChooseView();
                 break;
             case REDPACKAGE:
@@ -352,7 +365,7 @@ public class PayDialog extends DialogFragment {
         Map params = new HashMap();
         params.put("sum", money);
         params.put("get_user", toId);
-        params.put("bank_id", bankId);
+        params.put("bank_id", 0);
 
 
         HttpClient.Builder.getServer().tTransfer(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
@@ -365,7 +378,7 @@ public class PayDialog extends DialogFragment {
                 createRedPackageChildBean.setNoUserContent("收到" + UserService.getInstance().getUserInfoBean().getNick_name() + "的转账");
                 createRedPackageChildBean.setMoney(money);
                 RongUtils.sendZhuanzhuangRedPackageMessage(createRedPackageChildBean);
-                EventBus.getDefault().postSticky(new UserEvent.CASH_SUC_EVENT());
+                EventBus.getDefault().post(new UserEvent.ZHUANZHUANG_SUC_EVENT());
                 dismiss();
             }
 

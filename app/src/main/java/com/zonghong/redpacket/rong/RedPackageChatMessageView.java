@@ -49,12 +49,12 @@ public class RedPackageChatMessageView extends IContainerItemProvider.MessagePro
         MessageRedpackageChatBinding messageRedpackageChatBinding = DataBindingUtil.bind(view);
         String s = new String(messageContent.encode());
         CreateRedPackageChildBean createRedPackageChildBean = JSON.parseObject(s, CreateRedPackageChildBean.class);
-
-        if (uiMessage.getMessageDirection() == Message.MessageDirection.SEND) {
-            messageRedpackageChatBinding.getRoot().setBackgroundResource(R.drawable.rc_ic_bubble_no_right);
-        } else {
-            messageRedpackageChatBinding.getRoot().setBackgroundResource(R.drawable.rc_ic_bubble_no_left);
-        }
+//
+//        if (uiMessage.getMessageDirection() == Message.MessageDirection.SEND) {
+//            messageRedpackageChatBinding.getRoot().setBackgroundResource(R.drawable.rc_ic_bubble_no_right);
+//        } else {
+//            messageRedpackageChatBinding.getRoot().setBackgroundResource(R.drawable.rc_ic_bubble_no_left);
+//        }
 
 
         messageRedpackageChatBinding.tvDes.setText(createRedPackageChildBean.getDesc());

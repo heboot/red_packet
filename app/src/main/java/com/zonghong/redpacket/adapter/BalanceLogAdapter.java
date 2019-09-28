@@ -26,10 +26,10 @@ public class BalanceLogAdapter extends BaseQuickAdapter<BalanceLogBean, BaseView
     protected void convert(BaseViewHolder helper, BalanceLogBean item) {
         ItemBalanceLogBinding binding = DataBindingUtil.bind(helper.itemView);
 
-        if (Double.parseDouble(item.getMoney()) > 0) {
+        if (Double.parseDouble(item.getSign()) == 1) {
             binding.tvMoney.setTextColor(Color.parseColor("#F8D347"));
             binding.tvMoney.setText("+" + item.getMoney());
-        } else {
+        } else if (Double.parseDouble(item.getSign()) == 2) {
             binding.tvMoney.setTextColor(Color.BLACK);
             binding.tvMoney.setText("-" + item.getMoney());
         }
@@ -48,7 +48,10 @@ public class BalanceLogAdapter extends BaseQuickAdapter<BalanceLogBean, BaseView
                 binding.tvName.setText("提现");
                 break;
             case 4:
-                binding.tvName.setText("群里");
+                binding.tvName.setText("建群");
+                break;
+            case 10:
+                binding.tvName.setText("红包退还");
                 break;
         }
     }

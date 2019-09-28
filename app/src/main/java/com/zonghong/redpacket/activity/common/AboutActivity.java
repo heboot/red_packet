@@ -10,6 +10,7 @@ import com.zonghong.redpacket.base.BaseActivity;
 import com.zonghong.redpacket.databinding.ActivityAboutBinding;
 import com.zonghong.redpacket.http.HttpObserver;
 import com.zonghong.redpacket.service.UserService;
+import com.zonghong.redpacket.utils.ImageUtils;
 
 import java.util.Map;
 
@@ -43,8 +44,9 @@ public class AboutActivity extends BaseActivity<ActivityAboutBinding> {
         HttpClient.Builder.getServer().iRegard(UserService.getInstance().getToken()).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Map>() {
             @Override
             public void onSuccess(BaseBean<Map> baseBean) {
-                binding.tvTitle.setText((String) baseBean.getData().get("title"));
-                binding.tvContent.setText((String) baseBean.getData().get("content"));
+                ImageUtils.showImage((String) baseBean.getData().get("image"), binding.ivLogo);
+                binding.tvTitle.setText((String) baseBean.getData().get("name"));
+                binding.tvContent.setText((String) baseBean.getData().get("recommend"));
             }
 
             @Override

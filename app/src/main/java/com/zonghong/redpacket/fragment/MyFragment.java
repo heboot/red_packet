@@ -154,6 +154,11 @@ public class MyFragment extends BaseFragment<FragmentMyBinding> {
                 ImageUtils.showAvatar(baseBean.getData().getImg(), binding.ivAvatar);
                 binding.tvName.setText(baseBean.getData().getNick_name());
                 UserService.getInstance().setUserInfoBean(baseBean.getData());
+                if (baseBean.getData().getSex() == 1) {
+                    binding.ivSex.setBackgroundResource(R.mipmap.icon_sex_man);
+                } else {
+                    binding.ivSex.setBackgroundResource(R.mipmap.icon_sex_woman);
+                }
                 binding.tvNo.setText(baseBean.getData().getAccount_id());
                 userInfo = new UserInfo(UserService.getInstance().getUserId(), baseBean.getData().getNick_name(), Uri.parse(baseBean.getData().getImg()));
                 RongIM.getInstance().setCurrentUserInfo(userInfo);

@@ -24,10 +24,11 @@
             app:layout_constraintTop_toTopOf="parent"></include>
 
         <ImageView
+            android:id="@+id/iv_logo"
             android:layout_width="@dimen/x80"
             android:layout_height="@dimen/y80"
             android:layout_marginTop="@dimen/y70"
-            android:background="@mipmap/icon_bank"
+            android:src="@mipmap/icon_app"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/include_toolbar" />

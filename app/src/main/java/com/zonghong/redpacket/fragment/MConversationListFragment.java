@@ -145,10 +145,10 @@ public class MConversationListFragment extends BaseFragment<FragmentConversation
             IntentUtils.doIntent(ChooseContactsActivity.class);
             binding.includeMsgMore.getRoot().setVisibility(getView().GONE);
         });
-        binding.includeSearch.getRoot().setOnClickListener((v) -> {
-            IntentUtils.doIntent(SearchContactsActivity.class);
-            binding.includeMsgMore.getRoot().setVisibility(getView().GONE);
-        });
+//        binding.includeSearch.getRoot().setOnClickListener((v) -> {
+//            IntentUtils.doIntent(SearchContactsActivity.class);
+//            binding.includeMsgMore.getRoot().setVisibility(getView().GONE);
+//        });
         binding.includeMsgMore.tvAddFriend.setOnClickListener((v) -> {
             IntentUtils.doIntent(SearchContactsActivity.class);
             binding.includeMsgMore.getRoot().setVisibility(getView().GONE);

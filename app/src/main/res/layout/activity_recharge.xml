@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/x30"
                     android:layout_marginTop="@dimen/y20"
-                    android:text="储蓄卡"
+                    android:text="余额"
                     android:textColor="#ff000000"
                     android:textSize="14sp"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -47,7 +47,7 @@
                     android:layout_width="@dimen/x22"
                     android:layout_height="@dimen/y22"
                     android:layout_marginLeft="@dimen/x13"
-                    android:background="@mipmap/icon_bank"
+                    android:background="@mipmap/icon_balance"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_card_title"
                     app:layout_constraintLeft_toRightOf="@+id/tv_card_title"
                     app:layout_constraintTop_toTopOf="@+id/tv_card_title"></View>

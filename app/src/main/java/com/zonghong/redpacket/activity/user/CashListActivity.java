@@ -81,7 +81,7 @@ public class CashListActivity extends BaseActivity<ActivityCashLogBinding> {
                             @Override
                             public void onLoadMoreRequested() {
                                 if (page + 1 >= total) {
-                                    cashLogAdapter.loadMoreComplete();
+                                    cashLogAdapter.loadMoreEnd();
                                     ToastUtils.show(MAPP.mapp, "已经是最后一页了");
                                     return;
                                 }
@@ -92,8 +92,8 @@ public class CashListActivity extends BaseActivity<ActivityCashLogBinding> {
                         binding.rvList.setAdapter(cashLogAdapter);
                     }
                 } else {
-                    cashLogAdapter.getData().clear();
-                    cashLogAdapter.setNewData(baseBean.getData().getList());
+//                    cashLogAdapter.getData().clear();
+                    cashLogAdapter.addData(baseBean.getData().getList());
                     cashLogAdapter.notifyDataSetChanged();
                 }
                 cashLogAdapter.loadMoreComplete();

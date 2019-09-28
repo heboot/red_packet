@@ -52,7 +52,7 @@ public class BalanceListActivity extends BaseActivity<ActivityCashLogBinding> {
             @Override
             public void onLoadMoreRequested() {
                 if (page + 1 >= total) {
-                    balanceLogAdapter.loadMoreComplete();
+                    balanceLogAdapter.loadMoreEnd();
                     ToastUtils.show(MAPP.mapp, "已经是最后一页了");
                     return;
                 }
@@ -61,6 +61,7 @@ public class BalanceListActivity extends BaseActivity<ActivityCashLogBinding> {
             }
         }, binding.rvList);
         binding.rvList.setAdapter(balanceLogAdapter);
+
         cashList();
     }
 
@@ -88,37 +89,17 @@ public class BalanceListActivity extends BaseActivity<ActivityCashLogBinding> {
 
 
     private void cashList() {
-//        loadingDialog.show();
         params = new HashMap<>();
         params.put("p", page);
         HttpClient.Builder.getServer().bIndex(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<BalanceLogListBean>() {
             @Override
             public void onSuccess(BaseBean<BalanceLogListBean> baseBean) {
                 binding.mrv.finishRefresh();
-                balanceLogAdapter.loadMoreComplete();
-                loadingDialog.dismiss();
+
                 total = baseBean.getData().getTotoalPage();
-//                if (balanceLogAdapter == null) {
-//                    if (baseBean.getData() != null) {
-//                        balanceLogAdapter = new BalanceLogAdapter(baseBean.getData().getList());
-//                        balanceLogAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-//                            @Override
-//                            public void onLoadMoreRequested() {
-//                                if (page + 1 > total) {
-//                                    ToastUtils.show(MAPP.mapp, "已经是最后一页了");
-//                                    return;
-//                                }
-//                                page = page + 1;
-//                                cashList();
-//                            }
-//                        }, binding.rvList);
-//                        binding.rvList.setAdapter(balanceLogAdapter);
-//                    }
-//                } else {
-                balanceLogAdapter.getData().clear();
-                balanceLogAdapter.setNewData(baseBean.getData().getList());
-                balanceLogAdapter.notifyDataSetChanged();
-//                }
+                balanceLogAdapter.addData(baseBean.getData().getList());
+//                balanceLogAdapter.notifyDataSetChanged();
+                balanceLogAdapter.loadMoreComplete();
             }
 
             @Override
