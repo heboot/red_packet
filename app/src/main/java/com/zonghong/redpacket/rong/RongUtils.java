@@ -1,5 +1,7 @@
 package com.zonghong.redpacket.rong;
 
+import android.view.View;
+
 import com.alibaba.fastjson.JSON;
 import com.waw.hr.mutils.LogUtil;
 import com.waw.hr.mutils.StringUtils;
@@ -16,6 +18,11 @@ import com.zonghong.redpacket.utils.IntentUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.List;
+
+import io.rong.imkit.DefaultExtensionModule;
+import io.rong.imkit.IExtensionModule;
+import io.rong.imkit.RongExtensionManager;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
@@ -70,14 +77,17 @@ public class RongUtils {
     }
 
     public static void toGroupChat(String toUserId, String toUserName) {
+        setGroupExtensionModule();
         RongIM.getInstance().startConversation(MAPP.mapp.getCurrentActivity(), Conversation.ConversationType.GROUP, toUserId, toUserName);
     }
 
     public static void toGroupChat(String toUserId, String toUserName, long time) {
+        setGroupExtensionModule();
         RongIM.getInstance().startConversation(MAPP.mapp.getCurrentActivity(), Conversation.ConversationType.GROUP, toUserId, toUserName, time);
     }
 
     public static void toChat(String toUserId, String toUserName) {
+        setPrivateExtensionModule();
         /**
          * 启动单聊界面。
          *
@@ -90,6 +100,7 @@ public class RongUtils {
     }
 
     public static void toChatByTime(String toUserId, String toUserName, long time) {
+        setPrivateExtensionModule();
         /**
          * 启动单聊界面。
          *
@@ -243,6 +254,40 @@ public class RongUtils {
          * @param callback         设置置顶或取消置顶是否成功的回调。
          */
         RongIM.getInstance().setConversationToTop(type, targetId, true, null);
+    }
+
+    public static void setPrivateExtensionModule() {
+        List<IExtensionModule> moduleList = RongExtensionManager.getInstance().getExtensionModules();
+        IExtensionModule defaultModule = null;
+        if (moduleList != null) {
+            for (IExtensionModule module : moduleList) {
+                if (module instanceof DefaultExtensionModule) {
+                    defaultModule = module;
+                    break;
+                }
+            }
+            if (defaultModule != null) {
+                RongExtensionManager.getInstance().unregisterExtensionModule(defaultModule);
+                RongExtensionManager.getInstance().registerExtensionModule(new CustomDefaultExtensionModule());
+            }
+        }
+    }
+
+    public static void setGroupExtensionModule() {
+        List<IExtensionModule> moduleList = RongExtensionManager.getInstance().getExtensionModules();
+        IExtensionModule defaultModule = null;
+        if (moduleList != null) {
+            for (IExtensionModule module : moduleList) {
+                if (module instanceof DefaultExtensionModule) {
+                    defaultModule = module;
+                    break;
+                }
+            }
+            if (defaultModule != null) {
+                RongExtensionManager.getInstance().unregisterExtensionModule(defaultModule);
+                RongExtensionManager.getInstance().registerExtensionModule(new GroupExtensionModule());
+            }
+        }
     }
 
 }

@@ -13,8 +13,10 @@ import android.view.ViewGroup;
 import com.example.http.HttpClient;
 import com.waw.hr.mutils.DialogUtils;
 import com.waw.hr.mutils.StringUtils;
+import com.waw.hr.mutils.ToastUtils;
 import com.waw.hr.mutils.base.BaseBean;
 import com.waw.hr.mutils.bean.NewFriendListBean;
+import com.zonghong.redpacket.MAPP;
 import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.adapter.NewContactsAdapter;
 import com.zonghong.redpacket.base.BaseActivity;
@@ -92,8 +94,7 @@ public class ContactsNewListActivity extends BaseActivity<ActivityNewContactsLis
         HttpClient.Builder.getServer().fConsent(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
-                tipDialog = DialogUtils.getSuclDialog(ContactsNewListActivity.this, baseBean.getMsg(), true);
-                tipDialog.show();
+                ToastUtils.show(MAPP.mapp, baseBean.getMsg());
                 list();
             }
 

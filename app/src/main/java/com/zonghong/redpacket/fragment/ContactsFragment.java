@@ -92,6 +92,12 @@ public class ContactsFragment extends BaseFragment<FragmentContactsBinding> {
                     contactsAdapter.notifyDataSetChanged();
                 }
 
+                if (baseBean.getData().getStayConsentNum() > 0) {
+                    layoutContactsHeadBinding.vNewnum.setVisibility(View.VISIBLE);
+                } else {
+                    layoutContactsHeadBinding.vNewnum.setVisibility(View.GONE);
+                }
+
             }
 
             @Override
@@ -133,8 +139,10 @@ public class ContactsFragment extends BaseFragment<FragmentContactsBinding> {
         return layoutSearchBinding.getRoot();
     }
 
+    private LayoutContactsHeadBinding layoutContactsHeadBinding;
+
     private View getContactsHeadView(boolean hasNew) {
-        LayoutContactsHeadBinding layoutContactsHeadBinding = DataBindingUtil.inflate(LayoutInflater.from(_mActivity), R.layout.layout_contacts_head, null, false);
+        layoutContactsHeadBinding = DataBindingUtil.inflate(LayoutInflater.from(_mActivity), R.layout.layout_contacts_head, null, false);
         if (hasNew) {
             layoutContactsHeadBinding.vNewnum.setVisibility(View.VISIBLE);
         } else {

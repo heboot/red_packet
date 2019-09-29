@@ -1,14 +1,19 @@
 package com.zonghong.redpacket.fragment;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.example.http.HttpClient;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.waw.hr.mutils.DialogUtils;
@@ -40,10 +45,16 @@ import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.UserInfo;
 import io.rong.message.utils.BitmapUtil;
+import pub.devrel.easypermissions.EasyPermissions;
 
 public class MyFragment extends BaseFragment<FragmentMyBinding> {
 
     private int REQUEST_CODE = 988;
+
+
+    private final int RC_CONTACTS = 999;
+
+    private QMUIDialog permissionDialog;
 
     public static MyFragment newInstance() {
         Bundle args = new Bundle();
@@ -61,7 +72,32 @@ public class MyFragment extends BaseFragment<FragmentMyBinding> {
     public void initUI() {
         binding.includeToolbar.vBack.setVisibility(View.GONE);
         binding.includeToolbar.tvTitle.setText("我的");
-
+        permissionDialog = new QMUIDialog.MessageDialogBuilder(_mActivity)
+                .setMessage("系统需要获相机权限")
+                .setTitle("提醒")
+                .addAction("确定", new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        permissionDialog.dismiss();
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            String[] perms = {Manifest.permission.CAMERA};
+                            EasyPermissions.requestPermissions(_mActivity, "系统需要获相机权限",
+                                    RC_CONTACTS, perms);
+                        } else {
+                            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                            Uri uri = Uri.fromParts("package", MAPP.mapp.getApplicationContext().getPackageName(), null);
+                            intent.setData(uri);
+                            MAPP.mapp.startActivity(intent);
+                        }
+                    }
+                })
+                .addAction("退出", new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        permissionDialog.dismiss();
+                    }
+                })
+                .create();
 
     }
 
@@ -94,6 +130,12 @@ public class MyFragment extends BaseFragment<FragmentMyBinding> {
             IntentUtils.doIntent(HelpActivity.class);
         });
         binding.tvScan.setOnClickListener((v) -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (!EasyPermissions.hasPermissions(_mActivity, Manifest.permission.CAMERA)) {
+                    permissionDialog.show();
+                    return;
+                }
+            }
             Intent intent = new Intent(_mActivity, CaptureActivity.class);
             startActivityForResult(intent, REQUEST_CODE);
         });
@@ -130,7 +172,7 @@ public class MyFragment extends BaseFragment<FragmentMyBinding> {
     private void addGroup(String groupId) {
         params = new HashMap<>();
         params.put("group_id", groupId);
-        HttpClient.Builder.getServer().gDelUser(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
+        HttpClient.Builder.getServer().gAddUser(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
                 tipDialog = DialogUtils.getSuclDialog(_mActivity, baseBean.getMsg(), true);

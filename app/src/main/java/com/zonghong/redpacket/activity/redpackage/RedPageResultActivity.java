@@ -39,6 +39,7 @@ public class RedPageResultActivity extends BaseActivity<ActivityRedpackageResult
         ImageUtils.showAvatar(getRedpackageBean.getImageUrl(), binding.ivAvatar);
         redpackageLogAdapter = new RedpackageLogAdapter(getRedpackageBean.getList(), false);
         binding.rvList.setAdapter(redpackageLogAdapter);
+
         binding.tvGetInfo.setText("已领取" + getRedpackageBean.getNumbering() + "/" + getRedpackageBean.getNumber() + "，共" + getRedpackageBean.getSuming() + "/" + getRedpackageBean.getSum() + "元");
     }
 

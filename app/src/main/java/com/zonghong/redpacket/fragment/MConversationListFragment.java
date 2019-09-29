@@ -96,7 +96,7 @@ public class MConversationListFragment extends BaseFragment<FragmentConversation
         getFragmentManager().beginTransaction().add(R.id.llyt_container, conversationListFragment).commit();
 
 
-        binding.includeSearch.etKey.setFocusable(false);
+//        binding.includeSearch.etKey.setFocusable(false);
 
     }
 
@@ -254,7 +254,7 @@ public class MConversationListFragment extends BaseFragment<FragmentConversation
                     if (result.indexOf("u") > -1) {
                         IntentUtils.intent2ContactsDetailActivity(result.substring(1, result.length()), ContactsDetailType.NORMAL);
                     } else if (result.indexOf("g") > -1) {
-                        addGroup(result.substring(1));
+                        addGroup(result.substring(1, result.length()));
 //                        IntentUtils.intent2ContactsDetailActivity(result.substring(1, result.length()), ContactsDetailType.NORMAL);
                     }
                 } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
@@ -267,7 +267,7 @@ public class MConversationListFragment extends BaseFragment<FragmentConversation
     private void addGroup(String groupId) {
         params = new HashMap<>();
         params.put("group_id", groupId);
-        HttpClient.Builder.getServer().gDelUser(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
+        HttpClient.Builder.getServer().gAddUser(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
                 tipDialog = DialogUtils.getSuclDialog(_mActivity, baseBean.getMsg(), true);

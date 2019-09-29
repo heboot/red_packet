@@ -166,7 +166,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                             content = "新消息";
                         }
 
-                        NotificationUtils.showNoti(Integer.parseInt(message.getTargetId()), message.getContent().getUserInfo().getName(), content);
+                        String name = "消息通知";
+
+                        if (message.getContent() != null && message.getContent().getUserInfo() != null) {
+                            name = message.getContent().getUserInfo().getName();
+                        }
+                        NotificationUtils.showNoti(Integer.parseInt(message.getTargetId()), name, content);
                     }
 
                 }
@@ -183,6 +188,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         } else {
             binding.tvUnread.setVisibility(View.GONE);
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(UserEvent.LOGOUT_EVENT event) {
+        finish();
     }
 
 

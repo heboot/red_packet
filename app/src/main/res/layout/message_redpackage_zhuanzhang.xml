@@ -19,19 +19,32 @@
             android:id="@+id/tv_des"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/y25"
-            android:layout_marginRight="@dimen/x17"
+            android:layout_marginLeft="@dimen/x65"
+            android:layout_marginTop="@dimen/y15"
             android:gravity="center"
             android:text="恭喜发财，大吉大利"
             android:textColor="#ffffffff"
             android:textSize="17sp"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/y5"
+            android:layout_marginRight="@dimen/x17"
+            android:gravity="center"
+            android:text="恭喜发财，大吉大利"
+            android:textColor="#ffffffff"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_des"
+            app:layout_constraintTop_toBottomOf="@+id/tv_des" />
 
         <ImageView
             android:layout_width="@dimen/x40"
             android:layout_height="@dimen/x40"
-            android:layout_marginLeft="@dimen/x4"
+            android:layout_marginLeft="@dimen/x10"
             android:layout_marginTop="@dimen/y11"
             android:background="@mipmap/icon_dui"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -45,7 +58,7 @@
             android:gravity="center_vertical"
 
             android:paddingLeft="@dimen/x19"
-            android:text="红包"
+            android:text="转账"
             android:textColor="#fff"
             android:textSize="@dimen/x10"
             app:layout_constraintBottom_toBottomOf="parent"

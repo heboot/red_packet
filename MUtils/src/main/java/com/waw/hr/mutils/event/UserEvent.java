@@ -45,4 +45,9 @@ public class UserEvent {
 
     }
 
+    public static class LOGOUT_EVENT {
+
+    }
+
+
 }

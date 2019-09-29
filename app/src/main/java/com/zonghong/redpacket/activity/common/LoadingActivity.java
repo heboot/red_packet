@@ -43,6 +43,7 @@ public class LoadingActivity extends BaseActivity {
                         RongUtils.connect(UserService.getInstance().getRy_token());
                     } else {
                         IntentUtils.doIntent(LoginActivity.class);
+                        finish();
                     }
                 }
             }
@@ -62,7 +63,6 @@ public class LoadingActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(UserEvent.LOGIN_SUC_EVENT event) {
-        LogUtil.e(TAG, "我要死了");
         finish();
     }
 

@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.example.http.HttpClient;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 import com.waw.hr.mutils.DialogUtils;
 import com.waw.hr.mutils.LogUtil;
@@ -33,7 +34,10 @@ import com.zonghong.redpacket.rong.RedPackageChatOpenMessage;
 import com.zonghong.redpacket.rong.RedPackageChatTipMessageView;
 import com.zonghong.redpacket.rong.RedPackageZhuanZhangChatMessage;
 import com.zonghong.redpacket.rong.RedPackageZhuanzhangChatMessageView;
+import com.zonghong.redpacket.rong.RongUtils;
 import com.zonghong.redpacket.service.UserService;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +45,6 @@ import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import io.rong.eventbus.EventBus;
 import io.rong.imkit.DefaultExtensionModule;
 import io.rong.imkit.IExtensionModule;
 import io.rong.imkit.RongExtensionManager;
@@ -69,7 +72,7 @@ public class MAPP extends Application {
         registerMessageListener();
         registerProvider();
         ZXingLibrary.initDisplayOpinion(this);
-
+        CrashReport.initCrashReport(getApplicationContext(), "74a820fae1", false);
 
     }
 
@@ -117,20 +120,7 @@ public class MAPP extends Application {
     }
 
     public void setMyExtensionModule() {
-        List<IExtensionModule> moduleList = RongExtensionManager.getInstance().getExtensionModules();
-        IExtensionModule defaultModule = null;
-        if (moduleList != null) {
-            for (IExtensionModule module : moduleList) {
-                if (module instanceof DefaultExtensionModule) {
-                    defaultModule = module;
-                    break;
-                }
-            }
-            if (defaultModule != null) {
-                RongExtensionManager.getInstance().unregisterExtensionModule(defaultModule);
-                RongExtensionManager.getInstance().registerExtensionModule(new CustomDefaultExtensionModule());
-            }
-        }
+        RongUtils.setPrivateExtensionModule();
     }
 
 

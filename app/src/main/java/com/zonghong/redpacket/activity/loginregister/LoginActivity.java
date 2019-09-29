@@ -15,12 +15,12 @@ import com.zonghong.redpacket.rong.RongUtils;
 import com.zonghong.redpacket.service.UserService;
 import com.zonghong.redpacket.utils.IntentUtils;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import io.rong.eventbus.EventBus;
 
 public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
     @Override

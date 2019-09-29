@@ -43,7 +43,9 @@
 
         </activity>
 
-        <activity android:name=".activity.loginregister.LoginActivity"></activity>
+        <activity
+            android:name=".activity.loginregister.LoginActivity"
+            android:launchMode="singleInstance"></activity>
 
         <activity android:name=".activity.loginregister.RegisterActivity"></activity>
 

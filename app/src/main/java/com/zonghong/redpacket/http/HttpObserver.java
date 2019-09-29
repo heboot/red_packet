@@ -2,6 +2,7 @@ package com.zonghong.redpacket.http;
 
 
 import com.alibaba.fastjson.JSON;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.waw.hr.mutils.LogUtil;
 import com.waw.hr.mutils.MCode;
 import com.waw.hr.mutils.NetWorkUtils;
@@ -64,8 +65,9 @@ public abstract class HttpObserver<T> implements Observer<BaseBean<T>> {
 
     @Override
     public void onError(Throwable e) {
-        ToastUtils.show(MAPP.mapp, e.getMessage());
-        e.printStackTrace();
+//        ToastUtils.show(MAPP.mapp, e.getMessage());
+        CrashReport.postCatchedException(e);
+//        e.printStackTrace();
     }
 
     @Override

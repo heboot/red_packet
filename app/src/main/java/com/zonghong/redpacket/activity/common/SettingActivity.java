@@ -7,6 +7,7 @@ import com.zonghong.redpacket.activity.common.AboutActivity;
 import com.zonghong.redpacket.activity.user.AccountActivity;
 import com.zonghong.redpacket.base.BaseActivity;
 import com.zonghong.redpacket.databinding.ActivitySettingBinding;
+import com.zonghong.redpacket.service.UserService;
 import com.zonghong.redpacket.utils.IntentUtils;
 
 public class SettingActivity extends BaseActivity<ActivitySettingBinding> {
@@ -34,5 +35,8 @@ public class SettingActivity extends BaseActivity<ActivitySettingBinding> {
             IntentUtils.doIntent(AboutActivity.class);
         });
 
+        binding.tvLogout.setOnClickListener((v) -> {
+            UserService.getInstance().logout();
+        });
     }
 }

@@ -46,10 +46,11 @@ public class RedPackageZhuanzhangChatMessageView extends IContainerItemProvider.
         String s = new String(messageContent.encode());
         CreateRedPackageChildBean createRedPackageChildBean = JSON.parseObject(s, CreateRedPackageChildBean.class);
         if (uiMessage.getTargetId().equals(UserService.getInstance().getUserId())) {
-            messageRedpackageChatBinding.tvDes.setText(createRedPackageChildBean.getNoUserContent());
+            messageRedpackageChatBinding.tvDesc.setText(createRedPackageChildBean.getNoUserContent());
         } else {
-            messageRedpackageChatBinding.tvDes.setText(createRedPackageChildBean.getUserContent());
+            messageRedpackageChatBinding.tvDesc.setText(createRedPackageChildBean.getUserContent());
         }
+        messageRedpackageChatBinding.tvDes.setText(createRedPackageChildBean.getMoney());
     }
 
     @Override
@@ -59,7 +60,6 @@ public class RedPackageZhuanzhangChatMessageView extends IContainerItemProvider.
 
     @Override
     public void onItemClick(View view, int i, RedPackageZhuanZhangChatMessage messageContent, UIMessage uiMessage) {
-
 
 
         String s = new String(messageContent.encode());

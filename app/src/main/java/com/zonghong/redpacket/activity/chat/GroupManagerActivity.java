@@ -39,6 +39,10 @@ public class GroupManagerActivity extends BaseActivity<ActivityGroupManagerBindi
     @Override
     public void initData() {
         groupDetaiInfoBean = (GroupDetaiInfoBean) getIntent().getExtras().get(MKey.ID);
+
+
+        binding.sbBanned.setCheckedNoEvent(groupDetaiInfoBean.getGroupInfo().getBannet_chat() == 1 ? true : false);
+
     }
 
     @Override
@@ -65,7 +69,7 @@ public class GroupManagerActivity extends BaseActivity<ActivityGroupManagerBindi
         params = new HashMap<>();
         params.put("group_id", groupDetaiInfoBean.getGroupInfo().getID() + "");
         params.put("invite_confirm", binding.sbJoinConfirm.isChecked() ? 1 : 0);
-        HttpClient.Builder.getServer().upBannet(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
+        HttpClient.Builder.getServer().upInvite(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
                 tipDialog = DialogUtils.getSuclDialog(GroupManagerActivity.this, baseBean.getMsg(), true);
@@ -84,7 +88,7 @@ public class GroupManagerActivity extends BaseActivity<ActivityGroupManagerBindi
         params = new HashMap<>();
         params.put("group_id", groupDetaiInfoBean.getGroupInfo().getID());
         params.put("bannet_total", binding.sbBanned.isChecked() ? 1 : 0);
-        HttpClient.Builder.getServer().upInvite(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
+        HttpClient.Builder.getServer().upBannet(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
                 tipDialog = DialogUtils.getSuclDialog(GroupManagerActivity.this, baseBean.getMsg(), true);

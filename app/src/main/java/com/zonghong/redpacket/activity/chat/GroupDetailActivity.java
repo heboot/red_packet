@@ -10,6 +10,7 @@ import com.waw.hr.mutils.DialogUtils;
 import com.waw.hr.mutils.MKey;
 import com.waw.hr.mutils.base.BaseBean;
 import com.waw.hr.mutils.bean.GroupDetaiInfoBean;
+import com.waw.hr.mutils.event.GroupEvent;
 import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.adapter.group.GroupUserAdapter;
 import com.zonghong.redpacket.base.BaseActivity;
@@ -22,6 +23,8 @@ import com.zonghong.redpacket.http.HttpObserver;
 import com.zonghong.redpacket.rong.RongUtils;
 import com.zonghong.redpacket.service.UserService;
 import com.zonghong.redpacket.utils.IntentUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -144,6 +147,7 @@ public class GroupDetailActivity extends BaseActivity<ActivityGroupDetailBinding
         HttpClient.Builder.getServer().gDelUser(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
+                EventBus.getDefault().post(new GroupEvent.EXIT_GROUP_EVENT());
                 tipDialog = DialogUtils.getSuclDialog(GroupDetailActivity.this, baseBean.getMsg(), true);
                 tipDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
