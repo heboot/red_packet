@@ -2,30 +2,17 @@ package com.zonghong.redpacket;
 
 import android.app.Activity;
 import android.app.Application;
-import android.net.Uri;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
-import com.example.http.HttpClient;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
-import com.waw.hr.mutils.DialogUtils;
 import com.waw.hr.mutils.LogUtil;
-import com.waw.hr.mutils.MKey;
-import com.waw.hr.mutils.StringUtils;
-import com.waw.hr.mutils.base.BaseBean;
-import com.waw.hr.mutils.bean.GroupMember;
-import com.waw.hr.mutils.bean.SearchContatsBean;
 import com.waw.hr.mutils.event.MessageEvent;
-import com.zonghong.redpacket.activity.contacts.SearchContactsActivity;
-import com.zonghong.redpacket.adapter.SearchContactsAdapter;
-import com.zonghong.redpacket.http.HttpObserver;
 import com.zonghong.redpacket.listenter.MActivtiyLifecycleCallBack;
 import com.zonghong.redpacket.listenter.MyConversationClickListener;
+import com.zonghong.redpacket.listenter.MyConversationListBehaviorListener;
 import com.zonghong.redpacket.listenter.MyGroupInfoProvider;
 import com.zonghong.redpacket.listenter.MyUserInfoProvider;
-import com.zonghong.redpacket.rong.CustomDefaultExtensionModule;
+import com.zonghong.redpacket.rong.DeleteGroupMessageEventMessage;
 import com.zonghong.redpacket.rong.MingPianMessage;
 import com.zonghong.redpacket.rong.MingPianMessageView;
 import com.zonghong.redpacket.rong.RedPackageChatMessage;
@@ -35,24 +22,12 @@ import com.zonghong.redpacket.rong.RedPackageChatTipMessageView;
 import com.zonghong.redpacket.rong.RedPackageZhuanZhangChatMessage;
 import com.zonghong.redpacket.rong.RedPackageZhuanzhangChatMessageView;
 import com.zonghong.redpacket.rong.RongUtils;
-import com.zonghong.redpacket.service.UserService;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-import io.rong.imkit.DefaultExtensionModule;
-import io.rong.imkit.IExtensionModule;
-import io.rong.imkit.RongExtensionManager;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Message;
-import io.rong.imlib.model.UserInfo;
-import io.rong.push.RongPushClient;
 
 public class MAPP extends Application {
 
@@ -80,6 +55,7 @@ public class MAPP extends Application {
         RongIM.setUserInfoProvider(new MyUserInfoProvider(), true);
         RongIM.setGroupInfoProvider(new MyGroupInfoProvider(), true);
         RongIM.setConversationClickListener(new MyConversationClickListener());
+        RongIM.setConversationListBehaviorListener(new MyConversationListBehaviorListener());
     }
 
 
@@ -110,6 +86,7 @@ public class MAPP extends Application {
         RongIM.registerMessageType(RedPackageChatMessage.class);
         RongIM.registerMessageType(RedPackageChatOpenMessage.class);
         RongIM.registerMessageType(RedPackageZhuanZhangChatMessage.class);
+        RongIM.registerMessageType(DeleteGroupMessageEventMessage.class);
         RongIM.registerMessageType(MingPianMessage.class);
 
         setMyExtensionModule();

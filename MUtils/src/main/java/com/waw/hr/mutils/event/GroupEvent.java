@@ -9,4 +9,16 @@ public class GroupEvent {
 
     }
 
+    public static class DELETE_GROUP_MESSAGE_EVENT {
+        private String groupId;
+
+        public DELETE_GROUP_MESSAGE_EVENT(String groupId) {
+            this.groupId = groupId;
+        }
+
+        public String getGroupId() {
+            return groupId;
+        }
+    }
+
 }

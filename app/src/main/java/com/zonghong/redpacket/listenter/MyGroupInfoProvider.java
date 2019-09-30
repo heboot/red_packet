@@ -35,7 +35,7 @@ public class MyGroupInfoProvider implements RongIM.GroupInfoProvider {
         params.put("group_id", s);
 
 
-        HttpClient.Builder.getServer().gIndex(UserService.getInstance().getToken()).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<List<MyGroupBean>>() {
+        HttpClient.Builder.getServer().gIndex(UserService.getInstance().getToken(),params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<List<MyGroupBean>>() {
             @Override
             public void onSuccess(BaseBean<List<MyGroupBean>> baseBean) {
                 if (baseBean.getData() != null && baseBean.getData().size() > 0) {

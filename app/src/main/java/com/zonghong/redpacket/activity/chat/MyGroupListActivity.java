@@ -92,7 +92,7 @@ public class MyGroupListActivity extends BaseActivity<ActivityNewContactsListBin
     }
 
     private void list() {
-        HttpClient.Builder.getServer().gIndex(UserService.getInstance().getToken()).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<List<MyGroupBean>>() {
+        HttpClient.Builder.getServer().gIndex(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<List<MyGroupBean>>() {
             @Override
             public void onSuccess(BaseBean<List<MyGroupBean>> baseBean) {
                 myGroupBeans = baseBean.getData();

@@ -18,6 +18,8 @@ import android.view.animation.Animation;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.waw.hr.mutils.rxbus.RxBus;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -156,6 +158,9 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment i
 
     @Override
     public void onDestroyView() {
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
         mDelegate.onDestroyView();
         super.onDestroyView();
     }

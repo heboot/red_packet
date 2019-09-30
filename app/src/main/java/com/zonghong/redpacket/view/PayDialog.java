@@ -441,7 +441,7 @@ public class PayDialog extends DialogFragment {
         }
 
         if (StringUtils.isEmpty(remark)) {
-            remark = "恭喜发财，大吉大利";
+            remark = "恭喜发财";
         } else {
             remark = remark;
         }

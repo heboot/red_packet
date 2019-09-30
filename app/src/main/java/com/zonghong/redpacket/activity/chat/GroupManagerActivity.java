@@ -72,8 +72,8 @@ public class GroupManagerActivity extends BaseActivity<ActivityGroupManagerBindi
         HttpClient.Builder.getServer().upInvite(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
-                tipDialog = DialogUtils.getSuclDialog(GroupManagerActivity.this, baseBean.getMsg(), true);
-                tipDialog.show();
+//                tipDialog = DialogUtils.getSuclDialog(GroupManagerActivity.this, baseBean.getMsg(), true);
+//                tipDialog.show();
             }
 
             @Override
@@ -91,8 +91,8 @@ public class GroupManagerActivity extends BaseActivity<ActivityGroupManagerBindi
         HttpClient.Builder.getServer().upBannet(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
-                tipDialog = DialogUtils.getSuclDialog(GroupManagerActivity.this, baseBean.getMsg(), true);
-                tipDialog.show();
+//                tipDialog = DialogUtils.getSuclDialog(GroupManagerActivity.this, baseBean.getMsg(), true);
+//                tipDialog.show();
             }
 
             @Override

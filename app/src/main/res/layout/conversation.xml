@@ -49,6 +49,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/tv_right_ic"
                 android:layout_width="@dimen/x25"
                 android:layout_height="@dimen/y5"
                 android:layout_marginRight="@dimen/x10"

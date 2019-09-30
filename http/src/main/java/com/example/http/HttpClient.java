@@ -160,9 +160,9 @@ public interface HttpClient {
     @POST("in/fSCon")
     Observable<BaseBean<List<NewFriendListBean>>> fSCon(@Header("token") String token);
 
-
+    @FormUrlEncoded
     @POST("in/gIndex")
-    Observable<BaseBean<List<MyGroupBean>>> gIndex(@Header("token") String token);
+    Observable<BaseBean<List<MyGroupBean>>> gIndex(@Header("token") String token, @FieldMap Map<String, Object> params);
 
 
     @FormUrlEncoded

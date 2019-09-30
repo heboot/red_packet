@@ -198,8 +198,8 @@ public class ContactsDetailActivity extends BaseActivity<ActivityContactsDetailB
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
                 loadingDialog.dismiss();
-                tipDialog = DialogUtils.getSuclDialog(ContactsDetailActivity.this, baseBean.getMsg(), true);
-                tipDialog.show();
+//                tipDialog = DialogUtils.getSuclDialog(ContactsDetailActivity.this, baseBean.getMsg(), true);
+//                tipDialog.show();
             }
 
             @Override
@@ -219,8 +219,8 @@ public class ContactsDetailActivity extends BaseActivity<ActivityContactsDetailB
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
                 loadingDialog.dismiss();
-                tipDialog = DialogUtils.getSuclDialog(ContactsDetailActivity.this, baseBean.getMsg(), true);
-                tipDialog.show();
+//                tipDialog = DialogUtils.getSuclDialog(ContactsDetailActivity.this, baseBean.getMsg(), true);
+//                tipDialog.show();
             }
 
             @Override
@@ -263,8 +263,8 @@ public class ContactsDetailActivity extends BaseActivity<ActivityContactsDetailB
         HttpClient.Builder.getServer().upAdmInavite(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
-                tipDialog = DialogUtils.getSuclDialog(ContactsDetailActivity.this, baseBean.getMsg(), true);
-                tipDialog.show();
+//                tipDialog = DialogUtils.getSuclDialog(ContactsDetailActivity.this, baseBean.getMsg(), true);
+//                tipDialog.show();
             }
 
             @Override

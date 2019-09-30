@@ -1,9 +1,12 @@
 package com.zonghong.redpacket.fragment;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
@@ -13,6 +16,8 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.example.http.HttpClient;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.waw.hr.mutils.DialogUtils;
@@ -22,6 +27,7 @@ import com.waw.hr.mutils.ToastUtils;
 import com.waw.hr.mutils.base.BaseBean;
 import com.waw.hr.mutils.bean.ContatsListBean;
 import com.waw.hr.mutils.bean.SearchDialogueListBean;
+import com.waw.hr.mutils.event.GroupEvent;
 import com.zonghong.redpacket.MAPP;
 import com.zonghong.redpacket.MainActivity;
 import com.zonghong.redpacket.R;
@@ -40,6 +46,10 @@ import com.zonghong.redpacket.utils.IntentUtils;
 import com.zonghong.redpacket.utils.SearchUtils;
 import com.zonghong.redpacket.view.MsgMorePopView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -49,16 +59,20 @@ import io.reactivex.schedulers.Schedulers;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.ConversationListFragment;
 import io.rong.imkit.fragment.IHistoryDataResultCallback;
+import io.rong.imkit.model.UIConversation;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
+import pub.devrel.easypermissions.EasyPermissions;
 
 public class MConversationListFragment extends BaseFragment<FragmentConversationBinding> {
 
     private ConversationListFragment conversationListFragment;
 
     private int REQUEST_CODE = 988;
-
+    private final int RC_CONTACTS = 999;
     private Consumer<List<Conversation>> listConsumer;
+
+    private QMUIDialog permissionDialog;
 
     private SearchConversationAdapter searchConversationAdapter;
 
@@ -76,6 +90,7 @@ public class MConversationListFragment extends BaseFragment<FragmentConversation
 
     @Override
     public void initUI() {
+        EventBus.getDefault().register(this);
         binding.rvList.setLayoutManager(new LinearLayoutManager(_mActivity, LinearLayoutManager.VERTICAL, false));
         if (conversationListFragment == null) {
             conversationListFragment = new ConversationListFragment();
@@ -95,8 +110,6 @@ public class MConversationListFragment extends BaseFragment<FragmentConversation
 
         getFragmentManager().beginTransaction().add(R.id.llyt_container, conversationListFragment).commit();
 
-
-//        binding.includeSearch.etKey.setFocusable(false);
 
     }
 
@@ -125,6 +138,33 @@ public class MConversationListFragment extends BaseFragment<FragmentConversation
                 }
             }
         };
+        permissionDialog = new QMUIDialog.MessageDialogBuilder(_mActivity)
+                .setMessage("系统需要获相机权限")
+                .setTitle("提醒")
+                .addAction("确定", new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        permissionDialog.dismiss();
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            String[] perms = {Manifest.permission.CAMERA};
+                            EasyPermissions.requestPermissions(_mActivity, "系统需要获相机权限",
+                                    RC_CONTACTS, perms);
+                        } else {
+                            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                            Uri uri = Uri.fromParts("package", MAPP.mapp.getApplicationContext().getPackageName(), null);
+                            intent.setData(uri);
+                            MAPP.mapp.startActivity(intent);
+                        }
+                    }
+                })
+                .addAction("退出", new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        permissionDialog.dismiss();
+                    }
+                })
+                .create();
+
     }
 
     @Override
@@ -154,6 +194,12 @@ public class MConversationListFragment extends BaseFragment<FragmentConversation
             binding.includeMsgMore.getRoot().setVisibility(getView().GONE);
         });
         binding.includeMsgMore.tvScan.setOnClickListener((v) -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (!EasyPermissions.hasPermissions(_mActivity, Manifest.permission.CAMERA)) {
+                    permissionDialog.show();
+                    return;
+                }
+            }
             binding.includeMsgMore.getRoot().setVisibility(getView().GONE);
             Intent intent = new Intent(_mActivity, CaptureActivity.class);
             startActivityForResult(intent, REQUEST_CODE);
@@ -211,6 +257,45 @@ public class MConversationListFragment extends BaseFragment<FragmentConversation
 
             }
         });
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(GroupEvent.DELETE_GROUP_MESSAGE_EVENT event) {
+        RongIM.getInstance().deleteMessages(Conversation.ConversationType.GROUP, event.getGroupId(), new RongIMClient.ResultCallback<Boolean>() {
+            //            @Override
+            public void onSuccess(Boolean aBoolean) {
+//                Conversation.ConversationType[] conversationTypes = {Conversation.ConversationType.GROUP};
+//
+//
+//                conversationListFragment.getConversationList(conversationTypes, new IHistoryDataResultCallback<List<Conversation>>() {
+//                    @Override
+//                    public void onResult(List<Conversation> conversations) {
+//                        for (Conversation conversation : conversations) {
+//                            if (conversation.getTargetId().equals(event.getGroupId())) {
+////                        conversation.setLatestMessage(null);
+//                                conversation.setUnreadMessageCount(0);
+//                                conversationListFragment.updateListItem(UIConversation.obtain(_mActivity, conversation, false));
+//                            }
+//                        }
+//
+////                conversationListFragment.onUnreadCountChanged();
+////                conversationListFragment.onLoad();
+//                    }
+//
+//                    @Override
+//                    public void onError() {
+//
+//                    }
+//                }, false);
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                ToastUtils.show(MAPP.mapp, JSON.toJSONString(errorCode));
+            }
+        });
+
 
     }
 

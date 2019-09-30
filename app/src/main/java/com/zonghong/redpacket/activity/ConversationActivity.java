@@ -5,8 +5,10 @@ import android.net.Uri;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
 
+import com.alibaba.fastjson.JSON;
+import com.waw.hr.mutils.ToastUtils;
 import com.waw.hr.mutils.event.GroupEvent;
-import com.waw.hr.mutils.event.UserEvent;
+import com.zonghong.redpacket.MAPP;
 import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.base.BaseActivity;
 import com.zonghong.redpacket.databinding.ConversationBinding;
@@ -18,6 +20,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import io.rong.imkit.fragment.ConversationFragment;
+import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 
 public class ConversationActivity extends BaseActivity<ConversationBinding> {
@@ -25,6 +28,8 @@ public class ConversationActivity extends BaseActivity<ConversationBinding> {
     private String mTargetId; //目标 Id
     private Conversation.ConversationType mConversationType; //会话类型
     private String title;
+
+    private ConversationFragment conversationFragment;
 
     @Override
     protected int getLayoutId() {
@@ -50,17 +55,19 @@ public class ConversationActivity extends BaseActivity<ConversationBinding> {
         mConversationType = Conversation.ConversationType.valueOf(intent.getData().getLastPathSegment().toUpperCase());
         if (mConversationType == Conversation.ConversationType.PRIVATE) {
             binding.tvRight.setVisibility(View.GONE);
+            binding.tvRightIc.setVisibility(View.GONE);
 //            RongUtils.setPrivateExtensionModule();
         } else {
 //            RongUtils.setGroupExtensionModule();
         }
         FragmentManager fragmentManage = getSupportFragmentManager();
-        ConversationFragment fragement = (ConversationFragment) fragmentManage.findFragmentById(R.id.conversation);
+        conversationFragment = (ConversationFragment) fragmentManage.findFragmentById(R.id.conversation);
         Uri uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
                 .appendPath("conversation").appendPath(mConversationType.getName().toLowerCase())
                 .appendQueryParameter("targetId", mTargetId).build();
 
-        fragement.setUri(uri);
+        conversationFragment.setUri(uri);
+
     }
 
     @Override
@@ -74,6 +81,7 @@ public class ConversationActivity extends BaseActivity<ConversationBinding> {
         });
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -84,11 +92,30 @@ public class ConversationActivity extends BaseActivity<ConversationBinding> {
     protected void onStop() {
         RongUtils.checkUnread();
         super.onStop();
-    }
 
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(GroupEvent.EXIT_GROUP_EVENT event) {
         finish();
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(GroupEvent.DELETE_GROUP_MESSAGE_EVENT event) {
+        RongIMClient.getInstance().deleteMessages(Conversation.ConversationType.GROUP, event.getGroupId(), new RongIMClient.ResultCallback<Boolean>() {
+            //            @Override
+            public void onSuccess(Boolean aBoolean) {
+                conversationFragment.getMessageAdapter().clear();
+                conversationFragment.getMessageAdapter().notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                ToastUtils.show(MAPP.mapp, JSON.toJSONString(errorCode));
+            }
+        });
+    }
 }
+
+

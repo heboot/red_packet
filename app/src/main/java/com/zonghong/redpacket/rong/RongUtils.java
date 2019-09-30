@@ -1,13 +1,12 @@
 package com.zonghong.redpacket.rong;
 
-import android.view.View;
-
 import com.alibaba.fastjson.JSON;
 import com.waw.hr.mutils.LogUtil;
 import com.waw.hr.mutils.StringUtils;
 import com.waw.hr.mutils.bean.CreateRedPackageChildBean;
 import com.waw.hr.mutils.bean.GetRedpackageModel;
 import com.waw.hr.mutils.bean.MingPianBean;
+import com.waw.hr.mutils.event.GroupEvent;
 import com.waw.hr.mutils.event.MessageEvent;
 import com.waw.hr.mutils.event.UserEvent;
 import com.zonghong.redpacket.MAPP;
@@ -24,6 +23,7 @@ import io.rong.imkit.DefaultExtensionModule;
 import io.rong.imkit.IExtensionModule;
 import io.rong.imkit.RongExtensionManager;
 import io.rong.imkit.RongIM;
+import io.rong.imkit.plugin.IPluginModule;
 import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
@@ -279,8 +279,17 @@ public class RongUtils {
         if (moduleList != null) {
             for (IExtensionModule module : moduleList) {
                 if (module instanceof DefaultExtensionModule) {
+                    //            if (defaultModule != null) {
                     defaultModule = module;
-                    break;
+//                RongExtensionManager.getInstance().unregisterExtensionModule(defaultModule);
+//                RongExtensionManager.getInstance().registerExtensionModule(new GroupExtensionModule());
+//            }
+
+//                    for (int i = 0; i < module.getPluginModules(Conversation.ConversationType.GROUP).size(); i++) {
+//                        if (module.getPluginModules(Conversation.ConversationType.GROUP).get(i) instanceof ZhuanZhangPlugin) {
+//                            module.getPluginModules(Conversation.ConversationType.GROUP).remove(i);
+//                        }
+//                    }
                 }
             }
             if (defaultModule != null) {
@@ -288,6 +297,46 @@ public class RongUtils {
                 RongExtensionManager.getInstance().registerExtensionModule(new GroupExtensionModule());
             }
         }
+    }
+
+    public static void sendClearMessage(String groupId) {
+        String str = "{groupId:'" + groupId + "'}";
+        DeleteGroupMessageEventMessage deleteGroupMessageEventMessage = new DeleteGroupMessageEventMessage(str.getBytes());
+        Message message = new Message();
+        message.setConversationType(Conversation.ConversationType.GROUP);
+        message.setTargetId(groupId);
+        message.setContent(deleteGroupMessageEventMessage);
+        message.setMessageDirection(io.rong.imlib.model.Message.MessageDirection.SEND);
+        RongIM.getInstance().sendMessage(message, "", "", new IRongCallback.ISendMessageCallback() {
+            @Override
+            public void onAttached(Message message) {
+                LogUtil.e("SEND MESSAGE", "onAttached");
+            }
+
+            @Override
+            public void onSuccess(Message message) {
+                LogUtil.e("SEND MESSAGE", "onSuccess");
+            }
+
+            @Override
+            public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+                LogUtil.e("SEND MESSAGE", "onError");
+            }
+        });
+    }
+
+    public static void deleteGroupMessage(String groupId) {
+//        RongIMClient.getInstance().deleteMessages(Conversation.ConversationType.GROUP, groupId, new RongIMClient.ResultCallback<Boolean>() {
+//            @Override
+//            public void onSuccess(Boolean aBoolean) {
+        EventBus.getDefault().post(new GroupEvent.DELETE_GROUP_MESSAGE_EVENT(groupId));
+//            }
+
+//            @Override
+//            public void onError(RongIMClient.ErrorCode errorCode) {
+//                ToastUtils.show(MAPP.mapp, JSON.toJSONString(errorCode));
+//            }
+//        });
     }
 
 }

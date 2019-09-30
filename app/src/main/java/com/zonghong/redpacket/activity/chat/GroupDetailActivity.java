@@ -51,6 +51,7 @@ public class GroupDetailActivity extends BaseActivity<ActivityGroupDetailBinding
 
     @Override
     public void initUI() {
+        loadingDialog = DialogUtils.getLoadingDialog(this, "", false);
         setBackVisibility(View.VISIBLE);
         binding.includeToolbar.tvTitle.setText("聊天详情");
         binding.rvList.setLayoutManager(new GridLayoutManager(this, 4));
@@ -58,6 +59,7 @@ public class GroupDetailActivity extends BaseActivity<ActivityGroupDetailBinding
 
     @Override
     public void initData() {
+        loadingDialog.show();
         groupId = getIntent().getExtras().getString(MKey.ID);
         gInfo();
     }
@@ -120,7 +122,8 @@ public class GroupDetailActivity extends BaseActivity<ActivityGroupDetailBinding
                 RongIM.getInstance().deleteMessages(Conversation.ConversationType.GROUP, groupId, new RongIMClient.ResultCallback<Boolean>() {
                     @Override
                     public void onSuccess(Boolean aBoolean) {
-                        tipDialog = DialogUtils.getFailDialog(GroupDetailActivity.this, "清除成功", true);
+                        RongUtils.sendClearMessage(groupId);
+                        tipDialog = DialogUtils.getSuclDialog(GroupDetailActivity.this, "清除成功", true);
                         tipDialog.show();
                     }
 
@@ -172,8 +175,8 @@ public class GroupDetailActivity extends BaseActivity<ActivityGroupDetailBinding
         HttpClient.Builder.getServer().upRejct(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
-                tipDialog = DialogUtils.getSuclDialog(GroupDetailActivity.this, baseBean.getMsg(), true);
-                tipDialog.show();
+//                tipDialog = DialogUtils.getSuclDialog(GroupDetailActivity.this, baseBean.getMsg(), true);
+//                tipDialog.show();
             }
 
             @Override
@@ -191,8 +194,8 @@ public class GroupDetailActivity extends BaseActivity<ActivityGroupDetailBinding
         HttpClient.Builder.getServer().upChaTop(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
-                tipDialog = DialogUtils.getSuclDialog(GroupDetailActivity.this, baseBean.getMsg(), true);
-                tipDialog.show();
+//                tipDialog = DialogUtils.getSuclDialog(GroupDetailActivity.this, baseBean.getMsg(), true);
+//                tipDialog.show();
             }
 
             @Override
@@ -210,12 +213,14 @@ public class GroupDetailActivity extends BaseActivity<ActivityGroupDetailBinding
         HttpClient.Builder.getServer().gInfo(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<GroupDetaiInfoBean>() {
             @Override
             public void onSuccess(BaseBean<GroupDetaiInfoBean> baseBean) {
+                dismissLoadingDialog();
                 groupDetaiInfoBean = baseBean.getData();
                 showGroupInfo(baseBean.getData());
             }
 
             @Override
             public void onError(BaseBean<GroupDetaiInfoBean> baseBean) {
+                dismissLoadingDialog();
                 tipDialog = DialogUtils.getFailDialog(GroupDetailActivity.this, baseBean.getMsg(), true);
                 tipDialog.show();
             }

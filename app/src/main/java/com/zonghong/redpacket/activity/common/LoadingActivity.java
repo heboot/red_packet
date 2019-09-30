@@ -1,5 +1,7 @@
 package com.zonghong.redpacket.activity.common;
 
+import android.content.Intent;
+
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.waw.hr.mutils.LogUtil;
 import com.waw.hr.mutils.MStatusBarUtils;
@@ -23,6 +25,9 @@ import io.reactivex.disposables.Disposable;
 public class LoadingActivity extends BaseActivity {
     @Override
     protected int getLayoutId() {
+        if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
+            finish();
+        }
         return R.layout.activity_loading;
     }
 
