@@ -90,7 +90,7 @@ public class ContactsDetailActivity extends BaseActivity<ActivityContactsDetailB
                 userInfoBean = baseBean.getData();
                 binding.tvName.setText(userInfoBean.getNick_name());
                 ImageUtils.showAvatar(userInfoBean.getImg(), binding.ivAvatar);
-                binding.tvNo.setText(userInfoBean.getAccount_id());
+                binding.tvNo.setText("简易号"+userInfoBean.getAccount_id());
 //                查看用户的信息对当前用户的关系; 0处于非好友;  2是处于好友;
                 if (userInfoBean.getStatus() == 0) {
                     binding.tvSetRemark.setVisibility(View.GONE);

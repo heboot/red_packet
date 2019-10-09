@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 
 import com.zonghong.redpacket.common.ContactsDetailType;
+import com.zonghong.redpacket.rong.RedPackageChatMessage;
 import com.zonghong.redpacket.utils.IntentUtils;
 
 import io.rong.imkit.RongIM;
@@ -81,6 +82,9 @@ public class MyConversationClickListener implements RongIM.ConversationClickList
      */
     @Override
     public boolean onMessageLongClick(Context context, View view, Message message) {
+        if(message.getContent() instanceof RedPackageChatMessage){
+            return true;
+        }
         return false;
     }
 }

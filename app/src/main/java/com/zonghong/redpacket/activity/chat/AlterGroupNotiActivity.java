@@ -57,7 +57,7 @@ public class AlterGroupNotiActivity extends BaseActivity<ActivityEditTextBinding
 
         params.put("group_id", groupId);
         params.put("notice", binding.tvContent.getText().toString());
-        HttpClient.Builder.getServer().gTitle(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
+        HttpClient.Builder.getServer().gNoice(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
                 tipDialog = DialogUtils.getSuclDialog(AlterGroupNotiActivity.this, baseBean.getMsg(), true);

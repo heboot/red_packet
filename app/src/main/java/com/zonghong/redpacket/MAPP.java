@@ -2,6 +2,7 @@ package com.zonghong.redpacket;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 
 import com.tencent.bugly.crashreport.CrashReport;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
@@ -54,6 +55,12 @@ public class MAPP extends Application {
     private void registerProvider() {
         RongIM.setUserInfoProvider(new MyUserInfoProvider(), true);
         RongIM.setGroupInfoProvider(new MyGroupInfoProvider(), true);
+        RongIM.setLocationProvider(new RongIM.LocationProvider() {
+            @Override
+            public void onStartLocation(Context context, LocationCallback locationCallback) {
+
+            }
+        });
         RongIM.setConversationClickListener(new MyConversationClickListener());
         RongIM.setConversationListBehaviorListener(new MyConversationListBehaviorListener());
     }

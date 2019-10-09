@@ -80,7 +80,7 @@ public class AddGroupUserActivity extends BaseActivity<FragmentContactsBinding> 
     private void addUser() {
         params = new HashMap<>();
         params.put("group_id", groupId);
-        params.put("user_id", checkIds.substring(0, checkIds.length()));
+        params.put("user_id", checkIds.substring(0, checkIds.length()-1));
         HttpClient.Builder.getServer().gAddUser(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {

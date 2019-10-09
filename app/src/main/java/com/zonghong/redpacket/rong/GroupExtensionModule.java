@@ -3,8 +3,10 @@ package com.zonghong.redpacket.rong;
 import java.util.List;
 
 import io.rong.imkit.DefaultExtensionModule;
+import io.rong.imkit.plugin.DefaultLocationPlugin;
 import io.rong.imkit.plugin.IPluginModule;
 import io.rong.imkit.widget.provider.FilePlugin;
+import io.rong.imkit.widget.provider.LocationPlugin;
 import io.rong.imlib.model.Conversation;
 
 public class GroupExtensionModule extends DefaultExtensionModule {
@@ -18,6 +20,7 @@ public class GroupExtensionModule extends DefaultExtensionModule {
                 pluginModules.remove(i);
             }
         }
+        pluginModules.add(new DefaultLocationPlugin());
         pluginModules.add(new RedpackagePlugin());
 //        pluginModules.add(new ZhuanZhangPlugin());
         pluginModules.add(new MingpianPlugin());

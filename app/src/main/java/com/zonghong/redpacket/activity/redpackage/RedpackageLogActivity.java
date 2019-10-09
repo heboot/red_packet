@@ -59,6 +59,9 @@ public class RedpackageLogActivity extends BaseActivity<ActivityRedpackageLogBin
     private View getHeadView() {
         headRedpackageLogBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.head_redpackage_log, null, false);
         headRedpackageLogBinding.tvName.setText(UserService.getInstance().getUserInfoBean().getNick_name() + "收到的红包");
+        headRedpackageLogBinding.vBack.setOnClickListener(view->{
+            finish();
+        });
         ImageUtils.showAvatar(UserService.getInstance().getUserInfoBean().getImg(), headRedpackageLogBinding.ivAvatar);
         headRedpackageLogBinding.tvRedpackageLog.setOnClickListener((v) -> {
             if (filterSheet == null) {

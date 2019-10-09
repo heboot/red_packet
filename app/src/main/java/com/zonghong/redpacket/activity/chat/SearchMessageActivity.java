@@ -87,18 +87,18 @@ public class SearchMessageActivity extends BaseActivity<ActivitySearchMessageBin
                     @Override
                     public void onSuccess(List<Message> messages) {
 
-                        for (Message message : messages) {
-                            TextMessage textMessage = new TextMessage(message.getContent().encode());
-                            String content = textMessage.getContent();
-                            if (content.indexOf(charSequence.toString()) > -1) {
-                                resultMessageList.add(message);
+                        if(messages != null){
+                            for (Message message : messages) {
+                                TextMessage textMessage = new TextMessage(message.getContent().encode());
+                                String content = textMessage.getContent();
+                                if (content.indexOf(charSequence.toString()) > -1) {
+                                    resultMessageList.add(message);
+                                }
                             }
+
+                            searchMessageAdapter.setNewData(resultMessageList);
+                            searchMessageAdapter.notifyDataSetChanged();
                         }
-
-
-                        searchMessageAdapter.setNewData(resultMessageList);
-                        searchMessageAdapter.notifyDataSetChanged();
-//                LogUtil.e(TAG, JSON.toJSONString(messages));
 
                     }
 

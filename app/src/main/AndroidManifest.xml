@@ -19,8 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.common.LoadingActivity"
-            android:launchMode="standard">
+            android:name=".activity.common.LoadingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -158,9 +157,11 @@
                     android:scheme="rong" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.user.AlterTextActivity" />
 
-
+        <!-- 高德地图-->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="替换你申请的高德地图 ApiKey" />
     </application>
 
 </manifest>

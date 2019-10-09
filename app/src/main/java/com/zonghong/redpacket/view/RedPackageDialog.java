@@ -14,10 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
 import android.widget.Toast;
 
 import com.example.http.HttpClient;
 import com.waw.hr.mutils.MKey;
+import com.waw.hr.mutils.ToastUtils;
 import com.waw.hr.mutils.base.BaseBean;
 import com.waw.hr.mutils.bean.CreateRedPackageChildBean;
 import com.waw.hr.mutils.bean.GetRedpackageBean;
@@ -82,6 +84,8 @@ public class RedPackageDialog extends DialogFragment {
         getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
     }
 
+    private RedpackageAnimation myYAnimation;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -100,12 +104,36 @@ public class RedPackageDialog extends DialogFragment {
         binding.tvDesc.setText(createRedPackageChildBean.getDesc());
 
         binding.vOpen.setOnClickListener((v) -> {
-            createRedpackage();
+            myYAnimation = new RedpackageAnimation();
+            myYAnimation.setRepeatCount(1); //旋转的次数（无数次）
+            binding.vOpen.startAnimation(myYAnimation);
+            myYAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    createRedpackage();
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
         });
         binding.vClose.setOnClickListener((v) -> {
             dismiss();
         });
         return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        myYAnimation.cancel();
+        super.onDestroy();
     }
 
     @Override
@@ -129,6 +157,7 @@ public class RedPackageDialog extends DialogFragment {
                     }
                     RongUtils.sendRedPackageOpenMessage(getRedpackageModel);
                     IntentUtils.intent2RedPackageOpenActivity(baseBean.getData());
+
                     dismiss();
                 }
 //                GetRedpackageBean

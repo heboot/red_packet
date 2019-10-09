@@ -46,7 +46,7 @@ public class SearchContactsActivity extends BaseActivity<ActivitySearchContactsB
     @Override
     public void initData() {
         loadingDialog = DialogUtils.getLoadingDialog(this, "", false);
-        binding.tvMyNo.setText("我的ID：" + UserService.getInstance().getUserInfoBean().getAccount_id());
+        binding.tvMyNo.setText("我的简易号：" + UserService.getInstance().getUserInfoBean().getAccount_id());
     }
 
     @Override

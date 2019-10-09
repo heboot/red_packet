@@ -201,7 +201,7 @@ public class MyFragment extends BaseFragment<FragmentMyBinding> {
                 } else {
                     binding.ivSex.setBackgroundResource(R.mipmap.icon_sex_woman);
                 }
-                binding.tvNo.setText(baseBean.getData().getAccount_id());
+                binding.tvNo.setText("简易号"+baseBean.getData().getAccount_id());
                 userInfo = new UserInfo(UserService.getInstance().getUserId(), baseBean.getData().getNick_name(), Uri.parse(baseBean.getData().getImg()));
                 RongIM.getInstance().setCurrentUserInfo(userInfo);
                 RongIM.getInstance().setMessageAttachedUserInfo(true);
