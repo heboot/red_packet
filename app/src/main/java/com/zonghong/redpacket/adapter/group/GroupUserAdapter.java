@@ -51,7 +51,7 @@ public class GroupUserAdapter extends BaseQuickAdapter<GroupDetaiInfoBean.GroupU
             } else if (!StringUtils.isEmpty(item.getOption()) && item.getOption().equals("jian")) {
                 IntentUtils.intent2DelGroupUserActivtiy(groupId);
             } else {
-                IntentUtils.intent2ContactsDetailActivity(item.getUser_id() + "", groupId, admin > 1 ? ContactsDetailType.GROUP : ContactsDetailType.NORMAL);
+                IntentUtils.intent2ContactsDetailActivity(item.getUser_id() + "", groupId, admin, ContactsDetailType.GROUP );
             }
         });
 

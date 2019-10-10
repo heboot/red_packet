@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <include
+            android:id="@+id/include_toolbar"
+            layout="@layout/layout_toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></include>
+
+        <com.qmuiteam.qmui.layout.QMUILinearLayout
+            android:id="@+id/qlyt_input"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y140"
+            android:layout_marginLeft="@dimen/x15"
+            android:layout_marginTop="@dimen/y20"
+            android:layout_marginRight="@dimen/x15"
+            android:background="#fff"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_toolbar">
+
+            <EditText
+                android:id="@+id/et_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/x10"
+                android:background="@null"
+                android:gravity="left"
+                android:hint="请输入您的建议或投诉内容"
+                android:textColorHint="#B3B3B3"
+                android:textSize="15sp"></EditText>
+
+        </com.qmuiteam.qmui.layout.QMUILinearLayout>
+
+        <com.qmuiteam.qmui.layout.QMUILinearLayout
+            android:id="@+id/qlyt_lianxi"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y55"
+            android:layout_marginLeft="@dimen/x15"
+            android:layout_marginTop="@dimen/y15"
+            android:layout_marginRight="@dimen/x15"
+            android:background="#fff"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/qlyt_input">
+
+            <EditText
+                android:id="@+id/et_lianxi"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/x10"
+                android:background="@null"
+                android:gravity="left|center_vertical"
+                android:hint="请输入您的建议或投诉内容"
+                android:textColorHint="#B3B3B3"
+                android:textSize="15sp"></EditText>
+
+        </com.qmuiteam.qmui.layout.QMUILinearLayout>
+
+        <com.qmuiteam.qmui.layout.QMUILinearLayout
+            android:id="@+id/qlyt_submit"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y55"
+            android:layout_marginLeft="@dimen/x15"
+            android:layout_marginTop="@dimen/y15"
+            android:layout_marginRight="@dimen/x15"
+            android:background="#1F2732"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/qlyt_lianxi">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="提交"
+                android:textColor="#fff9d456"
+                android:textSize="18sp" />
+        </com.qmuiteam.qmui.layout.QMUILinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

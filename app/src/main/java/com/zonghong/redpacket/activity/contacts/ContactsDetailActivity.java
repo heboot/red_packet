@@ -9,11 +9,8 @@ import com.waw.hr.mutils.DialogUtils;
 import com.waw.hr.mutils.MKey;
 import com.waw.hr.mutils.StringUtils;
 import com.waw.hr.mutils.base.BaseBean;
-import com.waw.hr.mutils.bean.SearchContatsBean;
 import com.waw.hr.mutils.bean.UserInfoBean;
 import com.zonghong.redpacket.R;
-import com.zonghong.redpacket.activity.chat.GroupDetailActivity;
-import com.zonghong.redpacket.activity.chat.GroupManagerActivity;
 import com.zonghong.redpacket.base.BaseActivity;
 import com.zonghong.redpacket.common.AlterTextType;
 import com.zonghong.redpacket.common.ComplaintType;
@@ -26,7 +23,6 @@ import com.zonghong.redpacket.utils.ImageUtils;
 import com.zonghong.redpacket.utils.IntentUtils;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -42,6 +38,8 @@ public class ContactsDetailActivity extends BaseActivity<ActivityContactsDetailB
     private String userId;
 
     private String groupId;
+
+    private int admin;
 
     @Override
     protected int getLayoutId() {
@@ -60,11 +58,22 @@ public class ContactsDetailActivity extends BaseActivity<ActivityContactsDetailB
 //        searchContatsBean = (SearchContatsBean) getIntent().getExtras().get(MKey.DATA);
         userId = getIntent().getStringExtra(MKey.USER_ID);
         contactsDetailType = (ContactsDetailType) getIntent().getExtras().get(MKey.TYPE);
+
         if (contactsDetailType == ContactsDetailType.GROUP) {
+            admin = (int) getIntent().getExtras().get(MKey.ADRID);
+            if (admin > 1) {
+                binding.sbBanned.setVisibility(View.VISIBLE);
+                binding.tvClose.setVisibility(View.VISIBLE);
+            }
+            binding.tvAddgroupType.setVisibility(View.VISIBLE);
             groupId = getIntent().getStringExtra(MKey.ID);
-            binding.tvClose.setVisibility(View.VISIBLE);
-            binding.sbBanned.setVisibility(View.VISIBLE);
+
+
+        } else {
+            binding.tvAddgroupType.setVisibility(View.GONE);
         }
+
+
         userInfo();
     }
 
@@ -90,7 +99,7 @@ public class ContactsDetailActivity extends BaseActivity<ActivityContactsDetailB
                 userInfoBean = baseBean.getData();
                 binding.tvName.setText(userInfoBean.getNick_name());
                 ImageUtils.showAvatar(userInfoBean.getImg(), binding.ivAvatar);
-                binding.tvNo.setText("简易号"+userInfoBean.getAccount_id());
+                binding.tvNo.setText("简易号" + userInfoBean.getAccount_id());
 //                查看用户的信息对当前用户的关系; 0处于非好友;  2是处于好友;
                 if (userInfoBean.getStatus() == 0) {
                     binding.tvSetRemark.setVisibility(View.GONE);
@@ -116,6 +125,8 @@ public class ContactsDetailActivity extends BaseActivity<ActivityContactsDetailB
                     }
                     binding.sbAddBlack.setVisibility(View.VISIBLE);
                 }
+
+                binding.tvAddgroupType.setText("进群方式       " + userInfoBean.getSource());
 
             }
 

@@ -15,12 +15,13 @@ public class GroupExtensionModule extends DefaultExtensionModule {
     @Override
     public List<IPluginModule> getPluginModules(Conversation.ConversationType conversationType) {
         List<IPluginModule> pluginModules = super.getPluginModules(conversationType);
+
         for (int i = 0; i < pluginModules.size(); i++) {
             if (pluginModules.get(i) instanceof FilePlugin) {
                 pluginModules.remove(i);
             }
         }
-        pluginModules.add(new DefaultLocationPlugin());
+//        pluginModules.add(new MyLocationPlugin());
         pluginModules.add(new RedpackagePlugin());
 //        pluginModules.add(new ZhuanZhangPlugin());
         pluginModules.add(new MingpianPlugin());

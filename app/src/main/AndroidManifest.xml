@@ -9,7 +9,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-
     <application
         android:name=".MAPP"
         android:allowBackup="true"
@@ -127,6 +126,15 @@
         <activity android:name=".activity.contacts.ChooseContactsSendMingPianActivity"></activity>
 
         <activity android:name=".activity.chat.SearchMessageActivity"></activity>
+
+        <activity android:name=".activity.common.ComplaintActivity2"></activity>
+
+        <activity android:name=".activity.common.TongyongActivity"></activity>
+
+        <activity android:name=".activity.common.SafeActivity"></activity>
+
+        <activity android:name=".activity.chat.ForbidRedpackageUserActivity"></activity>
+
 
         <provider
             android:name="android.support.v4.content.FileProvider"

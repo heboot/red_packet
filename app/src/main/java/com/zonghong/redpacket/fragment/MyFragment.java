@@ -22,7 +22,10 @@ import com.waw.hr.mutils.base.BaseBean;
 import com.waw.hr.mutils.bean.UserInfoBean;
 import com.zonghong.redpacket.MAPP;
 import com.zonghong.redpacket.R;
+import com.zonghong.redpacket.activity.common.ComplaintActivity2;
 import com.zonghong.redpacket.activity.common.HelpActivity;
+import com.zonghong.redpacket.activity.common.SafeActivity;
+import com.zonghong.redpacket.activity.common.TongyongActivity;
 import com.zonghong.redpacket.activity.user.InfoActivity;
 import com.zonghong.redpacket.activity.user.MyBankActivity;
 import com.zonghong.redpacket.activity.common.SettingActivity;
@@ -138,6 +141,15 @@ public class MyFragment extends BaseFragment<FragmentMyBinding> {
             }
             Intent intent = new Intent(_mActivity, CaptureActivity.class);
             startActivityForResult(intent, REQUEST_CODE);
+        });
+        binding.tvTousu.setOnClickListener(view->{
+            IntentUtils.doIntent(ComplaintActivity2.class);
+        });
+        binding.tvTongyong.setOnClickListener(view->{
+            IntentUtils.doIntent(TongyongActivity.class);
+        });
+        binding.tvYinsi.setOnClickListener(view->{
+            IntentUtils.doIntent(SafeActivity.class);
         });
     }
 

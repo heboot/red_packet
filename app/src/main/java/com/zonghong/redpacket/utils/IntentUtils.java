@@ -10,6 +10,7 @@ import com.zonghong.redpacket.MAPP;
 import com.zonghong.redpacket.activity.chat.AlterGroupNotiActivity;
 import com.zonghong.redpacket.activity.chat.ChatDetailActivity;
 import com.zonghong.redpacket.activity.chat.DelGroupUserActivity;
+import com.zonghong.redpacket.activity.chat.ForbidRedpackageUserActivity;
 import com.zonghong.redpacket.activity.chat.GroupDetailActivity;
 import com.zonghong.redpacket.activity.chat.GroupManagerActivity;
 import com.zonghong.redpacket.activity.chat.AddGroupUserActivity;
@@ -89,13 +90,14 @@ public class IntentUtils {
         MAPP.mapp.getCurrentActivity().startActivity(intent);
     }
 
-    public static void intent2ContactsDetailActivity(String userId, String groupId, ContactsDetailType contactsDetailType) {
+    public static void intent2ContactsDetailActivity(String userId, String groupId,int admin, ContactsDetailType contactsDetailType) {
         if (UserService.getInstance().getUserId().equals(userId)) {
             return;
         }
         intent = new Intent(MAPP.mapp.getCurrentActivity(), ContactsDetailActivity.class);
 
         intent.putExtra(MKey.USER_ID, userId);
+        intent.putExtra(MKey.ADRID, admin);
         intent.putExtra(MKey.ID, groupId);
         intent.putExtra(MKey.TYPE, contactsDetailType);
         MAPP.mapp.getCurrentActivity().startActivity(intent);
@@ -196,6 +198,13 @@ public class IntentUtils {
         intent.putExtra(MKey.ID, groupId);
         MAPP.mapp.getCurrentActivity().startActivity(intent);
     }
+
+    public static void intent2SetGroupForbidRedpackageActivtiy(GroupDetaiInfoBean groupId) {
+        intent = new Intent(MAPP.mapp.getCurrentActivity(), ForbidRedpackageUserActivity.class);
+        intent.putExtra(MKey.ID, groupId);
+        MAPP.mapp.getCurrentActivity().startActivity(intent);
+    }
+
 
     public static void intent2AddGroupUserActivtiy(String groupId) {
         intent = new Intent(MAPP.mapp.getCurrentActivity(), AddGroupUserActivity.class);

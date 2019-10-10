@@ -10,7 +10,7 @@
     <!-- 消息通道保活 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!-- 定位，如果您不需要定位相关的功能，可以删掉 -->
-    <!--<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application>
 

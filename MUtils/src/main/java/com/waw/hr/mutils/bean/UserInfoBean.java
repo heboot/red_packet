@@ -26,6 +26,16 @@ public class UserInfoBean implements Serializable {
     //查看用户的信息对当前用户的关系; 0处于非好友; 1是处于待同意; 2是处于好友; 4是处于黑名单
     private int status;
 
+    private String source;
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
     public int getBlack() {
         return black;
     }

@@ -21,6 +21,7 @@ import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.adapter.NewContactsAdapter;
 import com.zonghong.redpacket.base.BaseActivity;
 import com.zonghong.redpacket.databinding.ActivityNewContactsListBinding;
+import com.zonghong.redpacket.databinding.LayoutAddPhoneContactsBinding;
 import com.zonghong.redpacket.databinding.LayoutSearchBinding;
 import com.zonghong.redpacket.http.HttpObserver;
 import com.zonghong.redpacket.service.UserService;
@@ -54,6 +55,10 @@ public class ContactsNewListActivity extends BaseActivity<ActivityNewContactsLis
     @Override
     public void initData() {
         binding.rvList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+        newContactsAdapter = new NewContactsAdapter(null, new WeakReference<>(ContactsNewListActivity.this));
+        newContactsAdapter.addHeaderView(getSearchView());
+        newContactsAdapter.addHeaderView(getAddByPhoneView());
+        binding.rvList.setAdapter(newContactsAdapter);
     }
 
     @Override
@@ -74,8 +79,7 @@ public class ContactsNewListActivity extends BaseActivity<ActivityNewContactsLis
                         binding.rvList.setAdapter(newContactsAdapter);
                     }
                 } else {
-                    newContactsAdapter.getData().clear();
-                    newContactsAdapter.setNewData(baseBean.getData());
+                    newContactsAdapter.addData(baseBean.getData());
                     newContactsAdapter.notifyDataSetChanged();
                 }
 
@@ -106,6 +110,14 @@ public class ContactsNewListActivity extends BaseActivity<ActivityNewContactsLis
         });
     }
 
+    private View getAddByPhoneView(){
+        LayoutAddPhoneContactsBinding layoutAddPhoneContactsBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.layout_add_phone_contacts, null, false);
+        layoutAddPhoneContactsBinding.getRoot().setOnClickListener(viwe->{
+            // TODO: 2019/10/10 0010 去手机通讯录加人
+        });
+        layoutAddPhoneContactsBinding.getRoot().setLayoutParams(new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDimensionPixelOffset(R.dimen.y85)));
+        return layoutAddPhoneContactsBinding.getRoot();
+    }
 
     private View getSearchView() {
         LayoutSearchBinding layoutSearchBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.layout_search, null, false);

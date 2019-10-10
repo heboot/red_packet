@@ -15,10 +15,12 @@ import com.waw.hr.mutils.bean.GroupDetaiInfoBean;
 import com.waw.hr.mutils.bean.GroupInfoBean;
 import com.waw.hr.mutils.bean.GroupUserListBean;
 import com.waw.hr.mutils.bean.HelpBean;
+import com.waw.hr.mutils.bean.IntiveUserBean;
 import com.waw.hr.mutils.bean.LoginBean;
 import com.waw.hr.mutils.bean.MyGroupBean;
 import com.waw.hr.mutils.bean.NewFriendListBean;
 import com.waw.hr.mutils.bean.RedpackageLogBean;
+import com.waw.hr.mutils.bean.SafePrivacyBean;
 import com.waw.hr.mutils.bean.SearchContatsBean;
 import com.waw.hr.mutils.bean.SearchDialogueListBean;
 import com.waw.hr.mutils.bean.UserInfoBean;
@@ -150,7 +152,9 @@ public interface HttpClient {
     @FormUrlEncoded
     @POST("in/gAdmin")
     Observable<BaseBean<Object>> gAdmin(@Header("token") String token, @FieldMap Map<String, Object> params);
-
+    @FormUrlEncoded
+    @POST("in/setAuth")
+    Observable<BaseBean<Object>> setAuth(@Header("token") String token, @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
     @POST("in/gDelUser")
@@ -223,6 +227,32 @@ public interface HttpClient {
 
 
     @FormUrlEncoded
+    @POST("in/setIncrease")
+    Observable<BaseBean<Object>> setIncrease(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("in/searchAccount")
+    Observable<BaseBean<Object>> searchAccount(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("in/searchPhone")
+    Observable<BaseBean<Object>> searchPhone(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("in/setFriendCheck")
+    Observable<BaseBean<Object>> setFriendCheck(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+
+
+    @FormUrlEncoded
+    @POST("in/complaintToApp")
+    Observable<BaseBean<Object>> complaintToApp(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("in/getSafePrivacy")
+    Observable<BaseBean<SafePrivacyBean>> getSafePrivacy(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
     @POST("in/upBannet")
     Observable<BaseBean<Object>> upBannet(@Header("token") String token, @FieldMap Map<String, Object> params);
 
@@ -243,6 +273,14 @@ public interface HttpClient {
     @FormUrlEncoded
     @POST("in/upInvite")
     Observable<BaseBean<Object>> upInvite(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("in/executeOperation")
+    Observable<BaseBean<Object>> executeOperation(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("in/waitConsent")
+    Observable<BaseBean<List<IntiveUserBean.ListBean>>> waitConsent(@Header("token") String token, @FieldMap Map<String, Object> params);
 
 
     @FormUrlEncoded

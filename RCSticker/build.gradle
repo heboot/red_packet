@@ -31,6 +31,8 @@ dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
     api 'com.android.support:appcompat-v7:26.1.0'
     api project(':IMKit')
+//    api 'cn.rongcloud.sdk:im_kit:2.9.18'
+    api project(':MUtils')
 }
 
 //生成 jar 名字

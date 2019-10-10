@@ -43,8 +43,17 @@ public class GroupUserListBean {
         private int sex;
         private String nick_name;
         private String image;
+        private int disabled;
 
         private boolean check;
+
+        public int getDisabled() {
+            return disabled;
+        }
+
+        public void setDisabled(int disabled) {
+            this.disabled = disabled;
+        }
 
         public boolean isCheck() {
             return check;

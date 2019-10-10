@@ -35,7 +35,7 @@ public class GroupUserListAdapter extends BaseQuickAdapter<GroupUserListBean.GUs
         binding.tvName.setText(item.getNick_name());
 
         binding.getRoot().setOnClickListener(view -> {
-            IntentUtils.intent2ContactsDetailActivity(item.getUser_id() + "", groupId, admin > 1 ? ContactsDetailType.GROUP : ContactsDetailType.NORMAL);
+            IntentUtils.intent2ContactsDetailActivity(item.getUser_id() + "", groupId, admin, ContactsDetailType.GROUP);
         });
 
     }

@@ -78,14 +78,34 @@
             android:layout_height="@dimen/y55"
             android:layout_marginTop="@dimen/y10"
             android:background="#fff"
+            android:drawableRight="@mipmap/icon_arrow_right"
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/x15"
+            android:paddingRight="@dimen/x15"
             android:text="设置备注"
             android:textColor="#ff000000"
             android:textSize="18sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/v1" />
+
+
+        <TextView
+            android:id="@+id/tv_addgroup_type"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y55"
+            android:layout_marginTop="@dimen/y1"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/x15"
+            android:paddingRight="@dimen/x15"
+            android:text="进群方式"
+            android:textColor="#ff000000"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_set_remark" />
+
 
 
         <TextView
@@ -101,7 +121,7 @@
             android:textSize="17sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_set_remark" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_addgroup_type" />
 
         <com.kyleduo.switchbutton.SwitchButton
             android:id="@+id/sb_add_black"
@@ -169,8 +189,10 @@
             android:layout_height="@dimen/y55"
             android:layout_marginTop="@dimen/y1"
             android:background="#fff"
+            android:drawableRight="@mipmap/icon_arrow_right"
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/x15"
+            android:paddingRight="@dimen/x15"
             android:text="投诉"
             android:textColor="#ff000000"
             android:textSize="17sp"
