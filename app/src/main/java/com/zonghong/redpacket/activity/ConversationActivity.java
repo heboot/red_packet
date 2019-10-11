@@ -1,5 +1,6 @@
 package com.zonghong.redpacket.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.FragmentManager;
@@ -8,16 +9,20 @@ import android.view.View;
 import com.alibaba.fastjson.JSON;
 import com.waw.hr.mutils.ToastUtils;
 import com.waw.hr.mutils.event.GroupEvent;
+import com.waw.hr.mutils.event.MessageEvent;
 import com.zonghong.redpacket.MAPP;
 import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.base.BaseActivity;
 import com.zonghong.redpacket.databinding.ConversationBinding;
+import com.zonghong.redpacket.fragment.MConversationFragment;
 import com.zonghong.redpacket.rong.RongUtils;
 import com.zonghong.redpacket.utils.IntentUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.io.File;
 
 import io.rong.imkit.fragment.ConversationFragment;
 import io.rong.imlib.RongIMClient;
@@ -29,7 +34,7 @@ public class ConversationActivity extends BaseActivity<ConversationBinding> {
     private Conversation.ConversationType mConversationType; //会话类型
     private String title;
 
-    private ConversationFragment conversationFragment;
+    private MConversationFragment conversationFragment;
 
     @Override
     protected int getLayoutId() {
@@ -61,7 +66,7 @@ public class ConversationActivity extends BaseActivity<ConversationBinding> {
 //            RongUtils.setGroupExtensionModule();
         }
         FragmentManager fragmentManage = getSupportFragmentManager();
-        conversationFragment = (ConversationFragment) fragmentManage.findFragmentById(R.id.conversation);
+        conversationFragment = (MConversationFragment) fragmentManage.findFragmentById(R.id.conversation);
         Uri uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
                 .appendPath("conversation").appendPath(mConversationType.getName().toLowerCase())
                 .appendQueryParameter("targetId", mTargetId).build();
@@ -116,6 +121,14 @@ public class ConversationActivity extends BaseActivity<ConversationBinding> {
             }
         });
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(MessageEvent.SEND_CUSTOM_BIAOQING_EVENT event) {
+       RongUtils.sendCustonBiaoqingMessage(mTargetId,mConversationType,event.getExpressionListBean().getImage());
+    }
+
+
+
 }
 
 

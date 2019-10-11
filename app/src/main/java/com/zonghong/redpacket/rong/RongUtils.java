@@ -1,6 +1,23 @@
 package com.zonghong.redpacket.rong;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.graphics.drawable.DrawableCompat;
+import android.util.Base64;
+
 import com.alibaba.fastjson.JSON;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.Request;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.SizeReadyCallback;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.waw.hr.mutils.LogUtil;
 import com.waw.hr.mutils.StringUtils;
 import com.waw.hr.mutils.bean.CreateRedPackageChildBean;
@@ -17,17 +34,19 @@ import com.zonghong.redpacket.utils.IntentUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.File;
 import java.util.List;
 
 import io.rong.imkit.DefaultExtensionModule;
 import io.rong.imkit.IExtensionModule;
 import io.rong.imkit.RongExtensionManager;
 import io.rong.imkit.RongIM;
-import io.rong.imkit.plugin.IPluginModule;
 import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
+import io.rong.message.ImageMessage;
+import io.rong.sticker.util.FileUtil;
 
 public class RongUtils {
     /**
@@ -297,6 +316,62 @@ public class RongUtils {
                 RongExtensionManager.getInstance().registerExtensionModule(new GroupExtensionModule());
             }
         }
+    }
+
+    public static void sendCustonBiaoqingMessage(String to, Conversation.ConversationType conversationType, String url) {
+
+       Glide.with(MAPP.mapp).asFile().load(url).into(new SimpleTarget<File>() {
+           @Override
+           public void onLoadStarted(@Nullable Drawable placeholder) {
+               LogUtil.e("下载onLoadStarted","");
+           }
+
+           @Override
+           public void onLoadFailed(@Nullable Drawable errorDrawable) {
+               LogUtil.e("下载onLoadFailed","");
+           }
+
+           @Override
+           public void onResourceReady(@NonNull File resource, @Nullable Transition<? super File> transition) {
+                LogUtil.e("下载",resource+""  );
+                if( resource!=null){
+                    LogUtil.e("下载2",resource.getPath()+"");
+                    ImageMessage imageMessage = ImageMessage.obtain(Uri.fromFile(resource),Uri.fromFile(resource),true);
+                    Message message = Message.obtain(to, conversationType, imageMessage);
+                    message.setMessageDirection(io.rong.imlib.model.Message.MessageDirection.SEND);
+
+                    RongIM.getInstance().sendImageMessage(message,"","", new RongIMClient.SendImageMessageCallback() {
+                        @Override
+                        public void onAttached(Message message) {
+                            LogUtil.e("发送图片","onAttached");
+                        }
+
+                        @Override
+                        public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+                            LogUtil.e("发送图片","onError"  + JSON.toJSONString(errorCode));
+                        }
+
+                        @Override
+                        public void onSuccess(Message message) {
+                            LogUtil.e("发送图片","onSuccess"  );
+
+                        }
+
+                        @Override
+                        public void onProgress(Message message, int i) {
+
+                        }
+                    });
+                }
+           }
+
+
+
+       });
+
+
+
+
     }
 
     public static void sendClearMessage(String groupId) {

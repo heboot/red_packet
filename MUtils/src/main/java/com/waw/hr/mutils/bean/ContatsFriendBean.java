@@ -18,8 +18,36 @@ public class ContatsFriendBean {
     private String image;
     private String chart;
     private int exist;
+    private int user_id;
+    private int is_friend;
+    private String username;
+
 
     private boolean isCheck;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public int getIs_friend() {
+        return is_friend;
+    }
+
+    public void setIs_friend(int is_friend) {
+        this.is_friend = is_friend;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
 
     public String getNick_name() {
         return nick_name;

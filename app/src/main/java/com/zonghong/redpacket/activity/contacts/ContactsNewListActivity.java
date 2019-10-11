@@ -114,6 +114,7 @@ public class ContactsNewListActivity extends BaseActivity<ActivityNewContactsLis
         LayoutAddPhoneContactsBinding layoutAddPhoneContactsBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.layout_add_phone_contacts, null, false);
         layoutAddPhoneContactsBinding.getRoot().setOnClickListener(viwe->{
             // TODO: 2019/10/10 0010 去手机通讯录加人
+            IntentUtils.doIntent(PhoneContactsActivity.class);
         });
         layoutAddPhoneContactsBinding.getRoot().setLayoutParams(new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDimensionPixelOffset(R.dimen.y85)));
         return layoutAddPhoneContactsBinding.getRoot();

@@ -164,7 +164,24 @@ public class ChooseContactsActivity extends BaseActivity<FragmentContactsBinding
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onEvent(UserEvent.PAY_SUC_EVENT event) {
-        newgroup();
+        crePayMon();
+    }
+
+
+    private void crePayMon() {
+        params.put("user_list", checkIds);
+        HttpClient.Builder.getServer().crePayMon(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
+            @Override
+            public void onSuccess(BaseBean<Object> baseBean) {
+                newgroup();
+            }
+
+            @Override
+            public void onError(BaseBean<Object> baseBean) {
+                tipDialog = DialogUtils.getFailDialog(ChooseContactsActivity.this, baseBean.getMsg(), true);
+                tipDialog.show();
+            }
+        });
     }
 
 

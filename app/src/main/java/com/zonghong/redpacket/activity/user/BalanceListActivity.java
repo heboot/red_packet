@@ -94,6 +94,9 @@ public class BalanceListActivity extends BaseActivity<ActivityCashLogBinding> {
         HttpClient.Builder.getServer().bIndex(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<BalanceLogListBean>() {
             @Override
             public void onSuccess(BaseBean<BalanceLogListBean> baseBean) {
+                if(baseBean.getData().getList() == null || baseBean.getData().getList().size() == 0){
+                    return;
+                }
                 binding.mrv.finishRefresh();
 
                 total = baseBean.getData().getTotoalPage();

@@ -10,6 +10,7 @@ import com.waw.hr.mutils.bean.ContatsChildBean;
 import com.waw.hr.mutils.bean.ContatsListBean;
 import com.waw.hr.mutils.bean.CreateRedPackageBean;
 import com.waw.hr.mutils.bean.CreateRedPackageChildBean;
+import com.waw.hr.mutils.bean.CustomBiaoqingListBean;
 import com.waw.hr.mutils.bean.GetRedpackageBean;
 import com.waw.hr.mutils.bean.GroupDetaiInfoBean;
 import com.waw.hr.mutils.bean.GroupInfoBean;
@@ -82,6 +83,11 @@ public interface HttpClient {
     @POST("in/editHeadImg")
     Observable<BaseBean<Object>> editHeadImg(@Header("token") String token, @Part MultipartBody.Part img);
 
+    @FormUrlEncoded
+    @Multipart
+    @POST("in/createExpression")
+    Observable<BaseBean<Object>> createExpression(@Header("token") String token, @Part MultipartBody.Part img, @FieldMap Map<String, Object> params);
+
 
     @FormUrlEncoded
     @POST("in/upNName")
@@ -132,6 +138,10 @@ public interface HttpClient {
 
 
     @FormUrlEncoded
+    @POST("in/addressList")
+    Observable<BaseBean<ContatsListBean>> addressList(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
     @POST("in/gAddUser")
     Observable<BaseBean<Object>> gAddUser(@Header("token") String token, @FieldMap Map<String, Object> params);
 
@@ -152,6 +162,7 @@ public interface HttpClient {
     @FormUrlEncoded
     @POST("in/gAdmin")
     Observable<BaseBean<Object>> gAdmin(@Header("token") String token, @FieldMap Map<String, Object> params);
+
     @FormUrlEncoded
     @POST("in/setAuth")
     Observable<BaseBean<Object>> setAuth(@Header("token") String token, @FieldMap Map<String, Object> params);
@@ -167,6 +178,10 @@ public interface HttpClient {
     @FormUrlEncoded
     @POST("in/gIndex")
     Observable<BaseBean<List<MyGroupBean>>> gIndex(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("in/getExpression")
+    Observable<BaseBean< List<CustomBiaoqingListBean.ExpressionListBean>>> getExpression(@Header("token") String token, @FieldMap Map<String, Object> params);
 
 
     @FormUrlEncoded
@@ -243,7 +258,6 @@ public interface HttpClient {
     Observable<BaseBean<Object>> setFriendCheck(@Header("token") String token, @FieldMap Map<String, Object> params);
 
 
-
     @FormUrlEncoded
     @POST("in/complaintToApp")
     Observable<BaseBean<Object>> complaintToApp(@Header("token") String token, @FieldMap Map<String, Object> params);
@@ -282,6 +296,10 @@ public interface HttpClient {
     @POST("in/waitConsent")
     Observable<BaseBean<List<IntiveUserBean.ListBean>>> waitConsent(@Header("token") String token, @FieldMap Map<String, Object> params);
 
+
+    @FormUrlEncoded
+    @POST("in/crePayMon")
+    Observable<BaseBean<Object>> crePayMon(@Header("token") String token, @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
     @POST("in/gTitle")

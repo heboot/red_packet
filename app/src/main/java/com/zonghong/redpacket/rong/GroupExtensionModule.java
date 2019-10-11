@@ -1,8 +1,11 @@
 package com.zonghong.redpacket.rong;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.rong.imkit.DefaultExtensionModule;
+import io.rong.imkit.emoticon.EmojiTab;
+import io.rong.imkit.emoticon.IEmoticonTab;
 import io.rong.imkit.plugin.DefaultLocationPlugin;
 import io.rong.imkit.plugin.IPluginModule;
 import io.rong.imkit.widget.provider.FilePlugin;
@@ -27,5 +30,15 @@ public class GroupExtensionModule extends DefaultExtensionModule {
         pluginModules.add(new MingpianPlugin());
         return pluginModules;
     }
+
+    @Override
+    public List<IEmoticonTab> getEmoticonTabs() {
+        List<IEmoticonTab> list = new ArrayList<>();
+        EmojiTab emojiTab = new EmojiTab();
+        list.add(emojiTab);
+        list.add(new MyEmoticon());
+        return list;
+    }
+
 
 }

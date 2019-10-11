@@ -138,7 +138,9 @@ public class SearchContactsActivity extends BaseActivity<ActivitySearchContactsB
             Intent intent = new Intent(this, CaptureActivity.class);
             startActivityForResult(intent, REQUEST_CODE);
         });
-
+        binding.tvPhoneContacts.setOnClickListener(view -> {
+            IntentUtils.doIntent(PhoneContactsActivity.class);
+        });
     }
 
     @Override
