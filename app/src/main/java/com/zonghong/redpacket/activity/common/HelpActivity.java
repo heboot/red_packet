@@ -55,7 +55,8 @@ public class HelpActivity extends BaseActivity<ActivityHelpBinding> {
                 topAdapter = new HelpAdapter((List<Map>) baseBean.getData().getTop());
                 bottomAdapter = new HelpAdapter((List<Map>) baseBean.getData().getBottom());
                 binding.rvTop.setAdapter(topAdapter);
-                binding.rvBottom.setAdapter(bottomAdapter);
+//                binding.rvBottom.setAdapter(bottomAdapter);
+                binding.rvBottom.setVisibility(View.GONE);
             }
 
             @Override

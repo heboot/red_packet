@@ -1,5 +1,6 @@
 package com.zonghong.redpacket.activity.chat;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,6 +12,8 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.waw.hr.mutils.DialogUtils;
 import com.waw.hr.mutils.base.BaseBean;
 import com.waw.hr.mutils.bean.CustomBiaoqingListBean;
@@ -25,6 +28,7 @@ import com.zonghong.redpacket.service.UserService;
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -39,6 +43,7 @@ public class CustomBiaoqingManagerActivity extends BaseActivity<ActivityBiaoqing
 
     private CustomBiaoqingListBean.ExpressionListBean expressionListBean;
 
+    private QMUIDialog qmuiDialog;
 
     private QMUIBottomSheet chooseAvatarSheet;
 
@@ -52,15 +57,16 @@ public class CustomBiaoqingManagerActivity extends BaseActivity<ActivityBiaoqing
 
     @Override
     public void initUI() {
-
+        setBackVisibility(View.VISIBLE);
+        binding.includeToolbar.tvTitle.setText("表情管理");
     }
 
     @Override
     public void initData() {
 
-        loadingDialog = DialogUtils.getLoadingDialog(this,"",false);
+        loadingDialog = DialogUtils.getLoadingDialog(this, "", false);
 
-        binding.rvList.setLayoutManager(new GridLayoutManager(MAPP.mapp,4));
+        binding.rvList.setLayoutManager(new GridLayoutManager(MAPP.mapp, 4));
         expressionListBean = new CustomBiaoqingListBean.ExpressionListBean();
         expressionListBean.setAdd(true);
         list();
@@ -72,7 +78,7 @@ public class CustomBiaoqingManagerActivity extends BaseActivity<ActivityBiaoqing
     }
 
 
-    public void selectPic(){
+    public void selectPic() {
         if (chooseAvatarSheet == null) {
             chooseAvatarSheet = DialogUtils.getAvatarBottomSheet(CustomBiaoqingManagerActivity.this, new QMUIBottomSheet.BottomListSheetBuilder.OnSheetItemClickListener() {
                 @Override
@@ -91,9 +97,8 @@ public class CustomBiaoqingManagerActivity extends BaseActivity<ActivityBiaoqing
                         PictureSelector.create(CustomBiaoqingManagerActivity.this)
                                 .openGallery(PictureMimeType.ofImage())
                                 .isGif(true)
-                                .compress(true)
+//                                .compress(true)
                                 .maxSelectNum(1).enableCrop(false)
-                                .compress(true).withAspectRatio(1, 1)
                                 .forResult(REQUEST_PHOTO);
                         chooseAvatarSheet.dismiss();
                     }
@@ -115,7 +120,12 @@ public class CustomBiaoqingManagerActivity extends BaseActivity<ActivityBiaoqing
             // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
             // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
             // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
-            avatarPath = selectList.get(0).getCompressPath();
+            if (selectList.get(0).isCompressed()) {
+                avatarPath = selectList.get(0).getCompressPath();
+            } else {
+                avatarPath = selectList.get(0).getPath();
+            }
+
 
             uploadAvatar();
 //                UploadUtils.uploadImage(selectList.get(0).getCompressPath(), UploadUtils.getIDCardPath(), upCompletionHandler);
@@ -129,16 +139,19 @@ public class CustomBiaoqingManagerActivity extends BaseActivity<ActivityBiaoqing
         loadingDialog.show();
 
         File file = new File(avatarPath);
+        RequestBody requestFile;
+        if (avatarPath.endsWith("gif")) {
+            requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        } else {
+            requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        }
+        requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
 
-        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
 
         MultipartBody.Part body = MultipartBody.Part.createFormData("expression", file.getName(), requestFile);
 
-        params = new ArrayMap<>();
 
-        params.put("img_type",avatarPath.endsWith("gif")?2:1);
-
-        HttpClient.Builder.getServer().createExpression(UserService.getInstance().getToken(), body,params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
+        HttpClient.Builder.getServer().createExpression(UserService.getInstance().getToken(), body).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
                 dismissLoadingDialog();
@@ -157,9 +170,53 @@ public class CustomBiaoqingManagerActivity extends BaseActivity<ActivityBiaoqing
     }
 
 
-
     private List<CustomBiaoqingListBean.ExpressionListBean> datas = new ArrayList<>();
+//    https://zonghongkeji.cn/redPacket/public/in/delPression
 
+    public void del(String eid) {
+        qmuiDialog = new QMUIDialog.MessageDialogBuilder(this)
+                .setMessage("确定要删除表情吗")
+                .addAction("取消", new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        qmuiDialog.dismiss();
+                    }
+                })
+                .addAction("确定", new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        qmuiDialog.dismiss();
+                        doDel(eid);
+                    }
+                })
+                .create();
+        qmuiDialog.show();
+    }
+
+    private void doDel(String eid) {
+        params = new HashMap<>();
+        params.put("expre_id", eid);
+        HttpClient.Builder.getServer().delPression(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
+            @Override
+            public void onSuccess(BaseBean<Object> baseBean) {
+                tipDialog = DialogUtils.getSuclDialog(CustomBiaoqingManagerActivity.this, baseBean.getMsg(), true);
+                tipDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        list();
+                    }
+                });
+                tipDialog.show();
+
+            }
+
+            @Override
+            public void onError(BaseBean<Object> baseBean) {
+                tipDialog = DialogUtils.getFailDialog(CustomBiaoqingManagerActivity.this, baseBean.getMsg(), true);
+                tipDialog.show();
+            }
+        });
+    }
 
     private void list() {
 
@@ -168,12 +225,12 @@ public class CustomBiaoqingManagerActivity extends BaseActivity<ActivityBiaoqing
             public void onSuccess(BaseBean<List<CustomBiaoqingListBean.ExpressionListBean>> baseBean) {
                 datas.clear();
                 datas.add(expressionListBean);
-                if (baseBean.getData() != null   && baseBean.getData().size() > 0) {
+                if (baseBean.getData() != null && baseBean.getData().size() > 0) {
                     datas.addAll(baseBean.getData());
                 }
                 if (customBiaoqingAdapter == null) {
-                        customBiaoqingAdapter = new CustomBiaoqingAdapter(datas,new WeakReference<>(CustomBiaoqingManagerActivity.this));
-                        binding.rvList.setAdapter(customBiaoqingAdapter);
+                    customBiaoqingAdapter = new CustomBiaoqingAdapter(datas, new WeakReference<>(CustomBiaoqingManagerActivity.this));
+                    binding.rvList.setAdapter(customBiaoqingAdapter);
                 } else {
                     customBiaoqingAdapter.setNewData(datas);
                 }

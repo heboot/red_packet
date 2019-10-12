@@ -34,6 +34,7 @@ import okhttp3.MultipartBody;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -83,10 +84,9 @@ public interface HttpClient {
     @POST("in/editHeadImg")
     Observable<BaseBean<Object>> editHeadImg(@Header("token") String token, @Part MultipartBody.Part img);
 
-    @FormUrlEncoded
     @Multipart
     @POST("in/createExpression")
-    Observable<BaseBean<Object>> createExpression(@Header("token") String token, @Part MultipartBody.Part img, @FieldMap Map<String, Object> params);
+    Observable<BaseBean<Object>> createExpression(@Header("token") String token, @Part MultipartBody.Part img);
 
 
     @FormUrlEncoded
@@ -183,6 +183,11 @@ public interface HttpClient {
     @POST("in/getExpression")
     Observable<BaseBean< List<CustomBiaoqingListBean.ExpressionListBean>>> getExpression(@Header("token") String token, @FieldMap Map<String, Object> params);
 
+
+
+    @FormUrlEncoded
+    @POST("in/delPression")
+    Observable<BaseBean<Object>> delPression(@Header("token") String token, @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
     @POST("in/fConsent")

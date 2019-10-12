@@ -2,6 +2,7 @@ package com.zonghong.redpacket.adapter;
 
 import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -39,7 +40,12 @@ public class CustomBiaoqingAdapter extends BaseQuickAdapter<CustomBiaoqingListBe
             //显示加号
             ImageUtils.showImage(R.mipmap.icon_add_bq, binding.ivImg);
         } else {
-            ImageUtils.showBiaoqing(item.getImage(), binding.ivImg);
+            if(item.getImage().endsWith("gif")){
+                ImageUtils.showGif(item.getImage(), binding.ivImg);
+            }else{
+                ImageUtils.showBiaoqing(item.getImage(), binding.ivImg);
+            }
+
         }
 
         binding.getRoot().setOnClickListener(view -> {
@@ -59,6 +65,15 @@ public class CustomBiaoqingAdapter extends BaseQuickAdapter<CustomBiaoqingListBe
                 }
             }
 
+        });
+
+        binding.getRoot().setOnLongClickListener(v -> {
+            if (weakReference == null || weakReference.get() == null) {
+                return false;
+            }else{
+                weakReference.get().del(item.getId()+"");
+                return true;
+            }
         });
 
     }

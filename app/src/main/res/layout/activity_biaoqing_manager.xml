@@ -25,6 +25,8 @@
 
 
         <android.support.v7.widget.RecyclerView
+            android:layout_marginLeft="@dimen/x15"
+            android:layout_marginRight="@dimen/x15"
             android:id="@+id/rv_list"
             android:layout_width="0dp"
             android:layout_height="0dp"

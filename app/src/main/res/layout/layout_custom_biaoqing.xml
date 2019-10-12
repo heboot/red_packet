@@ -7,6 +7,8 @@
 
 
     <android.support.v7.widget.RecyclerView
+        android:layout_marginLeft="@dimen/x15"
+        android:layout_marginRight="@dimen/x15"
         android:id="@+id/rv_list"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
