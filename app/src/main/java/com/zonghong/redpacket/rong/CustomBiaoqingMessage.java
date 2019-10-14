@@ -6,6 +6,7 @@ import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.waw.hr.mutils.bean.CreateRedPackageChildBean;
+import com.waw.hr.mutils.bean.CustomBiaoqingBean;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,16 +17,15 @@ import io.rong.common.ParcelUtils;
 import io.rong.imlib.MessageTag;
 import io.rong.imlib.model.MessageContent;
 
-@MessageTag(value = "redpackagetip", flag = MessageTag.ISPERSISTED)
+@MessageTag(value = "rongCellEmoticon", flag = MessageTag.ISCOUNTED | MessageTag.ISPERSISTED)
 public class CustomBiaoqingMessage extends MessageContent {
 
-    private String name;
+    private String imgUrl;
 
-//    private String sum;
 
     //给消息赋值。
     public CustomBiaoqingMessage(Parcel in) {
-        name = ParcelUtils.readFromParcel(in);//该类为工具类，消息属性
+        imgUrl = ParcelUtils.readFromParcel(in);//该类为工具类，消息属性
         //这里可继续增加你消息的属性
     }
 
@@ -39,11 +39,11 @@ public class CustomBiaoqingMessage extends MessageContent {
         }
 
         try {
-            CreateRedPackageChildBean jsonObj = JSON.parseObject(jsonStr, CreateRedPackageChildBean.class);
+            CustomBiaoqingBean jsonObj = JSON.parseObject(jsonStr, CustomBiaoqingBean.class);
 
 //            if (jsonObj.has("ID"))
 //                ID = jsonObj.optString("ID");
-            name = String.valueOf(jsonObj.getID());
+            imgUrl = String.valueOf(jsonObj.getImgUrl());
 
 
         } catch (Exception e) {
@@ -55,7 +55,7 @@ public class CustomBiaoqingMessage extends MessageContent {
         JSONObject jsonObj = new JSONObject();
 
         try {
-            jsonObj.put("ID", name);
+            jsonObj.put("imgUrl", imgUrl);
         } catch (JSONException e) {
             Log.e("JSONException", e.getMessage());
         }
@@ -93,6 +93,6 @@ public class CustomBiaoqingMessage extends MessageContent {
 
     @Override
     public void writeToParcel(Parcel dest, int i) {
-        ParcelUtils.writeToParcel(dest, name);//该类为工具类，对消息中属性进行序列化
+        ParcelUtils.writeToParcel(dest, imgUrl);//该类为工具类，对消息中属性进行序列化
     }
 }

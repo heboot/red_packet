@@ -17,6 +17,7 @@ import com.zonghong.redpacket.activity.chat.AddGroupUserActivity;
 import com.zonghong.redpacket.activity.chat.GroupUserListActivity;
 import com.zonghong.redpacket.activity.chat.SearchMessageActivity;
 import com.zonghong.redpacket.activity.chat.SetGroupManagerActivity;
+import com.zonghong.redpacket.activity.common.BiaoqingPreviewActivity;
 import com.zonghong.redpacket.activity.common.ComplaintActivity;
 import com.zonghong.redpacket.activity.common.EditTextAreaActivity;
 import com.zonghong.redpacket.activity.common.TextActivity;
@@ -263,6 +264,12 @@ public class IntentUtils {
         intent.putExtra(MKey.ID, targetId);
         intent.putExtra(MKey.TYPE, type);
         intent.putExtra(MKey.NAME, targetName);
+        MAPP.mapp.getCurrentActivity().startActivity(intent);
+    }
+
+    public static void intent2BiaoqingPreviewActivity(String url){
+        intent = new Intent(MAPP.mapp.getCurrentActivity(), BiaoqingPreviewActivity.class);
+        intent.putExtra(MKey.DATA, url);
         MAPP.mapp.getCurrentActivity().startActivity(intent);
     }
 

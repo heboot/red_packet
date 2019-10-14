@@ -47,6 +47,14 @@ public class RedPackageChatMessageView extends IContainerItemProvider.MessagePro
     @Override
     public void bindView(View view, int i, RedPackageChatMessage messageContent, UIMessage uiMessage) {
         MessageRedpackageChatBinding messageRedpackageChatBinding = DataBindingUtil.bind(view);
+//
+//        if (uiMessage.getMessageDirection() == Message.MessageDirection.SEND) {
+//            messageRedpackageChatBinding.getRoot().setBackgroundResource(R.drawable.rc_ic_bubble_no_right);
+//        } else {
+//            messageRedpackageChatBinding.getRoot().setBackgroundResource(R.drawable.rc_ic_bubble_no_left);
+//        }
+
+
         String s = new String(messageContent.encode());
         CreateRedPackageChildBean createRedPackageChildBean = JSON.parseObject(s, CreateRedPackageChildBean.class);
 //

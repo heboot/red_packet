@@ -34,6 +34,7 @@ import io.reactivex.schedulers.Schedulers;
 import io.rong.imkit.model.ProviderTag;
 import io.rong.imkit.model.UIMessage;
 import io.rong.imkit.widget.provider.IContainerItemProvider;
+import io.rong.imlib.model.Message;
 
 @ProviderTag(messageContent = RedPackageZhuanZhangChatMessage.class, showReadState = true)
 public class RedPackageZhuanzhangChatMessageView extends IContainerItemProvider.MessageProvider<RedPackageZhuanZhangChatMessage> {
@@ -42,6 +43,13 @@ public class RedPackageZhuanzhangChatMessageView extends IContainerItemProvider.
     @Override
     public void bindView(View view, int i, RedPackageZhuanZhangChatMessage messageContent, UIMessage uiMessage) {
         MessageRedpackageZhuanzhangBinding messageRedpackageChatBinding = DataBindingUtil.bind(view);
+
+//        if (uiMessage.getMessageDirection() == Message.MessageDirection.SEND) {
+//            messageRedpackageChatBinding.getRoot().setBackgroundResource(R.drawable.rc_ic_bubble_no_right);
+//        } else {
+//            messageRedpackageChatBinding.getRoot().setBackgroundResource(R.drawable.rc_ic_bubble_no_left);
+//        }
+
         messageRedpackageChatBinding.tvType.setText("转账");
         String s = new String(messageContent.encode());
         CreateRedPackageChildBean createRedPackageChildBean = JSON.parseObject(s, CreateRedPackageChildBean.class);
