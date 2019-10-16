@@ -21,26 +21,25 @@ public class GroupExtensionModule extends DefaultExtensionModule {
     public List<IPluginModule> getPluginModules(Conversation.ConversationType conversationType) {
         List<IPluginModule> pluginModules = super.getPluginModules(conversationType);
 
-//        for (int i = 0; i < pluginModules.size(); i++) {
-//            if (pluginModules.get(i) instanceof FilePlugin) {
-//                pluginModules.remove(i);
-//            } else if (pluginModules.get(i) instanceof CombineLocationPlugin) {
-//                pluginModules.remove(i);
-//            } else if (pluginModules.get(i) instanceof DefaultLocationPlugin) {
-//                pluginModules.remove(i);
-//            } else if (pluginModules.get(i) instanceof LocationPlugin) {
-//                pluginModules.remove(i);
-//            } else if (pluginModules.get(i) instanceof ImagePlugin) {
-//                pluginModules.remove(i);
-//            }else if (pluginModules.get(i) instanceof MyLocationPlugin) {
-//                pluginModules.remove(i);
-//            }
-//        }
-        pluginModules.clear();
+        for (int i = 0; i < pluginModules.size(); i++) {
+            if (pluginModules.get(i) instanceof FilePlugin) {
+                pluginModules.remove(i);
+            } else if (pluginModules.get(i) instanceof CombineLocationPlugin) {
+                pluginModules.remove(i);
+            } else if (pluginModules.get(i) instanceof DefaultLocationPlugin) {
+                pluginModules.remove(i);
+            } else if (pluginModules.get(i) instanceof LocationPlugin) {
+                pluginModules.remove(i);
+            } else if (pluginModules.get(i) instanceof ImagePlugin) {
+                pluginModules.remove(i);
+            }else if (pluginModules.get(i) instanceof MyLocationPlugin) {
+                pluginModules.remove(i);
+            }
+        }
+//        pluginModules.clear();
         pluginModules.add(new MyPicPlugin());
         pluginModules.add(new MyLocationPlugin());
         pluginModules.add(new RedpackagePlugin());
-//        pluginModules.add(new ZhuanZhangPlugin());
         pluginModules.add(new MingpianPlugin());
         return pluginModules;
     }

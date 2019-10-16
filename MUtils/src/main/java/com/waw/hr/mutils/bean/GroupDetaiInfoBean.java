@@ -124,6 +124,15 @@ public class GroupDetaiInfoBean implements Serializable {
         private int invite_confirm;
         private int bannet_chat;
         private String img;
+        private int clear;
+
+        public int getClear() {
+            return clear;
+        }
+
+        public void setClear(int clear) {
+            this.clear = clear;
+        }
 
         public int getID() {
             return ID;

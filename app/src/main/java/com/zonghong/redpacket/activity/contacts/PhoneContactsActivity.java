@@ -61,7 +61,7 @@ public class PhoneContactsActivity extends BaseActivity<FragmentContactsBinding>
 
     @Override
     public void initUI() {
-        binding.includeToolbar.vBack.setVisibility(View.GONE);
+        setBackVisibility(View.VISIBLE);
         binding.includeToolbar.tvTitle.setText("通讯录");
         binding.rvList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
 
@@ -160,8 +160,8 @@ public class PhoneContactsActivity extends BaseActivity<FragmentContactsBinding>
 
             @Override
             public void onError(BaseBean<ContatsListBean> baseBean) {
-                tipDialog = DialogUtils.getFailDialog(PhoneContactsActivity.this, baseBean.getMsg(), true);
-                tipDialog.show();
+//                tipDialog = DialogUtils.getFailDialog(PhoneContactsActivity.this, baseBean.getMsg(), true);
+//                tipDialog.show();
             }
         });
     }

@@ -132,10 +132,13 @@ public interface HttpClient {
     @POST("in/upPay")
     Observable<BaseBean<Object>> upPay(@Header("token") String token, @FieldMap Map<String, Object> params);
 
-    //    @FormUrlEncoded
+    @FormUrlEncoded
     @POST("in/fIndex")
-    Observable<BaseBean<ContatsListBean>> fIndex(@Header("token") String token);
+    Observable<BaseBean<ContatsListBean>> fIndex(@Header("token") String token, @FieldMap Map<String, Object> params);
 
+    @FormUrlEncoded
+    @POST("in/verifyGroupStatus")
+    Observable<BaseBean<Map>> verifyGroupStatus(@Header("token") String token, @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
     @POST("in/addressList")
@@ -181,8 +184,7 @@ public interface HttpClient {
 
     @FormUrlEncoded
     @POST("in/getExpression")
-    Observable<BaseBean< List<CustomBiaoqingListBean.ExpressionListBean>>> getExpression(@Header("token") String token, @FieldMap Map<String, Object> params);
-
+    Observable<BaseBean<List<CustomBiaoqingListBean.ExpressionListBean>>> getExpression(@Header("token") String token, @FieldMap Map<String, Object> params);
 
 
     @FormUrlEncoded
@@ -287,6 +289,10 @@ public interface HttpClient {
     @FormUrlEncoded
     @POST("in/upRejct")
     Observable<BaseBean<Object>> upRejct(@Header("token") String token, @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("in/clearHitory")
+    Observable<BaseBean<Object>> clearHitory(@Header("token") String token, @FieldMap Map<String, Object> params);
 
 
     @FormUrlEncoded

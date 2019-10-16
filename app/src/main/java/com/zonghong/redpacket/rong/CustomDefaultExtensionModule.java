@@ -5,6 +5,7 @@ import java.util.List;
 
 import io.rong.imkit.DefaultExtensionModule;
 import io.rong.imkit.emoticon.EmojiTab;
+import io.rong.imkit.emoticon.IEmojiItemClickListener;
 import io.rong.imkit.emoticon.IEmoticonTab;
 import io.rong.imkit.plugin.CombineLocationPlugin;
 import io.rong.imkit.plugin.DefaultLocationPlugin;

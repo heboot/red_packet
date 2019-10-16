@@ -3,6 +3,7 @@ package com.zonghong.redpacket.adapter;
 import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.CompoundButton;
 
@@ -27,6 +28,7 @@ import com.zonghong.redpacket.rong.RongUtils;
 import com.zonghong.redpacket.service.UserService;
 import com.zonghong.redpacket.utils.ImageUtils;
 import com.zonghong.redpacket.utils.IntentUtils;
+import com.zonghong.redpacket.view.DelFriendDialog;
 
 import java.util.HashMap;
 import java.util.List;
@@ -88,26 +90,11 @@ public class ContactsAdapter extends BaseQuickAdapter<ContatsFriendBean, BaseVie
 
     }
 
-    private QMUIDialog qmuiDialog;
+    private DelFriendDialog qmuiDialog;
 
     private void showDelDialog(String name,String id) {
-        qmuiDialog = new QMUIDialog.MessageDialogBuilder(MAPP.mapp.getCurrentActivity())
-                .setMessage("是否要删除好友" + name + "?")
-                .addAction("取消", new QMUIDialogAction.ActionListener() {
-                    @Override
-                    public void onClick(QMUIDialog dialog, int index) {
-                        qmuiDialog.dismiss();
-                    }
-                })
-                .addAction("确定", new QMUIDialogAction.ActionListener() {
-                    @Override
-                    public void onClick(QMUIDialog dialog, int index) {
-                        qmuiDialog.dismiss();
-                        delFriend(id);
-                    }
-                })
-                .create();
-        qmuiDialog.show();
+        qmuiDialog = DelFriendDialog.newInstance(id);
+        qmuiDialog.show(((FragmentActivity)MAPP.mapp.getCurrentActivity()).getSupportFragmentManager(),"");
     }
 
     private void delFriend(String userId) {

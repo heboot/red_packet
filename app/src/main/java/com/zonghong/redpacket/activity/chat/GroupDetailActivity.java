@@ -100,6 +100,18 @@ public class GroupDetailActivity extends BaseActivity<ActivityGroupDetailBinding
                 upRejct();
             }
         });
+        binding.sbClearGroupContentTime.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (groupDetaiInfoBean.getMyGInfo().getAdmin() == 3) {
+                   clear();
+                } else {
+                    binding.sbClearGroupContentTime.setCheckedNoEvent(!isChecked);
+                    tipDialog = DialogUtils.getFailDialog(GroupDetailActivity.this, "只有群主可以操作", true);
+                    tipDialog.show();
+                }
+            }
+        });
         binding.tvMyName.setOnClickListener((v) -> {
             IntentUtils.intent2AlterTextActivityByGroup(AlterTextType.GROUP_MY_NAME, groupDetaiInfoBean.getMyGInfo().getNick_name(), String.valueOf(groupDetaiInfoBean.getGroupInfo().getID()), null);
         });
@@ -159,6 +171,24 @@ public class GroupDetailActivity extends BaseActivity<ActivityGroupDetailBinding
                     }
                 });
                 tipDialog.show();
+            }
+
+            @Override
+            public void onError(BaseBean<Object> baseBean) {
+                tipDialog = DialogUtils.getFailDialog(GroupDetailActivity.this, baseBean.getMsg(), true);
+                tipDialog.show();
+            }
+        });
+    }
+
+    private void clear() {
+        params.put("group_id", groupId);
+        params.put("clear", binding.sbClearGroupContentTime.isChecked() ? 1 : 0);
+        HttpClient.Builder.getServer().clearHitory(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
+            @Override
+            public void onSuccess(BaseBean<Object> baseBean) {
+//                tipDialog = DialogUtils.getSuclDialog(GroupDetailActivity.this, baseBean.getMsg(), true);
+//                tipDialog.show();
             }
 
             @Override
@@ -241,6 +271,9 @@ public class GroupDetailActivity extends BaseActivity<ActivityGroupDetailBinding
             binding.sbSetGroupTop.setCheckedNoEvent(true);
         }
 
+        if (groupDetaiInfoBean.getGroupInfo().getClear() == 1) {
+            binding.sbClearGroupContentTime.setCheckedNoEvent(true);
+        }
     }
 
     private void showGroupUsersInfo(GroupDetaiInfoBean groupDetaiInfoBean) {

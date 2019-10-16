@@ -46,7 +46,7 @@
 
             android:paddingLeft="@dimen/x19"
             android:text="红包"
-            android:textColor="#fff"
+            android:textColor="#000000"
             android:textSize="@dimen/x10"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

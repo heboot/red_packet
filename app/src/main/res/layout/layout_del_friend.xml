@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:id="@+id/clyt_container"
+       >
+
+        <TextView
+            android:paddingLeft="@dimen/x20"
+            android:text="删除好友"
+            android:gravity="left|center_vertical"
+            android:textSize="@dimen/x17"
+            android:textColor="#000000"
+            android:background="@drawable/bg_rect_white_10"
+            android:id="@+id/tv_del"
+            android:layout_width="@dimen/x345"
+            android:layout_height="@dimen/y55"
+
+             ></TextView>
+
+    </LinearLayout>
+</layout>
