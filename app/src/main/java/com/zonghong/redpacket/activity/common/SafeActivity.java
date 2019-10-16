@@ -46,7 +46,7 @@ public class SafeActivity extends BaseActivity<ActivitySafeBinding> {
         binding.sbAddEnable.setOnCheckedChangeListener((buttonView, isChecked) -> setIncrease());
         binding.sbJyEnable.setOnCheckedChangeListener((buttonView, isChecked) -> searchAccount());
         binding.sbPhoneEnable.setOnCheckedChangeListener((buttonView, isChecked) -> searchPhone());
-        binding.sbPhoneEnable.setOnCheckedChangeListener((buttonView, isChecked) -> setFriendCheck());
+        binding.sbVreifyEnable.setOnCheckedChangeListener((buttonView, isChecked) -> setFriendCheck());
     }
 
     public void getStatus() {

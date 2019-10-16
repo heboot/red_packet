@@ -38,5 +38,8 @@ public class SettingActivity extends BaseActivity<ActivitySettingBinding> {
         binding.tvLogout.setOnClickListener((v) -> {
             UserService.getInstance().logout();
         });
+        binding.tvNoti.setOnClickListener(view->{
+            IntentUtils.doIntent(NotiSetActivity.class);
+        });
     }
 }

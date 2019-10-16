@@ -34,6 +34,7 @@ import com.zonghong.redpacket.view.PayDialog;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -100,8 +101,9 @@ public class ChooseContactsActivity extends BaseActivity<FragmentContactsBinding
 
 
     private void list() {
-
-        HttpClient.Builder.getServer().fIndex(UserService.getInstance().getToken()).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<ContatsListBean>() {
+        params= new HashMap<>();
+        params.put("toll","1");
+        HttpClient.Builder.getServer().fIndex(UserService.getInstance().getToken(),params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<ContatsListBean>() {
             @Override
             public void onSuccess(BaseBean<ContatsListBean> baseBean) {
                 toll = baseBean.getData().getToll();

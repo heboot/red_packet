@@ -150,8 +150,8 @@ public class InfoActivity extends BaseActivity<ActivityInfoBinding> {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
                 dismissLoadingDialog();
-                tipDialog = DialogUtils.getSuclDialog(InfoActivity.this, baseBean.getMsg(), true);
-                tipDialog.show();
+//                tipDialog = DialogUtils.getSuclDialog(InfoActivity.this, baseBean.getMsg(), true);
+//                tipDialog.show();
                 ImageUtils.showAvatar((String) baseBean.getData(), binding.ivAvatar);
             }
 
@@ -172,13 +172,13 @@ public class InfoActivity extends BaseActivity<ActivityInfoBinding> {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
                 loadingDialog.dismiss();
-                tipDialog = DialogUtils.getSuclDialog(InfoActivity.this, baseBean.getMsg(), true);
+//                tipDialog = DialogUtils.getSuclDialog(InfoActivity.this, baseBean.getMsg(), true);
                 if (sex == 1) {
                     binding.tvSex.setText("男");
                 } else {
                     binding.tvSex.setText("女");
                 }
-                tipDialog.show();
+//                tipDialog.show();
             }
 
             @Override

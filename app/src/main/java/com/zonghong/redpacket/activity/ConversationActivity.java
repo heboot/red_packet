@@ -1,6 +1,5 @@
 package com.zonghong.redpacket.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.FragmentManager;
@@ -22,9 +21,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.io.File;
-
-import io.rong.imkit.fragment.ConversationFragment;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 
@@ -72,7 +68,6 @@ public class ConversationActivity extends BaseActivity<ConversationBinding> {
                 .appendQueryParameter("targetId", mTargetId).build();
 
         conversationFragment.setUri(uri);
-
     }
 
     @Override
@@ -84,6 +79,7 @@ public class ConversationActivity extends BaseActivity<ConversationBinding> {
                 IntentUtils.intent2ChatDetailActivity(mTargetId);
             }
         });
+
     }
 
 

@@ -171,7 +171,7 @@ public class GroupDetailActivity extends BaseActivity<ActivityGroupDetailBinding
 
     private void upRejct() {
         params.put("group_id", groupId);
-        params.put("reject_msg", binding.sbSetGroupTop.isChecked() ? 1 : 0);
+        params.put("reject_msg", binding.sbCloseNoti.isChecked() ? 1 : 0);
         HttpClient.Builder.getServer().upRejct(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
@@ -240,7 +240,6 @@ public class GroupDetailActivity extends BaseActivity<ActivityGroupDetailBinding
         if (groupDetaiInfoBean.getMyGInfo().getChat_top() == 1) {
             binding.sbSetGroupTop.setCheckedNoEvent(true);
         }
-
 
     }
 

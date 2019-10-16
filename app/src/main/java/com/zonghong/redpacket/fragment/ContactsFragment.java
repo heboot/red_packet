@@ -22,11 +22,13 @@ import com.zonghong.redpacket.activity.chat.MyGroupListActivity;
 import com.zonghong.redpacket.activity.contacts.BlackUserListActivity;
 import com.zonghong.redpacket.activity.contacts.ChooseContactsActivity;
 import com.zonghong.redpacket.activity.contacts.ContactsNewListActivity;
+import com.zonghong.redpacket.activity.contacts.PhoneContactsActivity;
 import com.zonghong.redpacket.activity.contacts.SearchContactsActivity;
 import com.zonghong.redpacket.adapter.ContactsAdapter;
 import com.zonghong.redpacket.adapter.ContactsContainerAdapter;
 import com.zonghong.redpacket.base.BaseFragment;
 import com.zonghong.redpacket.databinding.FragmentContactsBinding;
+import com.zonghong.redpacket.databinding.FragmentContactsContainerBinding;
 import com.zonghong.redpacket.databinding.LayoutContactsHeadBinding;
 import com.zonghong.redpacket.databinding.LayoutSearchBinding;
 import com.zonghong.redpacket.http.HttpObserver;
@@ -35,12 +37,13 @@ import com.zonghong.redpacket.utils.IntentUtils;
 import com.zonghong.redpacket.utils.SearchUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class ContactsFragment extends BaseFragment<FragmentContactsBinding> {
+public class ContactsFragment extends BaseFragment<FragmentContactsContainerBinding> {
 
     private ContactsContainerAdapter contactsAdapter;
 
@@ -53,13 +56,12 @@ public class ContactsFragment extends BaseFragment<FragmentContactsBinding> {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_contacts;
+        return R.layout.fragment_contacts_container;
     }
 
     @Override
     public void initUI() {
-        binding.includeToolbar.vBack.setVisibility(View.GONE);
-        binding.includeToolbar.tvTitle.setText("通讯录");
+//        binding.includeToolbar.tvRight.setLayoutParams(new ViewGroup.LayoutParams(getResources().getDimensionPixelOffset(R.dimen.x20),getResources().getDimensionPixelOffset(R.dimen.y18)));
         binding.rvList.setLayoutManager(new LinearLayoutManager(_mActivity, RecyclerView.VERTICAL, false));
     }
 
@@ -75,8 +77,8 @@ public class ContactsFragment extends BaseFragment<FragmentContactsBinding> {
     }
 
     private void list() {
-
-        HttpClient.Builder.getServer().fIndex(UserService.getInstance().getToken()).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<ContatsListBean>() {
+        params = new HashMap<>();
+        HttpClient.Builder.getServer().fIndex(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<ContatsListBean>() {
             @Override
             public void onSuccess(BaseBean<ContatsListBean> baseBean) {
                 if (contactsAdapter == null) {
@@ -156,6 +158,12 @@ public class ContactsFragment extends BaseFragment<FragmentContactsBinding> {
         });
         layoutContactsHeadBinding.tvBlack.setOnClickListener(view -> {
             IntentUtils.doIntent(BlackUserListActivity.class);
+        });
+        layoutContactsHeadBinding.tvPhoneContacts.setOnClickListener(view -> {
+            IntentUtils.doIntent(PhoneContactsActivity.class);
+        });
+        layoutContactsHeadBinding.tvAddContacts.setOnClickListener(view -> {
+            IntentUtils.doIntent(SearchContactsActivity.class);
         });
         return layoutContactsHeadBinding.getRoot();
     }

@@ -128,19 +128,19 @@ public class PhoneContactsActivity extends BaseActivity<FragmentContactsBinding>
 
     private void list() {
         params = new HashMap<>();
-        List list = new ArrayList();
-
-        ContactsModel contactsModel = new ContactsModel();
-        contactsModel.setPhone("13783400213");
-        contactsModel.setPhoneName("哈哈");
-
-        ContactsModel contactsModel2 = new ContactsModel();
-        contactsModel2.setPhone("18538523856");
-        contactsModel2.setPhoneName("哈哈2");
-
-        list.add(contactsModel);
-        list.add(contactsModel2);
-        params.put("addressList", JSON.toJSONString(list));// JSON.toJSONString(ContactsUtils.getAllContacts(this))
+//        List list = new ArrayList();
+//
+//        ContactsModel contactsModel = new ContactsModel();
+//        contactsModel.setPhone("13783400213");
+//        contactsModel.setPhoneName("哈哈");
+//
+//        ContactsModel contactsModel2 = new ContactsModel();
+//        contactsModel2.setPhone("18538523856");
+//        contactsModel2.setPhoneName("哈哈2");
+//
+//        list.add(contactsModel);
+//        list.add(contactsModel2);
+        params.put("addressList", JSON.toJSONString(JSON.toJSONString(ContactsUtils.getAllContacts(this))));// JSON.toJSONString(ContactsUtils.getAllContacts(this))
         HttpClient.Builder.getServer().addressList(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<ContatsListBean>() {
             @Override
             public void onSuccess(BaseBean<ContatsListBean> baseBean) {

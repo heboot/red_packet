@@ -15,21 +15,20 @@ import java.util.Map;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import io.rong.imkit.RongExtension;
-import io.rong.imkit.plugin.DefaultLocationPlugin;
+import io.rong.imkit.plugin.ImagePlugin;
 import io.rong.imlib.model.Conversation;
 
-public class MyLocationPlugin extends DefaultLocationPlugin {
-
+public class MyPicPlugin extends ImagePlugin {
     @Override
     public void onClick(Fragment currentFragment, RongExtension extension) {
-//        super.onClick(currentFragment, extension);
-        if(extension.getConversationType() == Conversation.ConversationType.GROUP){
-            complaint(extension.getTargetId(),currentFragment, extension);
-        }else{
+        if (extension.getConversationType() == Conversation.ConversationType.GROUP) {
+            complaint(extension.getTargetId(), currentFragment, extension);
+        } else {
             super.onClick(currentFragment, extension);
         }
 
     }
+
 
     private void complaint(String groupId, Fragment currentFragment, RongExtension extension) {
         Map params = new HashMap();
@@ -41,9 +40,9 @@ public class MyLocationPlugin extends DefaultLocationPlugin {
                 if ((double) baseBean.getData().get("bannet_total") == 1) {
                     ToastUtils.show(MAPP.mapp, (String) baseBean.getData().get("content"));
                 } else if ((double) baseBean.getData().get("user_bannet") == 1) {
-                    ToastUtils.show(MAPP.mapp, "您已被禁言");
+                    ToastUtils.show(MAPP.mapp, (String) baseBean.getData().get("content"));
                 } else {
-                    MyLocationPlugin.super.onClick(currentFragment, extension);
+                    MyPicPlugin.super.onClick(currentFragment, extension);
                 }
             }
 

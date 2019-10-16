@@ -104,14 +104,14 @@
                     android:layout_height="@dimen/y55"
                     android:layout_marginTop="@dimen/y1"
                     android:background="#fff"
-                    android:singleLine="true"
-                    android:maxLines="1"
-                    android:ellipsize="end"
                     android:drawableRight="@mipmap/icon_arrow_right"
                     android:drawablePadding="@dimen/x15"
+                    android:ellipsize="end"
                     android:gravity="right|center_vertical"
+                    android:maxLines="1"
                     android:paddingLeft="@dimen/x56"
                     android:paddingRight="@dimen/x16"
+                    android:singleLine="true"
                     android:text="群聊公告"
                     android:textColor="#ff808080"
                     android:textSize="18sp"
@@ -322,30 +322,32 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_my_name"></View>
 
-                <!--<TextView-->
-                <!--android:id="@+id/tv_clear_group_content_time"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="@dimen/y55"-->
-                <!--android:layout_marginTop="@dimen/y1"-->
-                <!--android:background="#fff"-->
-                <!--android:gravity="center_vertical|left"-->
-                <!--android:paddingLeft="@dimen/x15"-->
-                <!--android:text="群消息36小时定时清理"-->
-                <!--android:textSize="18sp"-->
-                <!--app:layout_constraintLeft_toLeftOf="parent"-->
-                <!--app:layout_constraintRight_toRightOf="parent"-->
-                <!--app:layout_constraintTop_toBottomOf="@+id/tv_set_group_top" />-->
 
-                <!--<com.kyleduo.switchbutton.SwitchButton-->
-                <!--android:id="@+id/sb_clear_group_content_time"-->
-                <!--android:layout_width="@dimen/x50"-->
-                <!--android:layout_height="@dimen/y30"-->
-                <!--android:layout_marginRight="@dimen/x16"-->
-                <!--android:textColor="#ff808080"-->
-                <!--android:textSize="18sp"-->
-                <!--app:layout_constraintBottom_toBottomOf="@+id/tv_clear_group_content_time"-->
-                <!--app:layout_constraintRight_toRightOf="parent"-->
-                <!--app:layout_constraintTop_toTopOf="@+id/tv_clear_group_content_time" />-->
+                <TextView
+                    android:id="@+id/tv_clear_group_content_time"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/y55"
+                    android:layout_marginTop="@dimen/y1"
+                    android:background="#fff"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="@dimen/x15"
+                    android:text="群消息36小时定时清理"
+                    android:textSize="18sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_set_group_top" />
+
+                <com.kyleduo.switchbutton.SwitchButton
+                    android:id="@+id/sb_clear_group_content_time"
+                    android:layout_width="@dimen/x50"
+                    android:layout_height="@dimen/y30"
+                    android:layout_marginRight="@dimen/x16"
+                    android:textColor="#ff808080"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_clear_group_content_time"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_clear_group_content_time" />
+
 
                 <View
                     android:layout_width="0dp"
@@ -354,11 +356,29 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_set_group_top"></View>
 
+
+                <TextView
+                    android:id="@+id/tv_jiami"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/y55"
+                    android:layout_marginTop="@dimen/y1"
+                    android:background="#fff"
+                    android:drawableRight="@mipmap/icon_lock"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/x15"
+                    android:paddingRight="@dimen/x15"
+                    android:text="加密"
+                    android:textColor="#ff000000"
+                    android:textSize="17sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_clear_group_content_time"></TextView>
+
                 <TextView
                     android:id="@+id/tv_clear_group_content"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/y55"
-                    android:layout_marginTop="@dimen/y1"
+                    android:layout_marginTop="@dimen/y8"
                     android:background="#fff"
                     android:gravity="center_vertical|left"
                     android:paddingLeft="@dimen/x15"
@@ -367,7 +387,7 @@
                     android:textSize="17sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_set_group_top" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_jiami" />
 
                 <View
                     android:layout_width="@dimen/x15"

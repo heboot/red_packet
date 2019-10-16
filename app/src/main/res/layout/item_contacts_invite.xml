@@ -52,8 +52,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/cb"
             app:layout_constraintTop_toTopOf="parent"
-            app:qmui_border_width="0dp"
-            app:qmui_is_circle="true" />
+            app:qmui_corner_radius="@dimen/x5"
+            app:qmui_border_width="0dp" />
 
         <TextView
             android:id="@+id/tv_option"

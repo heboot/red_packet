@@ -112,8 +112,8 @@ public class ChooseContactsSendMingPianActivity extends BaseActivity<FragmentCon
 
 
     private void list() {
-
-        HttpClient.Builder.getServer().fIndex(UserService.getInstance().getToken()).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<ContatsListBean>() {
+        params =new HashMap<>();
+        HttpClient.Builder.getServer().fIndex(UserService.getInstance().getToken(),params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<ContatsListBean>() {
             @Override
             public void onSuccess(BaseBean<ContatsListBean> baseBean) {
                 toll = baseBean.getData().getToll();

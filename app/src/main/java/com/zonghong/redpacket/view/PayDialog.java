@@ -138,22 +138,22 @@ public class PayDialog extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+        setStyle(DialogFragment.STYLE_NO_TITLE, R.style.MyDialog);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        Window window = getDialog().getWindow();
-        WindowManager.LayoutParams params = window.getAttributes();
-        params.gravity = Gravity.CENTER;
-        window.setAttributes(params);
-        window.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#80000000")));
-//        window.setWindowAnimations(R.style.BottomDialog_Animation);
-        //设置边距
-        DisplayMetrics dm = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
-        getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//        Window window = getDialog().getWindow();
+//        WindowManager.LayoutParams params = window.getAttributes();
+//        params.gravity = Gravity.CENTER;
+//        window.setAttributes(params);
+////        window.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#80000000")));
+////        window.setWindowAnimations(R.style.BottomDialog_Animation);
+//        //设置边距
+//        DisplayMetrics dm = new DisplayMetrics();
+//        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+//        getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
     }
 
     private void setNoChooseView() {

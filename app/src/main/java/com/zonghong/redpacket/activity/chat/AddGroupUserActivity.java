@@ -104,7 +104,7 @@ public class AddGroupUserActivity extends BaseActivity<FragmentContactsBinding> 
 
     private void list() {
         params.put("group_id", groupId);
-        HttpClient.Builder.getServer().fIndex(UserService.getInstance().getToken()).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<ContatsListBean>() {
+        HttpClient.Builder.getServer().fIndex(UserService.getInstance().getToken(),params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<ContatsListBean>() {
             @Override
             public void onSuccess(BaseBean<ContatsListBean> baseBean) {
                 if (contactsAdapter == null) {

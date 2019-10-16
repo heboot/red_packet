@@ -88,15 +88,16 @@ public class AlterTextActivity extends BaseActivity<ActivityAlterTextBinding> {
         HttpClient.Builder.getServer().upNName(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
-                loadingDialog.dismiss();
-                tipDialog = DialogUtils.getSuclDialog(AlterTextActivity.this, baseBean.getMsg(), true);
-                tipDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialogInterface) {
-                        finish();
-                    }
-                });
-                tipDialog.show();
+//                loadingDialog.dismiss();
+//                tipDialog = DialogUtils.getSuclDialog(AlterTextActivity.this, baseBean.getMsg(), true);
+//                tipDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+//                    @Override
+//                    public void onDismiss(DialogInterface dialogInterface) {
+//                        finish();
+//                    }
+//                });
+//                tipDialog.show();
+                finish();
             }
 
             @Override

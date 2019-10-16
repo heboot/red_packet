@@ -39,8 +39,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/tv_avatar"
             app:layout_constraintRight_toRightOf="@+id/tv_avatar"
             app:layout_constraintTop_toTopOf="@+id/tv_avatar"
-            app:qmui_border_width="0dp"
-            app:qmui_is_circle="true" />
+            app:qmui_corner_radius="@dimen/x5"
+            app:qmui_border_width="0dp" />
 
         <View
             android:layout_width="0dp"
