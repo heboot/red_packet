@@ -1,5 +1,6 @@
 package com.zonghong.redpacket.fragment;
 
+import android.content.Context;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -7,6 +8,7 @@ import com.example.http.HttpClient;
 import com.waw.hr.mutils.ToastUtils;
 import com.waw.hr.mutils.base.BaseBean;
 import com.zonghong.redpacket.MAPP;
+import com.zonghong.redpacket.adapter.MMessageListAdapter;
 import com.zonghong.redpacket.http.HttpObserver;
 import com.zonghong.redpacket.service.UserService;
 
@@ -17,6 +19,7 @@ import java.util.Map;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import io.rong.imkit.fragment.ConversationFragment;
+import io.rong.imkit.widget.adapter.MessageListAdapter;
 import io.rong.imlib.model.Conversation;
 
 public class MConversationFragment extends ConversationFragment {
@@ -27,6 +30,16 @@ public class MConversationFragment extends ConversationFragment {
 
     private String msg;
 
+//    @Override
+//    public MessageListAdapter getMessageAdapter() {
+//        return new MMessageListAdapter(getContext());
+//    }
+
+
+    @Override
+    public MessageListAdapter onResolveAdapter(Context context) {
+        return new MMessageListAdapter(getContext());
+    }
 
     @Override
     public boolean showMoreClickItem() {

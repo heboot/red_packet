@@ -1,6 +1,7 @@
 package com.zonghong.redpacket.activity.contacts;
 
 import android.content.DialogInterface;
+import android.net.Uri;
 import android.view.View;
 import android.widget.CompoundButton;
 
@@ -26,6 +27,8 @@ import java.util.HashMap;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.UserInfo;
 
 public class ContactsDetailActivity extends BaseActivity<ActivityContactsDetailBinding> {
 
@@ -128,6 +131,9 @@ public class ContactsDetailActivity extends BaseActivity<ActivityContactsDetailB
 
                 binding.tvAddgroupType.setText("进群方式       " + userInfoBean.getSource());
 
+
+                UserInfo uuu = new UserInfo(baseBean.getData().getNick_name(), baseBean.getData().getNick_name(), Uri.parse(baseBean.getData().getImg()));
+                RongIM.getInstance().refreshUserInfoCache(uuu);
             }
 
             @Override

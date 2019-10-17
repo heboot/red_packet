@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.waw.hr.mutils.bean.CreateRedPackageChildBean;
+import com.waw.hr.mutils.bean.RedpackageTipBean;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,17 +16,18 @@ import io.rong.common.ParcelUtils;
 import io.rong.imlib.MessageTag;
 import io.rong.imlib.model.MessageContent;
 
-@MessageTag(value = "redpackagetip", flag = MessageTag.ISPERSISTED)
+@MessageTag(value = "rongCellNotification", flag = MessageTag.ISPERSISTED)
 public class RedPackageChatOpenMessage extends MessageContent {
 
-    private String name;
+    private String message;
 
-//    private String sum;
+    private String targetId;
 
     //给消息赋值。
     public RedPackageChatOpenMessage(Parcel in) {
-        name = ParcelUtils.readFromParcel(in);//该类为工具类，消息属性
+        message = ParcelUtils.readFromParcel(in);//该类为工具类，消息属性
         //这里可继续增加你消息的属性
+        targetId =  ParcelUtils.readFromParcel(in);//该类为工具类，消息属性
     }
 
     public RedPackageChatOpenMessage(byte[] data) {
@@ -38,12 +40,12 @@ public class RedPackageChatOpenMessage extends MessageContent {
         }
 
         try {
-            CreateRedPackageChildBean jsonObj = JSON.parseObject(jsonStr, CreateRedPackageChildBean.class);
+            RedpackageTipBean jsonObj = JSON.parseObject(jsonStr, RedpackageTipBean.class);
 
 //            if (jsonObj.has("ID"))
 //                ID = jsonObj.optString("ID");
-            name = String.valueOf(jsonObj.getID());
-
+            message = String.valueOf(jsonObj.getMessage());
+            targetId =  String.valueOf(jsonObj.getTargetId());
 
         } catch (Exception e) {
         }
@@ -54,7 +56,8 @@ public class RedPackageChatOpenMessage extends MessageContent {
         JSONObject jsonObj = new JSONObject();
 
         try {
-            jsonObj.put("ID", name);
+            jsonObj.put("message", message);
+            jsonObj.put("targetId", targetId);
         } catch (JSONException e) {
             Log.e("JSONException", e.getMessage());
         }
@@ -91,6 +94,7 @@ public class RedPackageChatOpenMessage extends MessageContent {
 
     @Override
     public void writeToParcel(Parcel dest, int i) {
-        ParcelUtils.writeToParcel(dest, name);//该类为工具类，对消息中属性进行序列化
+        ParcelUtils.writeToParcel(dest, message);//该类为工具类，对消息中属性进行序列化
+        ParcelUtils.writeToParcel(dest, targetId);//该类为工具类，对消息中属性进行序列化
     }
 }

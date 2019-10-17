@@ -21,16 +21,15 @@ import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.adapter.ContactsContainerAdapter;
 import com.zonghong.redpacket.base.BaseActivity;
 import com.zonghong.redpacket.common.PayDialogType;
-import com.zonghong.redpacket.common.RechargeCashType;
 import com.zonghong.redpacket.databinding.FragmentContactsBinding;
 import com.zonghong.redpacket.databinding.LayoutSearchBinding;
 import com.zonghong.redpacket.http.HttpObserver;
 import com.zonghong.redpacket.rong.RongUtils;
 import com.zonghong.redpacket.service.UserService;
-import com.zonghong.redpacket.utils.IntentUtils;
 import com.zonghong.redpacket.utils.SearchUtils;
 import com.zonghong.redpacket.view.PayDialog;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -39,7 +38,6 @@ import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import io.rong.eventbus.EventBus;
 
 public class ChooseContactsActivity extends BaseActivity<FragmentContactsBinding> {
 
@@ -60,6 +58,7 @@ public class ChooseContactsActivity extends BaseActivity<FragmentContactsBinding
 
     @Override
     public void initUI() {
+        EventBus.getDefault().register(this);
         setBackVisibility(View.VISIBLE);
         binding.includeToolbar.tvRight.setVisibility(View.VISIBLE);
         binding.includeToolbar.tvRight.setText("完成");

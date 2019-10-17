@@ -35,7 +35,7 @@ public class LoadingActivity extends BaseActivity {
     public void initUI() {
         MStatusBarUtils.setActivityLightMode(this);
         QMUIStatusBarHelper.translucent(this);
-        ObserableUtils.countdown(3).subscribe(new Observer<Integer>() {
+        ObserableUtils.countdown(1).subscribe(new Observer<Integer>() {
             @Override
             public void onSubscribe(Disposable d) {
 

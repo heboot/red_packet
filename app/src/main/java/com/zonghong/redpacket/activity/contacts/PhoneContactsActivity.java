@@ -160,8 +160,8 @@ public class PhoneContactsActivity extends BaseActivity<FragmentContactsBinding>
 
             @Override
             public void onError(BaseBean<ContatsListBean> baseBean) {
-//                tipDialog = DialogUtils.getFailDialog(PhoneContactsActivity.this, baseBean.getMsg(), true);
-//                tipDialog.show();
+                tipDialog = DialogUtils.getFailDialog(PhoneContactsActivity.this, baseBean.getMsg(), true);
+                tipDialog.show();
             }
         });
     }

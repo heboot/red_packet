@@ -15,12 +15,23 @@ public class GetRedpackageBean implements Serializable {
 
     private String suming;
 
-
     private int numbering;
+
+    private String user_id;
 
     private int number;
 
     private String myGetMoney;
+
+    private String getUsersentence;
+
+    public String getGetUsersentence() {
+        return getUsersentence;
+    }
+
+    public void setGetUsersentence(String getUsersentence) {
+        this.getUsersentence = getUsersentence;
+    }
 
     public String getSuming() {
         return suming;
@@ -88,6 +99,13 @@ public class GetRedpackageBean implements Serializable {
 
     private List<GetRedpackageUserBean> list;
 
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
 
     public String getSum() {
         return sum;

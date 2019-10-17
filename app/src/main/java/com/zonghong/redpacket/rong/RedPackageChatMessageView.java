@@ -73,6 +73,8 @@ public class RedPackageChatMessageView extends IContainerItemProvider.MessagePro
         return new SpannableString("[红包消息]");
     }
 
+
+
     @Override
     public void onItemClick(View view, int i, RedPackageChatMessage messageContent, UIMessage uiMessage) {
         // TODO: 2019-09-11 抢红包
@@ -106,7 +108,7 @@ public class RedPackageChatMessageView extends IContainerItemProvider.MessagePro
             @Override
             public void onSuccess(BaseBean<Integer> baseBean) {
                 if (baseBean.getData() != null && baseBean.getData() == 10) {
-                    openPackage(redId);
+                    openPackage(redId,uiMessage.getTargetId(),uiMessage.getConversationType());
                 } else {
                     RedPackageDialog redPackageDialog = RedPackageDialog.newInstance(String.valueOf(createRedPackageChildBean.getID()), uiMessage.getConversationType(), createRedPackageChildBean.getFrom_id(), createRedPackageChildBean);
                     redPackageDialog.show(((FragmentActivity) MAPP.mapp.getCurrentActivity()).getSupportFragmentManager(), "");
@@ -121,7 +123,7 @@ public class RedPackageChatMessageView extends IContainerItemProvider.MessagePro
         });
     }
 
-    private void openPackage(String redId) {
+    private void openPackage(String redId, String to, Conversation.ConversationType conversationType) {
         Map params = new HashMap<>();
         params.put("red_id", redId);
         HttpClient.Builder.getServer().tGetMoney(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<GetRedpackageBean>() {
@@ -129,7 +131,9 @@ public class RedPackageChatMessageView extends IContainerItemProvider.MessagePro
             public void onSuccess(BaseBean<GetRedpackageBean> baseBean) {
                 if (baseBean.getData() instanceof GetRedpackageBean) {
                     GetRedpackageModel getRedpackageModel = new GetRedpackageModel();
+//                    RongUtils.sendRedPackageOpenMessage(baseBean.getData().getGetUsersentence(),to,conversationType);
                     IntentUtils.intent2RedPackageOpenActivity(baseBean.getData());
+
                 }
 //                GetRedpackageBean
 

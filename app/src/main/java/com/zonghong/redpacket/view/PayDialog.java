@@ -339,8 +339,8 @@ public class PayDialog extends DialogFragment {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
                 if (payDialogType == PayDialogType.CREATE_GROUP) {
-                    dismiss();
                     EventBus.getDefault().postSticky(new UserEvent.PAY_SUC_EVENT());
+                    dismiss();
                 } else if (payDialogType == PayDialogType.RECHARGE) {
                     bRechar(money, bankId);
                 } else if (payDialogType == PayDialogType.CASH) {

@@ -155,7 +155,7 @@ public class RedPackageDialog extends DialogFragment {
                     } else {
                         getRedpackageModel.setUserId(fromId);
                     }
-                    RongUtils.sendRedPackageOpenMessage(getRedpackageModel);
+                    RongUtils.sendRedPackageOpenMessage(baseBean.getData().getGetUsersentence(),fromId,baseBean.getData().getUser_id(),type);
                     IntentUtils.intent2RedPackageOpenActivity(baseBean.getData());
 
                     dismiss();

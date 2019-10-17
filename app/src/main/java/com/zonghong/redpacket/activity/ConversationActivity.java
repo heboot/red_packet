@@ -63,6 +63,7 @@ public class ConversationActivity extends BaseActivity<ConversationBinding> {
         }
         FragmentManager fragmentManage = getSupportFragmentManager();
         conversationFragment = (MConversationFragment) fragmentManage.findFragmentById(R.id.conversation);
+
         Uri uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
                 .appendPath("conversation").appendPath(mConversationType.getName().toLowerCase())
                 .appendQueryParameter("targetId", mTargetId).build();

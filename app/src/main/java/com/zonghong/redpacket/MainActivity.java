@@ -12,6 +12,7 @@ import com.zonghong.redpacket.fragment.MConversationListFragment;
 import com.zonghong.redpacket.fragment.MyFragment;
 import com.zonghong.redpacket.fragment.WalletFragment;
 import com.zonghong.redpacket.rong.DeleteGroupMessageEventMessage;
+import com.zonghong.redpacket.rong.RedPackageChatOpenMessage;
 import com.zonghong.redpacket.rong.RongUtils;
 import com.zonghong.redpacket.utils.NotificationUtils;
 
@@ -152,6 +153,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                                 content = "语音消息";
                             } else if (message.getContent() instanceof TextMessage) {
                                 content = new TextMessage(message.getContent().encode()).getContent();
+                            } else if (message.getContent() instanceof RedPackageChatOpenMessage) {
+                                return;
                             } else {
                                 content = "新消息";
                             }

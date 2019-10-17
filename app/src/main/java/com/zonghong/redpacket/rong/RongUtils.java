@@ -7,6 +7,7 @@ import com.waw.hr.mutils.bean.CreateRedPackageChildBean;
 import com.waw.hr.mutils.bean.CustomBiaoqingBean;
 import com.waw.hr.mutils.bean.GetRedpackageModel;
 import com.waw.hr.mutils.bean.MingPianBean;
+import com.waw.hr.mutils.bean.RedpackageTipBean;
 import com.waw.hr.mutils.event.GroupEvent;
 import com.waw.hr.mutils.event.MessageEvent;
 import com.waw.hr.mutils.event.UserEvent;
@@ -167,17 +168,14 @@ public class RongUtils {
         });
     }
 
-    public static void sendRedPackageOpenMessage(GetRedpackageModel getRedpackageModel) {
-        LogUtil.e("SEND MESSAGE", JSON.toJSONString(getRedpackageModel));
-        RedPackageChatOpenMessage redPackageChatMessage = new RedPackageChatOpenMessage(JSON.toJSONString(getRedpackageModel).getBytes());
+    public static void sendRedPackageOpenMessage(String msg,String to,String uid, Conversation.ConversationType conversationType) {
+        RedpackageTipBean redpackageTipBean  = new RedpackageTipBean();
+        redpackageTipBean.setMessage(msg);
+        redpackageTipBean.setTargetId(uid);
+        RedPackageChatOpenMessage redPackageChatMessage = new RedPackageChatOpenMessage(JSON.toJSONString(redpackageTipBean).getBytes());
         Message message = new Message();
-        if (StringUtils.isEmpty(getRedpackageModel.getGroupId())) {
-            message.setConversationType(Conversation.ConversationType.PRIVATE);
-            message.setTargetId(getRedpackageModel.getUserId());
-        } else {
-            message.setConversationType(Conversation.ConversationType.GROUP);
-            message.setTargetId(getRedpackageModel.getGroupId());
-        }
+        message.setConversationType(conversationType);
+        message.setTargetId(to);
         message.setContent(redPackageChatMessage);
         message.setMessageDirection(io.rong.imlib.model.Message.MessageDirection.SEND);
 

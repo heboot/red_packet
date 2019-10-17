@@ -98,7 +98,6 @@ public class MAPP extends Application {
         RongIM.registerMessageType(DeleteGroupMessageEventMessage.class);
         RongIM.registerMessageType(MingPianMessage.class);
         RongIM.registerMessageType(CustomBiaoqingMessage.class);
-
         setMyExtensionModule();
         RongIM.getInstance().registerMessageTemplate(new RedPackageChatMessageView());
         RongIM.getInstance().registerMessageTemplate(new RedPackageChatTipMessageView());

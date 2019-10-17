@@ -27,6 +27,8 @@ public class UserService {
 
     private UserInfoBean userInfoBean;
 
+    private boolean zhendong, shengyin, tixing;
+
     private static UserService userService;
 
     public static UserService getInstance() {
@@ -34,6 +36,33 @@ public class UserService {
             userService = new UserService();
         }
         return userService;
+    }
+
+    public boolean isZhendong() {
+        return PreferencesUtils.getBoolean(MAPP.mapp, "zhendong");
+    }
+
+    public void setZhendong(boolean zhendong) {
+        this.zhendong = zhendong;
+        PreferencesUtils.putBoolean(MAPP.mapp,"zhendong", zhendong);
+    }
+
+    public boolean isShengyin() {
+        return PreferencesUtils.getBoolean(MAPP.mapp, "shengyin");
+    }
+
+    public void setShengyin(boolean shengyin) {
+        this.shengyin = shengyin;
+        PreferencesUtils.putBoolean(MAPP.mapp,"shengyin", shengyin);
+    }
+
+    public boolean isTixing() {
+        return PreferencesUtils.getBoolean(MAPP.mapp, "tixing");
+    }
+
+    public void setTixing(boolean tixing) {
+        this.tixing = tixing;
+        PreferencesUtils.putBoolean(MAPP.mapp,"tixing", tixing);
     }
 
     public void logout() {

@@ -1,9 +1,14 @@
 package com.zonghong.redpacket.rong;
 
+import android.view.KeyEvent;
+import android.widget.EditText;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 import io.rong.imkit.DefaultExtensionModule;
+import io.rong.imkit.RongExtension;
 import io.rong.imkit.emoticon.EmojiTab;
 import io.rong.imkit.emoticon.IEmojiItemClickListener;
 import io.rong.imkit.emoticon.IEmoticonTab;
@@ -17,7 +22,8 @@ import io.rong.imlib.model.Conversation;
 
 public class CustomDefaultExtensionModule extends DefaultExtensionModule {
 
-
+    private EditText mEditText;
+    private Stack<EditText> stack;
     @Override
     public List<IPluginModule> getPluginModules(Conversation.ConversationType conversationType) {
         List<IPluginModule> pluginModules = super.getPluginModules(conversationType);
@@ -46,10 +52,45 @@ public class CustomDefaultExtensionModule extends DefaultExtensionModule {
         return pluginModules;
     }
 
+    public void onAttachedToExtension(RongExtension extension) {
+        this.mEditText = extension.getInputEditText();
+        this.stack.push(this.mEditText);
+    }
+
+    public void onDetachedFromExtension() {
+        if (this.stack.size() > 0) {
+            this.stack.pop();
+            this.mEditText = this.stack.size() > 0 ? (EditText)this.stack.peek() : null;
+        }
+
+    }
+
+    public void onInit(String appKey) {
+        this.stack = new Stack();
+    }
+
     @Override
     public List<IEmoticonTab> getEmoticonTabs() {
-        List<IEmoticonTab> list = new ArrayList<>();
         EmojiTab emojiTab = new EmojiTab();
+        emojiTab.setOnItemClickListener(new IEmojiItemClickListener() {
+            public void onEmojiClick(String emoji) {
+                EditText editText = CustomDefaultExtensionModule.this.mEditText;
+                if (editText != null) {
+                    int start = editText.getSelectionStart();
+                    editText.getText().insert(start, emoji);
+                }
+
+            }
+
+            public void onDeleteClick() {
+                EditText editText = CustomDefaultExtensionModule.this.mEditText;
+                if (editText != null) {
+                    editText.dispatchKeyEvent(new KeyEvent(0, 67));
+                }
+
+            }
+        });
+        List<IEmoticonTab> list = new ArrayList();
         list.add(emojiTab);
         list.add(new MyEmoticon());
         return list;

@@ -235,7 +235,7 @@
                     android:textSize="18sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_yinsi" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_help" />
 
                 <View
                     android:layout_width="@dimen/x28"
@@ -261,7 +261,7 @@
                     android:textSize="18sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_setting" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_yinsi" />
 
                 <View
                     android:layout_width="@dimen/x28"

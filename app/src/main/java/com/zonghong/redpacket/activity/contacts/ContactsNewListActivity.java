@@ -87,8 +87,8 @@ public class ContactsNewListActivity extends BaseActivity<ActivityNewContactsLis
 
             @Override
             public void onError(BaseBean<List<NewFriendListBean>> baseBean) {
-//                tipDialog = DialogUtils.getFailDialog(ContactsNewListActivity.this, baseBean.getMsg(), true);
-//                tipDialog.show();
+                tipDialog = DialogUtils.getFailDialog(ContactsNewListActivity.this, baseBean.getMsg(), true);
+                tipDialog.show();
             }
         });
     }
