@@ -65,14 +65,14 @@ public class SearchDialogueListBean {
 
         private String id;
         private String name;
-        private String img;
+        private String photo;
 
-        public String getImg() {
-            return img;
+        public String getPhoto() {
+            return photo;
         }
 
-        public void setImg(String img) {
-            this.img = img;
+        public void setPhoto(String photo) {
+            this.photo = photo;
         }
 
         public String getId() {

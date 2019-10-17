@@ -46,7 +46,7 @@ public class RedPackageChatTipMessageView extends IContainerItemProvider.Message
 
     @Override
     public Spannable getContentSummary(RedPackageChatOpenMessage messageContent) {
-        return new SpannableString("[红包消息]");
+        return new SpannableString("");
     }
 
     @Override

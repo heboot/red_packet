@@ -11,8 +11,11 @@ import com.zonghong.redpacket.fragment.ContactsFragment;
 import com.zonghong.redpacket.fragment.MConversationListFragment;
 import com.zonghong.redpacket.fragment.MyFragment;
 import com.zonghong.redpacket.fragment.WalletFragment;
+import com.zonghong.redpacket.rong.CustomBiaoqingMessage;
 import com.zonghong.redpacket.rong.DeleteGroupMessageEventMessage;
+import com.zonghong.redpacket.rong.RedPackageChatMessage;
 import com.zonghong.redpacket.rong.RedPackageChatOpenMessage;
+import com.zonghong.redpacket.rong.RedPackageZhuanZhangChatMessage;
 import com.zonghong.redpacket.rong.RongUtils;
 import com.zonghong.redpacket.utils.NotificationUtils;
 
@@ -148,13 +151,19 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                         if (!MAPP.isShow) {
                             String content;
                             if (message.getContent() instanceof ImageMessage) {
-                                content = "图片消息";
+                                content = "[图片消息]";
                             } else if (message.getContent() instanceof VoiceMessage) {
-                                content = "语音消息";
+                                content = "[语音消息]";
                             } else if (message.getContent() instanceof TextMessage) {
                                 content = new TextMessage(message.getContent().encode()).getContent();
                             } else if (message.getContent() instanceof RedPackageChatOpenMessage) {
                                 return;
+                            } else if (message.getContent() instanceof RedPackageChatMessage) {
+                                content = "[红包消息]";
+                            } else if (message.getContent() instanceof RedPackageZhuanZhangChatMessage) {
+                                content = "[转账消息]";
+                            } else if (message.getContent() instanceof CustomBiaoqingMessage) {
+                                content = "[表情]";
                             } else {
                                 content = "新消息";
                             }

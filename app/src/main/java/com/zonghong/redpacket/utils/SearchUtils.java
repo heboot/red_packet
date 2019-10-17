@@ -114,7 +114,7 @@ public class SearchUtils {
                         for (SearchDialogueListBean.GidBean gidBean : gidList) {
                             if (conversation.getTargetId().equals(gidBean.getId())) {
                                 conversation.setConversationTitle(gidBean.getName());
-                                conversation.setPortraitUrl(gidBean.getImg());
+                                conversation.setPortraitUrl(gidBean.getPhoto());
                                 result.add(conversation);
                             }
 
