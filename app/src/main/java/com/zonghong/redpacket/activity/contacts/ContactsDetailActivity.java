@@ -28,6 +28,7 @@ import java.util.HashMap;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import io.rong.imkit.RongIM;
+import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.UserInfo;
 
 public class ContactsDetailActivity extends BaseActivity<ActivityContactsDetailBinding> {
@@ -132,7 +133,7 @@ public class ContactsDetailActivity extends BaseActivity<ActivityContactsDetailB
                 binding.tvAddgroupType.setText("进群方式       " + userInfoBean.getSource());
 
 
-                UserInfo uuu = new UserInfo(baseBean.getData().getNick_name(), baseBean.getData().getNick_name(), Uri.parse(baseBean.getData().getImg()));
+                UserInfo uuu = new UserInfo(userId, baseBean.getData().getNick_name(), Uri.parse(baseBean.getData().getImg()));
                 RongIM.getInstance().refreshUserInfoCache(uuu);
             }
 
@@ -254,6 +255,7 @@ public class ContactsDetailActivity extends BaseActivity<ActivityContactsDetailB
         HttpClient.Builder.getServer().fDel(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
+                RongIM.getInstance().removeConversation(Conversation.ConversationType.PRIVATE,userId,null);
                 tipDialog = DialogUtils.getSuclDialog(ContactsDetailActivity.this, baseBean.getMsg(), true);
                 tipDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override

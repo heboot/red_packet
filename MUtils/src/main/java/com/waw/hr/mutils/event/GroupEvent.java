@@ -9,6 +9,18 @@ public class GroupEvent {
 
     }
 
+    public static class ALTER_GROUP_NAME_EVENT{
+        private String name;
+
+        public String getName() {
+            return name;
+        }
+
+        public ALTER_GROUP_NAME_EVENT(String name) {
+            this.name = name;
+        }
+    }
+
     public static class DELETE_GROUP_MESSAGE_EVENT {
         private String groupId;
 

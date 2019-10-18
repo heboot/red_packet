@@ -100,7 +100,6 @@ public class MConversationListFragment extends BaseFragment<FragmentConversation
 
         getFragmentManager().beginTransaction().add(R.id.llyt_container, conversationListFragment).commit();
 
-
     }
 
     @Override

@@ -162,6 +162,7 @@ public class GroupDetailActivity extends BaseActivity<ActivityGroupDetailBinding
         HttpClient.Builder.getServer().gDelUser(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
+                RongIM.getInstance().removeConversation(Conversation.ConversationType.GROUP,groupId,null);
                 EventBus.getDefault().post(new GroupEvent.EXIT_GROUP_EVENT());
                 tipDialog = DialogUtils.getSuclDialog(GroupDetailActivity.this, baseBean.getMsg(), true);
                 tipDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {

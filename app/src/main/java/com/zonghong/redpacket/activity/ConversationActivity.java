@@ -121,9 +121,13 @@ public class ConversationActivity extends BaseActivity<ConversationBinding> {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(MessageEvent.SEND_CUSTOM_BIAOQING_EVENT event) {
-       RongUtils.sendCustonBiaoqingMessage(mTargetId,mConversationType,event.getExpressionListBean().getImage());
+        RongUtils.sendCustonBiaoqingMessage(mTargetId, mConversationType, event.getExpressionListBean().getImage());
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(GroupEvent.ALTER_GROUP_NAME_EVENT event) {
+        binding.tvTitle.setText(event.getName());
+    }
 
 
 }

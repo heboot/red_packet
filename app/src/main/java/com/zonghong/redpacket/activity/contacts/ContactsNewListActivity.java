@@ -70,6 +70,11 @@ public class ContactsNewListActivity extends BaseActivity<ActivityNewContactsLis
         HttpClient.Builder.getServer().fSCon(UserService.getInstance().getToken()).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<List<NewFriendListBean>>() {
             @Override
             public void onSuccess(BaseBean<List<NewFriendListBean>> baseBean) {
+
+                if (baseBean.getData() == null) {
+                    return;
+                }
+
                 listBeans.clear();
                 listBeans.addAll(baseBean.getData());
                 if (newContactsAdapter == null) {
@@ -110,9 +115,9 @@ public class ContactsNewListActivity extends BaseActivity<ActivityNewContactsLis
         });
     }
 
-    private View getAddByPhoneView(){
+    private View getAddByPhoneView() {
         LayoutAddPhoneContactsBinding layoutAddPhoneContactsBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.layout_add_phone_contacts, null, false);
-        layoutAddPhoneContactsBinding.getRoot().setOnClickListener(viwe->{
+        layoutAddPhoneContactsBinding.getRoot().setOnClickListener(viwe -> {
             // TODO: 2019/10/10 0010 去手机通讯录加人
             IntentUtils.doIntent(PhoneContactsActivity.class);
         });
