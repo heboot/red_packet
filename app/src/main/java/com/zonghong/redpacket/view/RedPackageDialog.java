@@ -132,7 +132,10 @@ public class RedPackageDialog extends DialogFragment {
 
     @Override
     public void onDestroy() {
-        myYAnimation.cancel();
+        if(myYAnimation != null){
+            myYAnimation.cancel();
+        }
+
         super.onDestroy();
     }
 

@@ -110,7 +110,7 @@ public class RedPackageChatMessageView extends IContainerItemProvider.MessagePro
                 if (baseBean.getData() != null && baseBean.getData() == 10) {
                     openPackage(redId,uiMessage.getTargetId(),uiMessage.getConversationType());
                 } else {
-                    RedPackageDialog redPackageDialog = RedPackageDialog.newInstance(String.valueOf(createRedPackageChildBean.getID()), uiMessage.getConversationType(), createRedPackageChildBean.getFrom_id(), createRedPackageChildBean);
+                    RedPackageDialog redPackageDialog = RedPackageDialog.newInstance(String.valueOf(createRedPackageChildBean.getID()), uiMessage.getConversationType(), MAPP.mapp.getCurrentConversationId(), createRedPackageChildBean);
                     redPackageDialog.show(((FragmentActivity) MAPP.mapp.getCurrentActivity()).getSupportFragmentManager(), "");
                 }
 

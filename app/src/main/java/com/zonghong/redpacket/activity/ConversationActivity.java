@@ -68,6 +68,8 @@ public class ConversationActivity extends BaseActivity<ConversationBinding> {
                 .appendPath("conversation").appendPath(mConversationType.getName().toLowerCase())
                 .appendQueryParameter("targetId", mTargetId).build();
 
+        MAPP.mapp.setCurrentConversationId(mTargetId);
+
         conversationFragment.setUri(uri);
     }
 

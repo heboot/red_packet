@@ -215,6 +215,8 @@ public class MyFragment extends BaseFragment<FragmentMyBinding> {
                 }
                 binding.tvNo.setText("简易号"+baseBean.getData().getAccount_id());
                 userInfo = new UserInfo(UserService.getInstance().getUserId(), baseBean.getData().getNick_name(), Uri.parse(baseBean.getData().getImg()));
+                UserInfo uuu = new UserInfo(UserService.getInstance().getUserId(), baseBean.getData().getNick_name(), Uri.parse(baseBean.getData().getImg()));
+                RongIM.getInstance().refreshUserInfoCache(uuu);
                 RongIM.getInstance().setCurrentUserInfo(userInfo);
                 RongIM.getInstance().setMessageAttachedUserInfo(true);
             }

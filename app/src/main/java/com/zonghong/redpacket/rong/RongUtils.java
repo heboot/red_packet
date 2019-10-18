@@ -175,7 +175,7 @@ public class RongUtils {
         RedPackageChatOpenMessage redPackageChatMessage = new RedPackageChatOpenMessage(JSON.toJSONString(redpackageTipBean).getBytes());
         Message message = new Message();
         message.setConversationType(conversationType);
-        message.setTargetId(to);
+        message.setTargetId(MAPP.mapp.getCurrentConversationId());
         message.setContent(redPackageChatMessage);
         message.setMessageDirection(io.rong.imlib.model.Message.MessageDirection.SEND);
 

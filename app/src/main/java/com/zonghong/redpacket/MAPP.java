@@ -40,6 +40,7 @@ public class MAPP extends Application {
 
     public static boolean isShow;
 
+    private String  currentConversationId = null;
 
     @Override
     public void onCreate() {
@@ -119,4 +120,11 @@ public class MAPP extends Application {
         this.currentActivity = currentActivity;
     }
 
+    public String getCurrentConversationId() {
+        return currentConversationId;
+    }
+
+    public void setCurrentConversationId(String currentConversationId) {
+        this.currentConversationId = currentConversationId;
+    }
 }
