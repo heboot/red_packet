@@ -157,7 +157,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                             } else if (message.getContent() instanceof TextMessage) {
                                 content = new TextMessage(message.getContent().encode()).getContent();
                             } else if (message.getContent() instanceof RedPackageChatOpenMessage) {
-                                return;
+                                content = "[新消息]";
+//                                return;
                             } else if (message.getContent() instanceof RedPackageChatMessage) {
                                 content = "[红包消息]";
                             } else if (message.getContent() instanceof RedPackageZhuanZhangChatMessage) {

@@ -24,6 +24,7 @@ import com.zonghong.redpacket.databinding.ActivityNewContactsListBinding;
 import com.zonghong.redpacket.databinding.LayoutAddPhoneContactsBinding;
 import com.zonghong.redpacket.databinding.LayoutSearchBinding;
 import com.zonghong.redpacket.http.HttpObserver;
+import com.zonghong.redpacket.rong.RongUtils;
 import com.zonghong.redpacket.service.UserService;
 import com.zonghong.redpacket.utils.IntentUtils;
 import com.zonghong.redpacket.utils.SearchUtils;
@@ -71,10 +72,6 @@ public class ContactsNewListActivity extends BaseActivity<ActivityNewContactsLis
             @Override
             public void onSuccess(BaseBean<List<NewFriendListBean>> baseBean) {
 
-                if (baseBean.getData() == null) {
-                    return;
-                }
-
                 listBeans.clear();
                 listBeans.addAll(baseBean.getData());
                 if (newContactsAdapter == null) {
@@ -98,13 +95,14 @@ public class ContactsNewListActivity extends BaseActivity<ActivityNewContactsLis
         });
     }
 
-    public void apply(String id) {
+    public void apply(String id,String name) {
         params.put("my_id", id);
         HttpClient.Builder.getServer().fConsent(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
                 ToastUtils.show(MAPP.mapp, baseBean.getMsg());
                 list();
+                RongUtils.toChat(id,name);
             }
 
             @Override

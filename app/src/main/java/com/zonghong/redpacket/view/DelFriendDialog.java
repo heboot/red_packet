@@ -12,11 +12,14 @@ import com.example.http.HttpClient;
 import com.waw.hr.mutils.MKey;
 import com.waw.hr.mutils.ToastUtils;
 import com.waw.hr.mutils.base.BaseBean;
+import com.waw.hr.mutils.event.UserEvent;
 import com.zonghong.redpacket.MAPP;
 import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.databinding.LayoutDelFriendBinding;
 import com.zonghong.redpacket.http.HttpObserver;
 import com.zonghong.redpacket.service.UserService;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -82,6 +85,7 @@ public class DelFriendDialog extends DialogFragment {
             public void onSuccess(BaseBean<Object> baseBean) {
                 dismiss();
                 ToastUtils.show(MAPP.mapp, baseBean.getMsg());
+                EventBus.getDefault().post(new UserEvent.DEL_FRIEND_EVENT());
             }
 
             @Override

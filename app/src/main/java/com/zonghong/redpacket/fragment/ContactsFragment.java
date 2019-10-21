@@ -17,6 +17,7 @@ import com.waw.hr.mutils.StringUtils;
 import com.waw.hr.mutils.base.BaseBean;
 import com.waw.hr.mutils.bean.ContatsChildBean;
 import com.waw.hr.mutils.bean.ContatsListBean;
+import com.waw.hr.mutils.event.UserEvent;
 import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.activity.chat.MyGroupListActivity;
 import com.zonghong.redpacket.activity.contacts.BlackUserListActivity;
@@ -35,6 +36,10 @@ import com.zonghong.redpacket.http.HttpObserver;
 import com.zonghong.redpacket.service.UserService;
 import com.zonghong.redpacket.utils.IntentUtils;
 import com.zonghong.redpacket.utils.SearchUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,9 +66,18 @@ public class ContactsFragment extends BaseFragment<FragmentContactsContainerBind
 
     @Override
     public void initUI() {
+        EventBus.getDefault().register(this);
 //        binding.includeToolbar.tvRight.setLayoutParams(new ViewGroup.LayoutParams(getResources().getDimensionPixelOffset(R.dimen.x20),getResources().getDimensionPixelOffset(R.dimen.y18)));
         binding.rvList.setLayoutManager(new LinearLayoutManager(_mActivity, RecyclerView.VERTICAL, false));
     }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(UserEvent.DEL_FRIEND_EVENT event) {
+        list();
+    }
+
+
 
     @Override
     public void onSupportVisible() {

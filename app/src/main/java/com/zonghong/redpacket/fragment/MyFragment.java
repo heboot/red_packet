@@ -31,6 +31,7 @@ import com.zonghong.redpacket.activity.user.MyBankActivity;
 import com.zonghong.redpacket.activity.common.SettingActivity;
 import com.zonghong.redpacket.base.BaseFragment;
 import com.zonghong.redpacket.common.ContactsDetailType;
+import com.zonghong.redpacket.common.QRCodeType;
 import com.zonghong.redpacket.databinding.FragmentMyBinding;
 import com.zonghong.redpacket.http.HttpObserver;
 import com.zonghong.redpacket.service.UserService;
@@ -142,14 +143,17 @@ public class MyFragment extends BaseFragment<FragmentMyBinding> {
             Intent intent = new Intent(_mActivity, CaptureActivity.class);
             startActivityForResult(intent, REQUEST_CODE);
         });
-        binding.tvTousu.setOnClickListener(view->{
+        binding.tvTousu.setOnClickListener(view -> {
             IntentUtils.doIntent(ComplaintActivity2.class);
         });
-        binding.tvTongyong.setOnClickListener(view->{
+        binding.tvTongyong.setOnClickListener(view -> {
             IntentUtils.doIntent(TongyongActivity.class);
         });
-        binding.tvYinsi.setOnClickListener(view->{
+        binding.tvYinsi.setOnClickListener(view -> {
             IntentUtils.doIntent(SafeActivity.class);
+        });
+        binding.vQrcode.setOnClickListener(view -> {
+            IntentUtils.intent2QRCodeActivity(QRCodeType.USER, UserService.getInstance().getUserInfoBean().getNick_name(), UserService.getInstance().getUserInfoBean().getImg(), UserService.getInstance().getUserInfoBean().getSex() + "", UserService.getInstance().getUserInfoBean().getAccount_id());
         });
     }
 
@@ -213,7 +217,7 @@ public class MyFragment extends BaseFragment<FragmentMyBinding> {
                 } else {
                     binding.ivSex.setBackgroundResource(R.mipmap.icon_sex_woman);
                 }
-                binding.tvNo.setText("简易号"+baseBean.getData().getAccount_id());
+                binding.tvNo.setText("简易号" + baseBean.getData().getAccount_id());
                 userInfo = new UserInfo(UserService.getInstance().getUserId(), baseBean.getData().getNick_name(), Uri.parse(baseBean.getData().getImg()));
                 UserInfo uuu = new UserInfo(UserService.getInstance().getUserId(), baseBean.getData().getNick_name(), Uri.parse(baseBean.getData().getImg()));
                 RongIM.getInstance().refreshUserInfoCache(uuu);

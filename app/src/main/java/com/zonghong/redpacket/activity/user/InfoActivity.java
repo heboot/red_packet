@@ -1,6 +1,7 @@
 package com.zonghong.redpacket.activity.user;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.view.View;
 
@@ -14,6 +15,7 @@ import com.waw.hr.mutils.MKey;
 import com.waw.hr.mutils.StringUtils;
 import com.waw.hr.mutils.base.BaseBean;
 import com.waw.hr.mutils.bean.LoginBean;
+import com.waw.hr.mutils.bean.UserInfoBean;
 import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.activity.loginregister.LoginActivity;
 import com.zonghong.redpacket.base.BaseActivity;
@@ -31,6 +33,8 @@ import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.UserInfo;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -117,6 +121,12 @@ public class InfoActivity extends BaseActivity<ActivityInfoBinding> {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        userInfo();
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
@@ -132,6 +142,27 @@ public class InfoActivity extends BaseActivity<ActivityInfoBinding> {
             uploadAvatar();
 //                UploadUtils.uploadImage(selectList.get(0).getCompressPath(), UploadUtils.getIDCardPath(), upCompletionHandler);
         }
+    }
+
+    private void userInfo() {
+        HttpClient.Builder.getServer().userInfo(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<UserInfoBean>() {
+            @Override
+            public void onSuccess(BaseBean<UserInfoBean> baseBean) {
+                UserService.getInstance().setUserInfoBean(baseBean.getData());
+                UserInfo uuu = new UserInfo(UserService.getInstance().getUserId(), baseBean.getData().getNick_name(), Uri.parse(baseBean.getData().getImg()));
+                RongIM.getInstance().refreshUserInfoCache(uuu);
+                RongIM.getInstance().setMessageAttachedUserInfo(true);
+
+                binding.tvNick.setText(UserService.getInstance().getUserInfoBean().getNick_name());
+                binding.tvSex.setText(UserService.getInstance().getUserInfoBean().getSex() == 1 ? "男" : "女");
+                ImageUtils.showAvatar(UserService.getInstance().getUserInfoBean().getImg(), binding.ivAvatar);
+            }
+
+            @Override
+            public void onError(BaseBean<UserInfoBean> baseBean) {
+
+            }
+        });
     }
 
     private String avatarPath;

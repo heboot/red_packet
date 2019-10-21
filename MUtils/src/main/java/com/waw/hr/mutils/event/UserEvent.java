@@ -49,5 +49,9 @@ public class UserEvent {
 
     }
 
+    public static class DEL_FRIEND_EVENT{
+
+    }
+
 
 }

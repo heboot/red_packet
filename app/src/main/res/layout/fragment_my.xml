@@ -50,8 +50,8 @@
                     android:layout_marginTop="@dimen/y28"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:qmui_corner_radius="@dimen/x5"
-                    app:qmui_border_width="0dp"/>
+                    app:qmui_border_width="0dp"
+                    app:qmui_corner_radius="@dimen/x5" />
 
 
                 <TextView
@@ -86,6 +86,31 @@
                     app:layout_constraintLeft_toLeftOf="@+id/tv_name"
                     app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
+                <View
+                    android:layout_width="@dimen/x15"
+                    android:layout_height="@dimen/y14"
+                    android:layout_marginRight="@dimen/x37"
+                    android:background="@mipmap/icon_qrcode"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_no"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_no"></View>
+
+                <View
+                    android:layout_width="@dimen/x7"
+                    android:layout_height="@dimen/y12"
+                    android:layout_marginRight="@dimen/x15"
+                    android:background="@mipmap/icon_arrow_right"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_no"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_no"></View>
+
+                <View
+                    android:id="@+id/v_qrcode"
+                    android:layout_width="@dimen/x85"
+                    android:layout_height="@dimen/y30"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_no"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_no"></View>
 
                 <TextView
                     android:id="@+id/tv_scan"

@@ -32,7 +32,7 @@ public class NewContactsAdapter extends BaseQuickAdapter<NewFriendListBean, Base
         binding.tvName.setText(item.getFriend_name());
         ImageUtils.showAvatar(item.getFriend_image(), binding.ivAvatar);
         binding.tvOption.setOnClickListener((v) -> {
-            weakReference.get().apply(String.valueOf(item.getMy_id()));
+            weakReference.get().apply(String.valueOf(item.getMy_id()),item.getFriend_name());
         });
 //        binding.getRoot().setOnClickListener((v) -> {
 //            IntentUtils.intent2ContactsDetailActivity(item.getMy_id() + "", ContactsDetailType.NORMAL);
