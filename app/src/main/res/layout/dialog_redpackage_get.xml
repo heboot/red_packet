@@ -32,8 +32,8 @@
                 android:id="@+id/iv_avatar"
                 android:layout_width="@dimen/x25"
                 android:layout_height="@dimen/y25"
-                app:qmui_corner_radius="@dimen/x5"
-                app:qmui_border_width="0dp"/>
+                app:qmui_border_width="0dp"
+                app:qmui_corner_radius="@dimen/x5" />
 
 
             <TextView
@@ -67,6 +67,18 @@
             app:layout_constraintBottom_toBottomOf="@+id/v_bg"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"></View>
+
+        <TextView
+            android:id="@+id/tv_get_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/x12"
+            android:text="领取详情"
+            android:textColor="#ffffffff"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toLeftOf="@+id/v_open"
+            app:layout_constraintRight_toRightOf="@+id/v_open"
+            app:layout_constraintTop_toBottomOf="@+id/v_open" />
 
         <View
             android:id="@+id/v_close"

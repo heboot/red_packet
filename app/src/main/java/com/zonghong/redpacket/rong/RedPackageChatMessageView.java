@@ -118,7 +118,7 @@ public class RedPackageChatMessageView extends IContainerItemProvider.MessagePro
 
             @Override
             public void onError(BaseBean<Integer> baseBean) {
-                Toast.makeText(MAPP.mapp, baseBean.getMsg(), Toast.LENGTH_LONG).show();
+                Toast.makeText(MAPP.mapp,  baseBean.getMsg(), Toast.LENGTH_LONG).show();
             }
         });
     }
