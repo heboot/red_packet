@@ -22,6 +22,8 @@ public class RedPageResultActivity extends BaseActivity<ActivityRedpackageResult
 
     private RedpackageLogAdapter redpackageLogAdapter;
 
+    private int status;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_redpackage_result;
@@ -35,10 +37,19 @@ public class RedPageResultActivity extends BaseActivity<ActivityRedpackageResult
 
     @Override
     public void initData() {
+        status = (int) getIntent().getExtras().get("status");
         getRedpackageBean = (GetRedpackageBean) getIntent().getExtras().get(MKey.DATA);
-        binding.tvMoney.setText(formatDouble(Double.parseDouble(getRedpackageBean.getMyGetMoney())));
+
         binding.tvName.setText(getRedpackageBean.getName() + "的红包");
-        binding.tvDesc.setText(getRedpackageBean.getDes());
+        if (status == 100 || status == 101) {
+            binding.tvMoney.setVisibility(View.GONE);
+        }
+        if(status == 101){
+            binding.tvDesc.setText("手慢了，红包派完了");
+        }else{
+            binding.tvDesc.setText(getRedpackageBean.getDes());
+        }
+
         ImageUtils.showAvatar(getRedpackageBean.getImageUrl(), binding.ivAvatar);
         redpackageLogAdapter = new RedpackageLogAdapter(getRedpackageBean.getList(), false);
         binding.rvList.setAdapter(redpackageLogAdapter);

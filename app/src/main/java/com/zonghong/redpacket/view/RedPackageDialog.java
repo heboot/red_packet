@@ -52,10 +52,24 @@ public class RedPackageDialog extends DialogFragment {
 
     private CreateRedPackageChildBean createRedPackageChildBean;
 
+    private int status = -1;
+
     public static RedPackageDialog newInstance(String redId, Conversation.ConversationType type, String fromId, CreateRedPackageChildBean createRedPackageChildBean) {
         Bundle args = new Bundle();
         args.putSerializable(MKey.ID, redId);
         args.putSerializable(MKey.TYPE, type);
+        args.putSerializable("fromId", fromId);
+        args.putSerializable(MKey.DATA, createRedPackageChildBean);
+        RedPackageDialog fragment = new RedPackageDialog();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static RedPackageDialog newInstance(String redId, Conversation.ConversationType type, String fromId, CreateRedPackageChildBean createRedPackageChildBean, int status) {
+        Bundle args = new Bundle();
+        args.putSerializable(MKey.ID, redId);
+        args.putSerializable(MKey.TYPE, type);
+        args.putInt("status", status);
         args.putSerializable("fromId", fromId);
         args.putSerializable(MKey.DATA, createRedPackageChildBean);
         RedPackageDialog fragment = new RedPackageDialog();
@@ -96,12 +110,19 @@ public class RedPackageDialog extends DialogFragment {
         fromId = getArguments().getString("fromId");
         type = (Conversation.ConversationType) getArguments().get(MKey.TYPE);
         createRedPackageChildBean = (CreateRedPackageChildBean) getArguments().get(MKey.DATA);
+        status = getArguments().getInt("status");
 
         binding.tvTtt.setText(createRedPackageChildBean.getRedName() + "的红包");
 
         ImageUtils.showAvatar(createRedPackageChildBean.getImage(), binding.ivAvatar);
 
-        binding.tvDesc.setText(createRedPackageChildBean.getDesc());
+        if(status == 101){
+            binding.tvDesc.setText("手慢了，红包派完了");
+            binding.vOpen.setVisibility(View.GONE);
+        }else{
+            binding.tvDesc.setText(createRedPackageChildBean.getDesc());
+        }
+
 
         binding.vOpen.setOnClickListener((v) -> {
             myYAnimation = new RedpackageAnimation();
@@ -115,7 +136,7 @@ public class RedPackageDialog extends DialogFragment {
 
                 @Override
                 public void onAnimationEnd(Animation animation) {
-                    createRedpackage();
+                    createRedpackage(status);
                 }
 
                 @Override
@@ -123,6 +144,9 @@ public class RedPackageDialog extends DialogFragment {
 
                 }
             });
+        });
+        binding.tvGetDetail.setOnClickListener(v->{
+            createRedpackage(status);
         });
         binding.vClose.setOnClickListener((v) -> {
             dismiss();
@@ -132,7 +156,7 @@ public class RedPackageDialog extends DialogFragment {
 
     @Override
     public void onDestroy() {
-        if(myYAnimation != null){
+        if (myYAnimation != null) {
             myYAnimation.cancel();
         }
 
@@ -145,7 +169,7 @@ public class RedPackageDialog extends DialogFragment {
     }
 
 
-    private void createRedpackage() {
+    private void createRedpackage(int stauts) {
         Map params = new HashMap<>();
         params.put("red_id", redId);
         HttpClient.Builder.getServer().tGetMoney(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<GetRedpackageBean>() {
@@ -158,8 +182,8 @@ public class RedPackageDialog extends DialogFragment {
                     } else {
                         getRedpackageModel.setUserId(fromId);
                     }
-                    RongUtils.sendRedPackageOpenMessage(baseBean.getData().getGetUsersentence(),fromId,baseBean.getData().getUser_id(),type);
-                    IntentUtils.intent2RedPackageOpenActivity(baseBean.getData());
+                    RongUtils.sendRedPackageOpenMessage(baseBean.getData().getGetUsersentence(), fromId, baseBean.getData().getUser_id(), type);
+                    IntentUtils.intent2RedPackageOpenActivity(baseBean.getData(),status);
 
                     dismiss();
                 }

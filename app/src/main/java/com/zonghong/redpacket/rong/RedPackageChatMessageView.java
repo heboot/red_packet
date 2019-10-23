@@ -74,15 +74,12 @@ public class RedPackageChatMessageView extends IContainerItemProvider.MessagePro
     }
 
 
-
     @Override
     public void onItemClick(View view, int i, RedPackageChatMessage messageContent, UIMessage uiMessage) {
         // TODO: 2019-09-11 抢红包
         String s = new String(messageContent.encode());
         LogUtil.e("解析红包消息", s);
         CreateRedPackageChildBean createRedPackageChildBean = JSON.parseObject(s, CreateRedPackageChildBean.class);
-//        RedPackageDialog redPackageDialog = RedPackageDialog.newInstance(String.valueOf(createRedPackageChildBean.getID()), uiMessage.getConversationType(), createRedPackageChildBean.getFrom_id(), createRedPackageChildBean);
-//        redPackageDialog.show(((FragmentActivity) MAPP.mapp.getCurrentActivity()).getSupportFragmentManager(), "");
 
         if (uiMessage.getConversationType() == Conversation.ConversationType.PRIVATE) {
             if (uiMessage.getSenderUserId().equals(UserService.getInstance().getUserId())) {
@@ -107,23 +104,34 @@ public class RedPackageChatMessageView extends IContainerItemProvider.MessagePro
         HttpClient.Builder.getServer().tVerify(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Integer>() {
             @Override
             public void onSuccess(BaseBean<Integer> baseBean) {
-                if (baseBean.getData() != null && baseBean.getData() == 10) {
-                    openPackage(redId,uiMessage.getTargetId(),uiMessage.getConversationType());
-                } else {
-                    RedPackageDialog redPackageDialog = RedPackageDialog.newInstance(String.valueOf(createRedPackageChildBean.getID()), uiMessage.getConversationType(), MAPP.mapp.getCurrentConversationId(), createRedPackageChildBean);
-                    redPackageDialog.show(((FragmentActivity) MAPP.mapp.getCurrentActivity()).getSupportFragmentManager(), "");
-                }
+                if (uiMessage.getConversationType() == Conversation.ConversationType.GROUP) {
 
+                    if (baseBean.getData() == 100 || baseBean.getData() == 101) {
+                        RedPackageDialog redPackageDialog = RedPackageDialog.newInstance(String.valueOf(createRedPackageChildBean.getID()), uiMessage.getConversationType(), MAPP.mapp.getCurrentConversationId(), createRedPackageChildBean, baseBean.getData());
+                        redPackageDialog.show(((FragmentActivity) MAPP.mapp.getCurrentActivity()).getSupportFragmentManager(), "");
+                    } else {
+                        openPackage(redId, baseBean.getData());
+                    }
+
+
+                } else {
+                    if (baseBean.getData() != null && baseBean.getData() == 10) {
+                        openPackage(redId, baseBean.getData());
+                    } else {
+                        RedPackageDialog redPackageDialog = RedPackageDialog.newInstance(String.valueOf(createRedPackageChildBean.getID()), uiMessage.getConversationType(), MAPP.mapp.getCurrentConversationId(), createRedPackageChildBean, baseBean.getData());
+                        redPackageDialog.show(((FragmentActivity) MAPP.mapp.getCurrentActivity()).getSupportFragmentManager(), "");
+                    }
+                }
             }
 
             @Override
             public void onError(BaseBean<Integer> baseBean) {
-                Toast.makeText(MAPP.mapp,  baseBean.getMsg(), Toast.LENGTH_LONG).show();
+                Toast.makeText(MAPP.mapp, baseBean.getMsg(), Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    private void openPackage(String redId, String to, Conversation.ConversationType conversationType) {
+    private void openPackage(String redId, int status) {
         Map params = new HashMap<>();
         params.put("red_id", redId);
         HttpClient.Builder.getServer().tGetMoney(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<GetRedpackageBean>() {
@@ -132,7 +140,7 @@ public class RedPackageChatMessageView extends IContainerItemProvider.MessagePro
                 if (baseBean.getData() instanceof GetRedpackageBean) {
                     GetRedpackageModel getRedpackageModel = new GetRedpackageModel();
 //                    RongUtils.sendRedPackageOpenMessage(baseBean.getData().getGetUsersentence(),to,conversationType);
-                    IntentUtils.intent2RedPackageOpenActivity(baseBean.getData());
+                    IntentUtils.intent2RedPackageOpenActivity(baseBean.getData(),status);
 
                 }
 //                GetRedpackageBean

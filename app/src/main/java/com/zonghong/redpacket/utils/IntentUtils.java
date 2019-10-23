@@ -75,9 +75,10 @@ public class IntentUtils {
         MAPP.mapp.getCurrentActivity().startActivity(intent);
     }
 
-    public static void intent2RedPackageOpenActivity(GetRedpackageBean getRedpackageBean) {
+    public static void intent2RedPackageOpenActivity(GetRedpackageBean getRedpackageBean,int status) {
         intent = new Intent(MAPP.mapp.getCurrentActivity(), RedPageResultActivity.class);
         intent.putExtra(MKey.DATA, getRedpackageBean);
+        intent.putExtra("status", status);
         MAPP.mapp.getCurrentActivity().startActivity(intent);
     }
 
