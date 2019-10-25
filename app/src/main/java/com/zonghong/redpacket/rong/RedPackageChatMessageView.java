@@ -110,13 +110,13 @@ public class RedPackageChatMessageView extends IContainerItemProvider.MessagePro
                         RedPackageDialog redPackageDialog = RedPackageDialog.newInstance(String.valueOf(createRedPackageChildBean.getID()), uiMessage.getConversationType(), MAPP.mapp.getCurrentConversationId(), createRedPackageChildBean, baseBean.getData());
                         redPackageDialog.show(((FragmentActivity) MAPP.mapp.getCurrentActivity()).getSupportFragmentManager(), "");
                     } else {
-                        openPackage(redId, baseBean.getData());
+                        openPackage(redId, baseBean.getData(),false);
                     }
 
 
                 } else {
                     if (baseBean.getData() != null && baseBean.getData() == 10) {
-                        openPackage(redId, baseBean.getData());
+                        openPackage(redId, baseBean.getData(),false);
                     } else {
                         RedPackageDialog redPackageDialog = RedPackageDialog.newInstance(String.valueOf(createRedPackageChildBean.getID()), uiMessage.getConversationType(), MAPP.mapp.getCurrentConversationId(), createRedPackageChildBean, baseBean.getData());
                         redPackageDialog.show(((FragmentActivity) MAPP.mapp.getCurrentActivity()).getSupportFragmentManager(), "");
@@ -131,7 +131,7 @@ public class RedPackageChatMessageView extends IContainerItemProvider.MessagePro
         });
     }
 
-    private void openPackage(String redId, int status) {
+    private void openPackage(String redId, int status,boolean show) {
         Map params = new HashMap<>();
         params.put("red_id", redId);
         HttpClient.Builder.getServer().tGetMoney(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<GetRedpackageBean>() {

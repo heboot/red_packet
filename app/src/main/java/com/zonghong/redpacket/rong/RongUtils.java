@@ -169,6 +169,9 @@ public class RongUtils {
     }
 
     public static void sendRedPackageOpenMessage(String msg,String to,String uid, Conversation.ConversationType conversationType) {
+        if(StringUtils.isEmpty(msg)){
+            return;
+        }
         RedpackageTipBean redpackageTipBean  = new RedpackageTipBean();
         redpackageTipBean.setMessage(msg);
         redpackageTipBean.setTargetId(uid);

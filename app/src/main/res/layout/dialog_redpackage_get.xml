@@ -75,10 +75,12 @@
             android:layout_marginTop="@dimen/x12"
             android:text="领取详情"
             android:textColor="#ffffffff"
+            android:layout_marginBottom="@dimen/y15"
+             app:layout_constraintBottom_toBottomOf="@+id/v_bg"
             android:textSize="15sp"
             app:layout_constraintLeft_toLeftOf="@+id/v_open"
             app:layout_constraintRight_toRightOf="@+id/v_open"
-            app:layout_constraintTop_toBottomOf="@+id/v_open" />
+              />
 
         <View
             android:id="@+id/v_close"

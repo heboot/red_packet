@@ -136,7 +136,7 @@ public class RedPackageDialog extends DialogFragment {
 
                 @Override
                 public void onAnimationEnd(Animation animation) {
-                    createRedpackage(status);
+                    createRedpackage(status,false);
                 }
 
                 @Override
@@ -146,7 +146,7 @@ public class RedPackageDialog extends DialogFragment {
             });
         });
         binding.tvGetDetail.setOnClickListener(v->{
-            createRedpackage(status);
+            createRedpackage(status,true);
         });
         binding.vClose.setOnClickListener((v) -> {
             dismiss();
@@ -169,9 +169,12 @@ public class RedPackageDialog extends DialogFragment {
     }
 
 
-    private void createRedpackage(int stauts) {
+    private void createRedpackage(int stauts,boolean show) {
         Map params = new HashMap<>();
         params.put("red_id", redId);
+        if(show){
+            params.put("show", 1);
+        }
         HttpClient.Builder.getServer().tGetMoney(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<GetRedpackageBean>() {
             @Override
             public void onSuccess(BaseBean<GetRedpackageBean> baseBean) {
