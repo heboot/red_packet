@@ -5,6 +5,8 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.waw.hr.mutils.StringUtils;
+
 public class MoneyTextWatcher implements TextWatcher {
 
     private EditText editText;
@@ -58,7 +60,13 @@ public class MoneyTextWatcher implements TextWatcher {
             }
         }
 
-        textView.setText(s);
+        if(StringUtils.isEmpty(s)){
+            textView.setText(s);
+        }
+        else{
+            textView.setText(NumberUtils.formatDouble(Double.parseDouble(s.toString())));
+        }
+
     }
 
     @Override

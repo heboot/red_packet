@@ -43,6 +43,9 @@ public class RedPageResultActivity extends BaseActivity<ActivityRedpackageResult
         binding.tvName.setText(getRedpackageBean.getName() + "的红包");
         if (status == 100 || status == 101) {
             binding.tvMoney.setVisibility(View.GONE);
+        }else{
+            binding.tvMoney.setVisibility(View.VISIBLE);
+            binding.tvMoney.setText(formatDouble(Double.parseDouble(getRedpackageBean.getMyGetMoney())));
         }
         if(status == 101){
             binding.tvDesc.setText("手慢了，红包派完了");

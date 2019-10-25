@@ -20,6 +20,7 @@ import com.zonghong.redpacket.databinding.FragmentWalletBinding;
 import com.zonghong.redpacket.http.HttpObserver;
 import com.zonghong.redpacket.service.UserService;
 import com.zonghong.redpacket.utils.IntentUtils;
+import com.zonghong.redpacket.utils.NumberUtils;
 
 import java.util.Map;
 
@@ -70,7 +71,7 @@ public class WalletFragment extends BaseFragment<FragmentWalletBinding> {
             @Override
             public void onSuccess(BaseBean<Map> baseBean) {
                 UserService.getInstance().setBalance(String.valueOf((double) baseBean.getData().get("balance")));
-                binding.tvBalance.setText((double) baseBean.getData().get("balance") + "");
+                binding.tvBalance.setText(NumberUtils.formatDouble((double) baseBean.getData().get("balance")));
                 if ((double) baseBean.getData().get("bank") == 1) {
                     binding.tvCash.setOnClickListener((v) -> {
                         IntentUtils.intent2RechargeCaseActivity(RechargeCashType.CASH);

@@ -15,6 +15,7 @@ import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.databinding.ItemContactsContainerBinding;
 import com.zonghong.redpacket.databinding.ItemRedpackageLogBinding;
 import com.zonghong.redpacket.utils.ImageUtils;
+import com.zonghong.redpacket.utils.NumberUtils;
 
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class RedpackageLogAdapter extends BaseQuickAdapter<GetRedpackageUserBean
             binding.ivAvatar.setVisibility(View.VISIBLE);
             ImageUtils.showAvatar(item.getAvatar(), binding.ivAvatar);
         }
-        binding.tvMoney.setText(item.getMoney());
+        binding.tvMoney.setText(NumberUtils.formatDouble(Double.parseDouble(item.getMoney())));
         binding.tvName.setText(item.getName());
         binding.tvTime.setText(item.getTime());
     }

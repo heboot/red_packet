@@ -45,7 +45,7 @@ public class GroupExtensionModule extends DefaultExtensionModule {
                 pluginModules.remove(i);
             }
         }
-//        pluginModules.clear();
+        pluginModules.clear();
         pluginModules.add(new MyPicPlugin());
         pluginModules.add(new MyLocationPlugin());
         pluginModules.add(new MingpianPlugin());

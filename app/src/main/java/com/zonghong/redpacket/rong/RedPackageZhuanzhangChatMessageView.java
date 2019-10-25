@@ -24,6 +24,7 @@ import com.zonghong.redpacket.databinding.MessageRedpackageZhuanzhangBinding;
 import com.zonghong.redpacket.http.HttpObserver;
 import com.zonghong.redpacket.service.UserService;
 import com.zonghong.redpacket.utils.IntentUtils;
+import com.zonghong.redpacket.utils.NumberUtils;
 import com.zonghong.redpacket.view.RedPackageDialog;
 
 import java.util.HashMap;
@@ -58,7 +59,7 @@ public class RedPackageZhuanzhangChatMessageView extends IContainerItemProvider.
         } else {
             messageRedpackageChatBinding.tvDesc.setText(createRedPackageChildBean.getUserContent());
         }
-        messageRedpackageChatBinding.tvDes.setText(createRedPackageChildBean.getMoney());
+        messageRedpackageChatBinding.tvDes.setText(NumberUtils.formatDouble(Double.parseDouble(createRedPackageChildBean.getMoney())));
     }
 
     @Override

@@ -31,6 +31,7 @@ import com.zonghong.redpacket.databinding.DialogPaypwdBinding;
 import com.zonghong.redpacket.http.HttpObserver;
 import com.zonghong.redpacket.rong.RongUtils;
 import com.zonghong.redpacket.service.UserService;
+import com.zonghong.redpacket.utils.NumberUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -136,7 +137,7 @@ public class PayChooseTypeDialog extends DialogFragment {
                 break;
         }
 
-        binding.tvMoney.setText(money + "");
+        binding.tvMoney.setText(NumberUtils.formatDouble(Double.parseDouble(money+"")) + "");
 
         QMUIKeyboardHelper.showKeyboard(binding.etPwd, false);
         binding.vClose.setOnClickListener((v) -> {

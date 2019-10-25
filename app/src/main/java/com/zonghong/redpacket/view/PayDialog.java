@@ -55,6 +55,7 @@ import com.zonghong.redpacket.rong.RongUtils;
 import com.zonghong.redpacket.service.UserService;
 import com.zonghong.redpacket.utils.ImageUtils;
 import com.zonghong.redpacket.utils.IntentUtils;
+import com.zonghong.redpacket.utils.NumberUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -271,7 +272,7 @@ public class PayDialog extends DialogFragment {
                 break;
         }
 
-        binding.tvMoney.setText(money + "");
+        binding.tvMoney.setText(NumberUtils.formatDouble(Double.parseDouble(money+"")) + "");
 
         QMUIKeyboardHelper.showKeyboard(binding.etPwd, false);
         binding.vClose.setOnClickListener((v) -> {

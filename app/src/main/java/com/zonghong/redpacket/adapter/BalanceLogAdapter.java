@@ -11,6 +11,7 @@ import com.waw.hr.mutils.bean.CashLogBean;
 import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.databinding.ItemBalanceLogBinding;
 import com.zonghong.redpacket.databinding.ItemCashBinding;
+import com.zonghong.redpacket.utils.NumberUtils;
 
 import java.util.List;
 
@@ -28,10 +29,10 @@ public class BalanceLogAdapter extends BaseQuickAdapter<BalanceLogBean, BaseView
 
         if (Double.parseDouble(item.getSign()) == 1) {
             binding.tvMoney.setTextColor(Color.parseColor("#F8D347"));
-            binding.tvMoney.setText("+" + item.getMoney());
+            binding.tvMoney.setText("+" + NumberUtils.formatDouble(Double.parseDouble(item.getMoney())));
         } else if (Double.parseDouble(item.getSign()) == 2) {
             binding.tvMoney.setTextColor(Color.BLACK);
-            binding.tvMoney.setText("-" + item.getMoney());
+            binding.tvMoney.setText("-" + NumberUtils.formatDouble(Double.parseDouble(item.getMoney())));
         }
         binding.tvTime.setText(item.getCreate_time());
         switch (item.getType()) {
