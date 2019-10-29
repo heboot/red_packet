@@ -79,6 +79,7 @@ public class DelGroupUserActivity extends BaseActivity<FragmentContactsBinding> 
         params = new HashMap<>();
         params.put("group_id", groupId);
         params.put("user_id", checkIds.substring(0, checkIds.length()));
+        params.put("operation", 1);
         HttpClient.Builder.getServer().gDelUser(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {

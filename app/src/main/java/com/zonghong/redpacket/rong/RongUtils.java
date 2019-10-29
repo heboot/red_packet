@@ -11,6 +11,7 @@ import com.waw.hr.mutils.bean.RedpackageTipBean;
 import com.waw.hr.mutils.event.GroupEvent;
 import com.waw.hr.mutils.event.MessageEvent;
 import com.waw.hr.mutils.event.UserEvent;
+import com.waw.hr.mutils.model.ZhuanZhangModel;
 import com.zonghong.redpacket.MAPP;
 import com.zonghong.redpacket.MainActivity;
 import com.zonghong.redpacket.common.SendMingPianType;
@@ -113,11 +114,12 @@ public class RongUtils {
         RongIM.getInstance().startConversation(MAPP.mapp.getCurrentActivity(), Conversation.ConversationType.PRIVATE, toUserId, toUserName, time);
     }
 
-    public static void sendZhuanzhuangRedPackageMessage(CreateRedPackageChildBean createRedPackageChildBean) {
-        RedPackageZhuanZhangChatMessage redPackageChatMessage = new RedPackageZhuanZhangChatMessage(JSON.toJSONString(createRedPackageChildBean).getBytes());
+    public static void sendZhuanzhuangRedPackageMessage(String toId,ZhuanZhangModel createRedPackageChildBean) {
+        String js = JSON.toJSONString(createRedPackageChildBean);
+        RedPackageZhuanZhangChatMessage redPackageChatMessage = new RedPackageZhuanZhangChatMessage(js.getBytes());
         Message message = new Message();
         message.setConversationType(Conversation.ConversationType.PRIVATE);
-        message.setTargetId(createRedPackageChildBean.getUser_id());
+        message.setTargetId(toId);
         message.setContent(redPackageChatMessage);
         message.setMessageDirection(io.rong.imlib.model.Message.MessageDirection.SEND);
         RongIM.getInstance().sendMessage(message, "", "", new IRongCallback.ISendMessageCallback() {
@@ -168,13 +170,14 @@ public class RongUtils {
         });
     }
 
-    public static void sendRedPackageOpenMessage(String msg,String to,String uid, Conversation.ConversationType conversationType) {
+    public static void sendRedPackageOpenMessage(String msg,String to,String uid, Conversation.ConversationType conversationType,String redId) {
         if(StringUtils.isEmpty(msg)){
             return;
         }
         RedpackageTipBean redpackageTipBean  = new RedpackageTipBean();
         redpackageTipBean.setMessage(msg);
         redpackageTipBean.setTargetId(uid);
+        redpackageTipBean.setRedId(redId);
         RedPackageChatOpenMessage redPackageChatMessage = new RedPackageChatOpenMessage(JSON.toJSONString(redpackageTipBean).getBytes());
         Message message = new Message();
         message.setConversationType(conversationType);

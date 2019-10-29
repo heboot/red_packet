@@ -182,6 +182,11 @@ public interface HttpClient {
     @POST("in/gIndex")
     Observable<BaseBean<List<MyGroupBean>>> gIndex(@Header("token") String token, @FieldMap Map<String, Object> params);
 
+    @POST("in/fnoCTotal")
+    Observable<BaseBean<Map>> fnoCTotal(@Header("token") String token );
+
+
+
     @FormUrlEncoded
     @POST("in/getExpression")
     Observable<BaseBean<List<CustomBiaoqingListBean.ExpressionListBean>>> getExpression(@Header("token") String token, @FieldMap Map<String, Object> params);

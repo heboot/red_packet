@@ -40,7 +40,7 @@ public class SetGroupManagerAdapter extends BaseQuickAdapter<GroupUserListBean.G
                 }
             }
         });
-        if (item.getAdmin() >= 1) {
+        if (item.getAdmin() > 1) {
             binding.cb.setChecked(true);
         }
 

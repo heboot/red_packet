@@ -64,7 +64,7 @@ public class MoneyTextWatcher implements TextWatcher {
             textView.setText(s);
         }
         else{
-            textView.setText(NumberUtils.formatDouble(Double.parseDouble(s.toString())));
+            textView.setText("¥" + NumberUtils.formatDouble(Double.parseDouble(s.toString())));
         }
 
     }

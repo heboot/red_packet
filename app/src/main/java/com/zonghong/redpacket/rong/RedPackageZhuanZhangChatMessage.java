@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.waw.hr.mutils.bean.CreateRedPackageChildBean;
+import com.waw.hr.mutils.model.ZhuanZhangModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,7 +27,7 @@ public class RedPackageZhuanZhangChatMessage extends MessageContent {
 
     private String noUserContent;
 
-    private String money;
+    private String moneys;
 
     //    private String sum;
 
@@ -41,7 +42,7 @@ public class RedPackageZhuanZhangChatMessage extends MessageContent {
 
         noUserContent = ParcelUtils.readFromParcel(in);
 
-        money = ParcelUtils.readFromParcel(in);
+        moneys = ParcelUtils.readFromParcel(in);
 
     }
 
@@ -51,25 +52,28 @@ public class RedPackageZhuanZhangChatMessage extends MessageContent {
         try {
             jsonStr = new String(data, "UTF-8");
         } catch (UnsupportedEncodingException e1) {
+            e1.printStackTrace();
 
         }
 
         try {
-            CreateRedPackageChildBean jsonObj = JSON.parseObject(jsonStr, CreateRedPackageChildBean.class);
+            ZhuanZhangModel jsonObj = JSON.parseObject(jsonStr, ZhuanZhangModel.class);
 
             //            if (jsonObj.has("ID"))
             //                ID = jsonObj.optString("ID");
             ID = String.valueOf(jsonObj.getID());
 
-            fromId = jsonObj.getFrom_id();
+            fromId = jsonObj.getFromId();
 
             userContent = jsonObj.getUserContent();
 
             noUserContent = jsonObj.getNoUserContent();
 
-            money = jsonObj.getMoney();
+            moneys = jsonObj.getMoneys();
 
         } catch (Exception e) {
+            e.printStackTrace();
+
         }
     }
 
@@ -82,7 +86,7 @@ public class RedPackageZhuanZhangChatMessage extends MessageContent {
             jsonObj.put("fromId", fromId);
             jsonObj.put("userContent", userContent);
             jsonObj.put("noUserContent", noUserContent);
-            jsonObj.put("money", money);
+            jsonObj.put("money", moneys);
         } catch (JSONException e) {
             Log.e("JSONException", e.getMessage());
         }
@@ -123,6 +127,6 @@ public class RedPackageZhuanZhangChatMessage extends MessageContent {
         ParcelUtils.writeToParcel(dest, fromId);//该类为工具类，对消息中属性进行序列化
         ParcelUtils.writeToParcel(dest, userContent);//该类为工具类，对消息中属性进行序列化
         ParcelUtils.writeToParcel(dest, noUserContent);//该类为工具类，对消息中属性进行序列化
-        ParcelUtils.writeToParcel(dest, money);//该类为工具类，对消息中属性进行序列化
+        ParcelUtils.writeToParcel(dest, moneys);//该类为工具类，对消息中属性进行序列化
     }
 }

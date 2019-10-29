@@ -37,9 +37,9 @@ public class MyPicPlugin extends ImagePlugin {
             @Override
             public void onSuccess(BaseBean<Map> baseBean) {
 
-                if ((double) baseBean.getData().get("bannet_total") == 1) {
+                if ( baseBean.getData().get("bannet_total")  != null && (double) baseBean.getData().get("bannet_total") == 1) {
                     ToastUtils.show(MAPP.mapp, (String) baseBean.getData().get("content"));
-                } else if ((double) baseBean.getData().get("user_bannet") == 1) {
+                } else if (baseBean.getData().get("user_bannet")  != null &&(double) baseBean.getData().get("user_bannet") == 1) {
                     ToastUtils.show(MAPP.mapp, (String) baseBean.getData().get("content"));
                 } else {
                     MyPicPlugin.super.onClick(currentFragment, extension);

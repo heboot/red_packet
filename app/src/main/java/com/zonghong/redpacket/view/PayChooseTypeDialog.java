@@ -235,13 +235,13 @@ public class PayChooseTypeDialog extends DialogFragment {
         HttpClient.Builder.getServer().tCreate(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<CreateRedPackageChildBean>() {
             @Override
             public void onSuccess(BaseBean<CreateRedPackageChildBean> baseBean) {
-                baseBean.getData().setUser_id(toId);
-                baseBean.getData().setFrom_id(String.valueOf(UserService.getInstance().getUserId()));
-                baseBean.getData().setUserContent("转账给" + nick);
-                baseBean.getData().setNoUserContent("收到" + UserService.getInstance().getUserInfoBean().getNick_name() + "的转账");
-                baseBean.getData().setMoney(money);
-                RongUtils.sendZhuanzhuangRedPackageMessage(baseBean.getData());
-                EventBus.getDefault().postSticky(new UserEvent.CASH_SUC_EVENT());
+//                baseBean.getData().setUser_id(toId);
+//                baseBean.getData().setFrom_id(String.valueOf(UserService.getInstance().getUserId()));
+//                baseBean.getData().setUserContent("转账给" + nick);
+//                baseBean.getData().setNoUserContent("收到" + UserService.getInstance().getUserInfoBean().getNick_name() + "的转账");
+//                baseBean.getData().setMoney(money);
+//                RongUtils.sendZhuanzhuangRedPackageMessage(baseBean.getData());
+//                EventBus.getDefault().postSticky(new UserEvent.CASH_SUC_EVENT());
             }
 
             @Override

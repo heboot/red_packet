@@ -6,6 +6,16 @@ public class RedpackageTipBean {
 
     private String targetId;
 
+    private String redId;
+
+    public String getRedId() {
+        return redId;
+    }
+
+    public void setRedId(String redId) {
+        this.redId = redId;
+    }
+
     public String getMessage() {
         return message;
     }

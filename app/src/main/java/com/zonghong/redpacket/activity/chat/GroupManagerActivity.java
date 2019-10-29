@@ -59,7 +59,7 @@ public class GroupManagerActivity extends BaseActivity<ActivityGroupManagerBindi
     public void initData() {
         groupDetaiInfoBean = (GroupDetaiInfoBean) getIntent().getExtras().get(MKey.ID);
 
-        binding.sbBanned.setCheckedNoEvent(groupDetaiInfoBean.getGroupInfo().getBannet_chat() == 1 ? true : false);
+        binding.sbBanned.setCheckedNoEvent(groupDetaiInfoBean.getGroupInfo().getBannet_total() == 1 ? true : false);
         binding.sbJoinConfirm.setCheckedNoEvent(groupDetaiInfoBean.getGroupInfo().getInvite_confirm() == 1?true:false);
         if (groupDetaiInfoBean.getMyGInfo().getAdmin() == 3) {
             binding.tvVerify.setVisibility(View.VISIBLE);

@@ -23,11 +23,14 @@ public class RedPackageChatOpenMessage extends MessageContent {
 
     private String targetId;
 
+    private String redId;
+
     //给消息赋值。
     public RedPackageChatOpenMessage(Parcel in) {
         message = ParcelUtils.readFromParcel(in);//该类为工具类，消息属性
         //这里可继续增加你消息的属性
         targetId =  ParcelUtils.readFromParcel(in);//该类为工具类，消息属性
+        redId =  ParcelUtils.readFromParcel(in);//该类为工具类，消息属性
     }
 
     public RedPackageChatOpenMessage(byte[] data) {
@@ -46,7 +49,7 @@ public class RedPackageChatOpenMessage extends MessageContent {
 //                ID = jsonObj.optString("ID");
             message = String.valueOf(jsonObj.getMessage());
             targetId =  String.valueOf(jsonObj.getTargetId());
-
+            redId =  String.valueOf(jsonObj.getRedId());
         } catch (Exception e) {
         }
     }
@@ -58,6 +61,7 @@ public class RedPackageChatOpenMessage extends MessageContent {
         try {
             jsonObj.put("message", message);
             jsonObj.put("targetId", targetId);
+            jsonObj.put("redId", redId);
         } catch (JSONException e) {
             Log.e("JSONException", e.getMessage());
         }
@@ -96,5 +100,6 @@ public class RedPackageChatOpenMessage extends MessageContent {
     public void writeToParcel(Parcel dest, int i) {
         ParcelUtils.writeToParcel(dest, message);//该类为工具类，对消息中属性进行序列化
         ParcelUtils.writeToParcel(dest, targetId);//该类为工具类，对消息中属性进行序列化
+        ParcelUtils.writeToParcel(dest, redId);//该类为工具类，对消息中属性进行序列化
     }
 }

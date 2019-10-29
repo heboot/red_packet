@@ -56,6 +56,15 @@ public class GroupDetaiInfoBean implements Serializable {
         private int chat_top;
         private int invite_confirm;
         private int bannet_chat;
+        private int bannet_total;
+
+        public int getBannet_total() {
+            return bannet_total;
+        }
+
+        public void setBannet_total(int bannet_total) {
+            this.bannet_total = bannet_total;
+        }
 
         public int getAdmin() {
             return admin;
@@ -123,8 +132,17 @@ public class GroupDetaiInfoBean implements Serializable {
         private String notice;
         private int invite_confirm;
         private int bannet_chat;
+        private int bannet_total;
         private String img;
         private int clear;
+
+        public int getBannet_total() {
+            return bannet_total;
+        }
+
+        public void setBannet_total(int bannet_total) {
+            this.bannet_total = bannet_total;
+        }
 
         public int getClear() {
             return clear;

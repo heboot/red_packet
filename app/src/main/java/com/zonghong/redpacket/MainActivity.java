@@ -1,30 +1,51 @@
 package com.zonghong.redpacket;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.view.View;
 
+import com.example.http.HttpClient;
+import com.waw.hr.mutils.DialogUtils;
+import com.waw.hr.mutils.base.BaseBean;
+import com.waw.hr.mutils.bean.MyGroupBean;
+import com.waw.hr.mutils.event.GroupEvent;
 import com.waw.hr.mutils.event.MessageEvent;
 import com.waw.hr.mutils.event.UserEvent;
+import com.zonghong.redpacket.activity.chat.MyGroupListActivity;
+import com.zonghong.redpacket.adapter.group.MyGroupAdapter;
 import com.zonghong.redpacket.base.BaseActivity;
 import com.zonghong.redpacket.databinding.ActivityMainBinding;
 import com.zonghong.redpacket.fragment.ContactsFragment;
 import com.zonghong.redpacket.fragment.MConversationListFragment;
 import com.zonghong.redpacket.fragment.MyFragment;
 import com.zonghong.redpacket.fragment.WalletFragment;
+import com.zonghong.redpacket.http.HttpObserver;
 import com.zonghong.redpacket.rong.CustomBiaoqingMessage;
 import com.zonghong.redpacket.rong.DeleteGroupMessageEventMessage;
+import com.zonghong.redpacket.rong.GroupTipEventMessage;
 import com.zonghong.redpacket.rong.RedPackageChatMessage;
 import com.zonghong.redpacket.rong.RedPackageChatOpenMessage;
 import com.zonghong.redpacket.rong.RedPackageZhuanZhangChatMessage;
 import com.zonghong.redpacket.rong.RongUtils;
+import com.zonghong.redpacket.rong.UpdateGroupInfoEventMessage;
+import com.zonghong.redpacket.service.UserService;
 import com.zonghong.redpacket.utils.NotificationUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Group;
 import io.rong.imlib.model.Message;
 import io.rong.message.ImageMessage;
 import io.rong.message.TextMessage;
@@ -43,6 +64,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     private ISupportFragment currentFragment;
 
+    private Handler mHandler;
+
 
     @Override
     protected int getLayoutId() {
@@ -60,7 +83,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         mDelegate.loadMultipleRootFragment(binding.flytContainer.getId(), 0, mConversationListFragment, contactsFragment, walletFragment, myFragment);
         currentFragment = mConversationListFragment;
         binding.ivMsg.setSelected(true);
-
+        mHandler = new Handler() {
+            @Override
+            public void handleMessage(@NonNull android.os.Message msg) {
+                contactsNumber();
+                sendEmptyMessageDelayed(1001, 5000);
+            }
+        };
+        mHandler.sendEmptyMessageDelayed(1001, 5000);
     }
 
     @Override
@@ -118,7 +148,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         });
 
         RongIM.setOnReceiveMessageListener(new MyReceiveMessageListener());
-
     }
 
 
@@ -142,6 +171,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                     }
                 });
 
+            } else if (message.getContent() instanceof UpdateGroupInfoEventMessage) {
+                list(new UpdateGroupInfoEventMessage(message.getContent().encode()).getContent());
             } else {
 
                 //开发者根据自己需求自行处理
@@ -195,10 +226,54 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        mHandler.removeMessages(1001);
+        super.onDestroy();
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(UserEvent.LOGOUT_EVENT event) {
         finish();
     }
 
+    private void list(String msg) {
+        params = new HashMap<>();
+        params.put("group_id", msg);
+        HttpClient.Builder.getServer().gIndex(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<List<MyGroupBean>>() {
+            @Override
+            public void onSuccess(BaseBean<List<MyGroupBean>> baseBean) {
+                Group userInfo = new Group(msg, baseBean.getData().get(0).getTitle(), Uri.parse(baseBean.getData().get(0).getImg()));
+                RongIM.getInstance().refreshGroupInfoCache(userInfo);
+                EventBus.getDefault().post(new GroupEvent.ALTER_GROUP_NAME_EVENT(baseBean.getData().get(0).getTitle()));
+            }
+
+            @Override
+            public void onError(BaseBean<List<MyGroupBean>> baseBean) {
+            }
+        });
+    }
+
+    private void contactsNumber() {
+        params = new HashMap<>();
+        HttpClient.Builder.getServer().fnoCTotal(UserService.getInstance().getToken()).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Map>() {
+            @Override
+            public void onSuccess(BaseBean<Map> baseBean) {
+                if (baseBean.getData() != null) {
+                    if (baseBean.getData().get("number") != null) {
+                        if (((double) baseBean.getData().get("number")) > 0) {
+                            binding.tvContactsUnread.setVisibility(View.VISIBLE);
+                            binding.tvContactsUnread.setText((String) baseBean.getData().get("number") + "");
+                        }
+                    }
+                }
+
+            }
+
+            @Override
+            public void onError(BaseBean<Map> baseBean) {
+            }
+        });
+    }
 
 }

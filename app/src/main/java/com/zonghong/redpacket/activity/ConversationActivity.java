@@ -12,6 +12,7 @@ import com.waw.hr.mutils.event.MessageEvent;
 import com.zonghong.redpacket.MAPP;
 import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.base.BaseActivity;
+import com.zonghong.redpacket.common.ContactsDetailType;
 import com.zonghong.redpacket.databinding.ConversationBinding;
 import com.zonghong.redpacket.fragment.MConversationFragment;
 import com.zonghong.redpacket.rong.RongUtils;
@@ -55,8 +56,8 @@ public class ConversationActivity extends BaseActivity<ConversationBinding> {
         binding.tvTitle.setText(title);
         mConversationType = Conversation.ConversationType.valueOf(intent.getData().getLastPathSegment().toUpperCase());
         if (mConversationType == Conversation.ConversationType.PRIVATE) {
-            binding.tvRight.setVisibility(View.GONE);
-            binding.tvRightIc.setVisibility(View.GONE);
+//            binding.tvRight.setVisibility(View.GONE);
+//            binding.tvRightIc.setVisibility(View.GONE);
 //            RongUtils.setPrivateExtensionModule();
         } else {
 //            RongUtils.setGroupExtensionModule();
@@ -79,7 +80,7 @@ public class ConversationActivity extends BaseActivity<ConversationBinding> {
             if (mConversationType == Conversation.ConversationType.GROUP) {
                 IntentUtils.intent2GroupDetailActivity(mTargetId);
             } else {
-                IntentUtils.intent2ChatDetailActivity(mTargetId);
+                IntentUtils.intent2ContactsDetailActivity(mTargetId, ContactsDetailType.NORMAL);
             }
         });
 

@@ -24,7 +24,7 @@ import io.rong.imlib.model.Conversation;
 
 public class MConversationFragment extends ConversationFragment {
 
-    private double total, user;
+    private double total = -1, user = -1;
 
     private boolean isFirst = true;
 
@@ -49,7 +49,7 @@ public class MConversationFragment extends ConversationFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if(getConversationType() == Conversation.ConversationType.GROUP){
+        if (getConversationType() == Conversation.ConversationType.GROUP) {
             complaint("null", null, null, null, false);
         }
 
@@ -58,9 +58,9 @@ public class MConversationFragment extends ConversationFragment {
     @Override
     public void onSendToggleClick(View v, String text) {
 //        super.onSendToggleClick(v, text);
-        if(getConversationType() == Conversation.ConversationType.GROUP){
+        if (getConversationType() == Conversation.ConversationType.GROUP) {
             complaint("onSendToggleClick", v, text, null, false);
-        }else{
+        } else {
             super.onSendToggleClick(v, text);
         }
 
@@ -69,7 +69,7 @@ public class MConversationFragment extends ConversationFragment {
 
     @Override
     public void onVoiceInputToggleTouch(View v, MotionEvent event) {
-        if(getConversationType() == Conversation.ConversationType.GROUP){
+        if (getConversationType() == Conversation.ConversationType.GROUP) {
             if (total == 1 || user == 1) {
                 ToastUtils.show(MAPP.mapp, msg);
                 return;
@@ -95,14 +95,15 @@ public class MConversationFragment extends ConversationFragment {
         HttpClient.Builder.getServer().verifyGroupStatus(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Map>() {
             @Override
             public void onSuccess(BaseBean<Map> baseBean) {
-                total = (double) baseBean.getData().get("bannet_total");
-                user = (double) baseBean.getData().get("user_bannet");
+                total = (Double) baseBean.getData().get("bannet_total") == null?-1:(double)baseBean.getData().get("bannet_total") ;
+                user = (Double) baseBean.getData().get("user_bannet") == null?-1:(double)baseBean.getData().get("user_bannet") ;
                 msg = (String) baseBean.getData().get("content");
-                if ((double) baseBean.getData().get("bannet_total") == 1 || (double) baseBean.getData().get("user_bannet") == 1) {
+                if ((baseBean.getData().get("bannet_total") != null && (double) baseBean.getData().get("bannet_total") == 1) || (baseBean.getData().get("user_bannet") != null && (double) baseBean.getData().get("user_bannet") == 1)) {
                     if (!isFirst) {
                         ToastUtils.show(MAPP.mapp, msg);
 
-                    }  isFirst = false;
+                    }
+                    isFirst = false;
                 } else {
                     switch (action) {
                         case "onSendToggleClick":

@@ -35,6 +35,7 @@ import com.waw.hr.mutils.bean.CreateRedPackageChildBean;
 import com.waw.hr.mutils.bean.GetRedpackageBean;
 import com.waw.hr.mutils.bean.GetRedpackageModel;
 import com.waw.hr.mutils.event.UserEvent;
+import com.waw.hr.mutils.model.ZhuanZhangModel;
 import com.zonghong.redpacket.MAPP;
 import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.activity.contacts.ChooseContactsActivity;
@@ -372,13 +373,11 @@ public class PayDialog extends DialogFragment {
         HttpClient.Builder.getServer().tTransfer(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {
-                CreateRedPackageChildBean createRedPackageChildBean = new CreateRedPackageChildBean();
-                createRedPackageChildBean.setUser_id(toId);
-                createRedPackageChildBean.setFrom_id(String.valueOf(UserService.getInstance().getUserId()));
+                ZhuanZhangModel createRedPackageChildBean = new ZhuanZhangModel();
                 createRedPackageChildBean.setUserContent("转账给" + nick);
                 createRedPackageChildBean.setNoUserContent("收到" + UserService.getInstance().getUserInfoBean().getNick_name() + "的转账");
-                createRedPackageChildBean.setMoney(money);
-                RongUtils.sendZhuanzhuangRedPackageMessage(createRedPackageChildBean);
+                createRedPackageChildBean.setMoneys(money);
+                RongUtils.sendZhuanzhuangRedPackageMessage(toId,createRedPackageChildBean);
                 EventBus.getDefault().post(new UserEvent.ZHUANZHUANG_SUC_EVENT());
                 dismiss();
             }

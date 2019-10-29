@@ -72,6 +72,13 @@ public class ContactsNewListActivity extends BaseActivity<ActivityNewContactsLis
             @Override
             public void onSuccess(BaseBean<List<NewFriendListBean>> baseBean) {
 
+                if(baseBean.getData() == null || baseBean.getData().size() == 0){
+                    listBeans.clear();
+                    newContactsAdapter.addData(listBeans);
+                    newContactsAdapter.notifyDataSetChanged();
+                    return;
+                }
+
                 listBeans.clear();
                 listBeans.addAll(baseBean.getData());
                 if (newContactsAdapter == null) {

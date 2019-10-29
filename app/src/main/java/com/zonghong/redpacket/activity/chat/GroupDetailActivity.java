@@ -159,6 +159,11 @@ public class GroupDetailActivity extends BaseActivity<ActivityGroupDetailBinding
         params = new HashMap<>();
         params.put("group_id", groupId);
         params.put("user_id", UserService.getInstance().getUserId());
+        if(groupDetaiInfoBean.getMyGInfo().getAdmin() == 3){
+            params.put("operation", 2);
+        }else{
+            params.put("operation", 1);
+        }
         HttpClient.Builder.getServer().gDelUser(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
             @Override
             public void onSuccess(BaseBean<Object> baseBean) {

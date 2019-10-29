@@ -342,7 +342,7 @@
                     android:layout_width="@dimen/x50"
                     android:layout_height="@dimen/y30"
                     android:layout_marginRight="@dimen/x16"
-                      android:textColor="#ff808080"
+                    android:textColor="#ff808080"
                     android:textSize="18sp"
                     app:kswTintColor="#F8D347"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_clear_group_content_time"
@@ -365,8 +365,9 @@
                     android:layout_marginTop="@dimen/y1"
                     android:background="#fff"
                     android:drawableRight="@mipmap/icon_lock"
-                    android:gravity="center_vertical"
+                    android:gravity="left"
                     android:paddingLeft="@dimen/x15"
+                    android:paddingTop="@dimen/y10"
                     android:paddingRight="@dimen/x15"
                     android:text="加密"
                     android:textColor="#ff000000"
@@ -374,6 +375,17 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_clear_group_content_time"></TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y31"
+                    android:paddingLeft="@dimen/x15"
+                    android:text="此对话中所发送的信息都已经进行端到端的加密。"
+                    android:textColor="#808080"
+                    android:textSize="12sp"
+                    app:layout_constraintLeft_toLeftOf="@+id/tv_jiami"
+                    app:layout_constraintTop_toTopOf="@+id/tv_jiami"></TextView>
 
                 <TextView
                     android:id="@+id/tv_clear_group_content"

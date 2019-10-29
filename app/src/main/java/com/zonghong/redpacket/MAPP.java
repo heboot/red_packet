@@ -16,6 +16,8 @@ import com.zonghong.redpacket.listenter.MyUserInfoProvider;
 import com.zonghong.redpacket.rong.CustomBiaoqingMessage;
 import com.zonghong.redpacket.rong.CustomBiaoqingMessageView;
 import com.zonghong.redpacket.rong.DeleteGroupMessageEventMessage;
+import com.zonghong.redpacket.rong.GroupTipEventMessage;
+import com.zonghong.redpacket.rong.GroupTipMessageView;
 import com.zonghong.redpacket.rong.MingPianMessage;
 import com.zonghong.redpacket.rong.MingPianMessageView;
 import com.zonghong.redpacket.rong.RedPackageChatMessage;
@@ -25,6 +27,7 @@ import com.zonghong.redpacket.rong.RedPackageChatTipMessageView;
 import com.zonghong.redpacket.rong.RedPackageZhuanZhangChatMessage;
 import com.zonghong.redpacket.rong.RedPackageZhuanzhangChatMessageView;
 import com.zonghong.redpacket.rong.RongUtils;
+import com.zonghong.redpacket.rong.UpdateGroupInfoEventMessage;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -99,12 +102,15 @@ public class MAPP extends Application {
         RongIM.registerMessageType(DeleteGroupMessageEventMessage.class);
         RongIM.registerMessageType(MingPianMessage.class);
         RongIM.registerMessageType(CustomBiaoqingMessage.class);
+        RongIM.registerMessageType(GroupTipEventMessage.class);
+        RongIM.registerMessageType(UpdateGroupInfoEventMessage.class);
         setMyExtensionModule();
         RongIM.getInstance().registerMessageTemplate(new RedPackageChatMessageView());
         RongIM.getInstance().registerMessageTemplate(new RedPackageChatTipMessageView());
         RongIM.getInstance().registerMessageTemplate(new RedPackageZhuanzhangChatMessageView());
         RongIM.getInstance().registerMessageTemplate(new MingPianMessageView());
         RongIM.getInstance().registerMessageTemplate(new CustomBiaoqingMessageView());
+        RongIM.getInstance().registerMessageTemplate(new GroupTipMessageView());
     }
 
     public void setMyExtensionModule() {
