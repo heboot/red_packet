@@ -80,9 +80,12 @@ public class SearchMessageActivity extends BaseActivity<ActivitySearchMessageBin
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
                 if (StringUtils.isEmpty(charSequence) || charSequence.length() == 0) {
+                    resultMessageList.clear();
+                    searchMessageAdapter.setNewData(resultMessageList);
+                    searchMessageAdapter.notifyDataSetChanged();
                     return;
                 }
-
+                resultMessageList.clear();
                 RongIM.getInstance().getHistoryMessages(searchMessageType == SearchMessageType.GROUP ? Conversation.ConversationType.GROUP : Conversation.ConversationType.PRIVATE, targetId, "RC:TxtMsg", -1, 100, new RongIMClient.ResultCallback<List<Message>>() {
                     @Override
                     public void onSuccess(List<Message> messages) {

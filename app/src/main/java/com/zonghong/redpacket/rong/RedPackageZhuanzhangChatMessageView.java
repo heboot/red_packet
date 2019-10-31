@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.example.http.HttpClient;
+import com.waw.hr.mutils.StringUtils;
 import com.waw.hr.mutils.base.BaseBean;
 import com.waw.hr.mutils.model.ZhuanZhangModel;
 import com.zonghong.redpacket.MAPP;
@@ -46,13 +47,19 @@ public class RedPackageZhuanzhangChatMessageView extends IContainerItemProvider.
         messageRedpackageChatBinding.tvType.setText("转账");
         String s = new String(messageContent.encode());
         ZhuanZhangModel createRedPackageChildBean = JSON.parseObject(s, ZhuanZhangModel.class);
-        if (uiMessage.getTargetId().equals(UserService.getInstance().getUserId())) {
-            messageRedpackageChatBinding.tvDesc.setText(createRedPackageChildBean.getNoUserContent());
+        if (!uiMessage.getSenderUserId().equals(UserService.getInstance().getUserId())) {
+            messageRedpackageChatBinding.tvDesc.setText(createRedPackageChildBean.getNotUserContent() );
         } else {
             messageRedpackageChatBinding.tvDesc.setText(createRedPackageChildBean.getUserContent());
         }
 
-//        messageRedpackageChatBinding.tvDes.setText(NumberUtils.formatDouble(Double.parseDouble(createRedPackageChildBean.getMoneys())));
+        if (!StringUtils.isEmpty(createRedPackageChildBean.getMoney())) {
+            messageRedpackageChatBinding.tvDes.setText(NumberUtils.formatDouble(Double.parseDouble(createRedPackageChildBean.getMoney())));
+        } else if (!StringUtils.isEmpty(createRedPackageChildBean.getSum())) {
+            messageRedpackageChatBinding.tvDes.setText(NumberUtils.formatDouble(Double.parseDouble(createRedPackageChildBean.getSum())));
+        } else {
+            messageRedpackageChatBinding.tvDes.setText("");
+        }
     }
 
     @Override

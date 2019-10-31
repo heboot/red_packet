@@ -25,11 +25,11 @@ public class RedPackageZhuanZhangChatMessage extends MessageContent {
 
     private String userContent;
 
-    private String noUserContent;
+    private String notUserContent;
 
-    private String moneys;
+    private String money;
 
-    //    private String sum;
+        private String sum;
 
     //给消息赋值。
     public RedPackageZhuanZhangChatMessage(Parcel in) {
@@ -40,10 +40,11 @@ public class RedPackageZhuanZhangChatMessage extends MessageContent {
         userContent = ParcelUtils.readFromParcel(in);
 
 
-        noUserContent = ParcelUtils.readFromParcel(in);
+        notUserContent = ParcelUtils.readFromParcel(in);
 
-        moneys = ParcelUtils.readFromParcel(in);
+        money = ParcelUtils.readFromParcel(in);
 
+        sum = ParcelUtils.readFromParcel(in);
     }
 
     public RedPackageZhuanZhangChatMessage(byte[] data) {
@@ -67,9 +68,11 @@ public class RedPackageZhuanZhangChatMessage extends MessageContent {
 
             userContent = jsonObj.getUserContent();
 
-            noUserContent = jsonObj.getNoUserContent();
+            notUserContent = jsonObj.getNotUserContent();
 
-            moneys = jsonObj.getMoneys();
+            money = jsonObj.getMoney();
+
+            sum = jsonObj.getSum();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,8 +88,9 @@ public class RedPackageZhuanZhangChatMessage extends MessageContent {
             jsonObj.put("ID", ID);
             jsonObj.put("fromId", fromId);
             jsonObj.put("userContent", userContent);
-            jsonObj.put("noUserContent", noUserContent);
-            jsonObj.put("money", moneys);
+            jsonObj.put("notUserContent", notUserContent);
+            jsonObj.put("money", money);
+            jsonObj.put("sum", sum);
         } catch (JSONException e) {
             Log.e("JSONException", e.getMessage());
         }
@@ -126,7 +130,8 @@ public class RedPackageZhuanZhangChatMessage extends MessageContent {
         ParcelUtils.writeToParcel(dest, ID);//该类为工具类，对消息中属性进行序列化
         ParcelUtils.writeToParcel(dest, fromId);//该类为工具类，对消息中属性进行序列化
         ParcelUtils.writeToParcel(dest, userContent);//该类为工具类，对消息中属性进行序列化
-        ParcelUtils.writeToParcel(dest, noUserContent);//该类为工具类，对消息中属性进行序列化
-        ParcelUtils.writeToParcel(dest, moneys);//该类为工具类，对消息中属性进行序列化
+        ParcelUtils.writeToParcel(dest, notUserContent);//该类为工具类，对消息中属性进行序列化
+        ParcelUtils.writeToParcel(dest, money);//该类为工具类，对消息中属性进行序列化
+        ParcelUtils.writeToParcel(dest, sum);//该类为工具类，对消息中属性进行序列化
     }
 }

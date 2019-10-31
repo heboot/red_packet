@@ -175,6 +175,7 @@ public class GroupManagerActivity extends BaseActivity<ActivityGroupManagerBindi
             public void onSuccess(BaseBean<Object> baseBean) {
 //                tipDialog = DialogUtils.getSuclDialog(GroupManagerActivity.this, baseBean.getMsg(), true);
 //                tipDialog.show();
+                waitConsent();
             }
 
             @Override

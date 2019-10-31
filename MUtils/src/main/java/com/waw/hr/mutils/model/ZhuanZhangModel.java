@@ -8,11 +8,19 @@ public class ZhuanZhangModel {
 
     private String userContent;
 
-    private String noUserContent;
+    private String notUserContent;
 
-    private String moneys;
+    private String money;
 
+    private String sum;
 
+    public String getSum() {
+        return sum;
+    }
+
+    public void setSum(String sum) {
+        this.sum = sum;
+    }
 
     public String getID() {
         return ID;
@@ -38,19 +46,19 @@ public class ZhuanZhangModel {
         this.userContent = userContent;
     }
 
-    public String getNoUserContent() {
-        return noUserContent;
+    public String getNotUserContent() {
+        return notUserContent;
     }
 
-    public void setNoUserContent(String noUserContent) {
-        this.noUserContent = noUserContent;
+    public void setNotUserContent(String notUserContent) {
+        this.notUserContent = notUserContent;
     }
 
-    public String getMoneys() {
-        return moneys;
+    public String getMoney() {
+        return money;
     }
 
-    public void setMoneys(String moneys) {
-        this.moneys = moneys;
+    public void setMoney(String money) {
+        this.money = money;
     }
 }

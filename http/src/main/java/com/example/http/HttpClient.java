@@ -236,7 +236,7 @@ public interface HttpClient {
 
     @FormUrlEncoded
     @POST("in/tTransfer")
-    Observable<BaseBean<Object>> tTransfer(@Header("token") String token, @FieldMap Map<String, Object> params);
+    Observable<BaseBean<Map>> tTransfer(@Header("token") String token, @FieldMap Map<String, Object> params);
 
 
     @FormUrlEncoded

@@ -273,7 +273,7 @@ public class PayDialog extends DialogFragment {
                 break;
         }
 
-        binding.tvMoney.setText(NumberUtils.formatDouble(Double.parseDouble(money+"")) + "");
+        binding.tvMoney.setText(NumberUtils.formatDouble(Double.parseDouble(money + "")) + "");
 
         QMUIKeyboardHelper.showKeyboard(binding.etPwd, false);
         binding.vClose.setOnClickListener((v) -> {
@@ -370,20 +370,22 @@ public class PayDialog extends DialogFragment {
         params.put("bank_id", 0);
 
 
-        HttpClient.Builder.getServer().tTransfer(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Object>() {
+        HttpClient.Builder.getServer().tTransfer(UserService.getInstance().getToken(), params).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new HttpObserver<Map>() {
             @Override
-            public void onSuccess(BaseBean<Object> baseBean) {
+            public void onSuccess(BaseBean<Map> baseBean) {
                 ZhuanZhangModel createRedPackageChildBean = new ZhuanZhangModel();
                 createRedPackageChildBean.setUserContent("转账给" + nick);
-                createRedPackageChildBean.setNoUserContent("收到" + UserService.getInstance().getUserInfoBean().getNick_name() + "的转账");
-                createRedPackageChildBean.setMoneys(money);
-                RongUtils.sendZhuanzhuangRedPackageMessage(toId,createRedPackageChildBean);
+                createRedPackageChildBean.setID((String) baseBean.getData().get("ID"));
+                createRedPackageChildBean.setNotUserContent("收到" + UserService.getInstance().getUserInfoBean().getNick_name() + "的转账");
+                createRedPackageChildBean.setMoney(money);
+                createRedPackageChildBean.setSum(money);
+                RongUtils.sendZhuanzhuangRedPackageMessage(toId, createRedPackageChildBean);
                 EventBus.getDefault().post(new UserEvent.ZHUANZHUANG_SUC_EVENT());
                 dismiss();
             }
 
             @Override
-            public void onError(BaseBean<Object> baseBean) {
+            public void onError(BaseBean<Map> baseBean) {
                 dismiss();
                 ToastUtils.show(MAPP.mapp, baseBean.getMsg());
             }

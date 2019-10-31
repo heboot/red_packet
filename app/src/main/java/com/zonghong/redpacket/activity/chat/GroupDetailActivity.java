@@ -294,15 +294,32 @@ public class GroupDetailActivity extends BaseActivity<ActivityGroupDetailBinding
             users.add(new GroupDetaiInfoBean.GroupUserInfoBean("jia"));
             users.add(new GroupDetaiInfoBean.GroupUserInfoBean("jian"));
             groupUserAdapter = new GroupUserAdapter(users, groupId, groupDetaiInfoBean.getMyGInfo().getAdmin());
-        } else {
+        }
+        else {
             List<GroupDetaiInfoBean.GroupUserInfoBean> users = new ArrayList();
-            if (groupDetaiInfoBean.getGroupUserInfo().size() >= 8) {
+            if (groupDetaiInfoBean.getGroupUserInfo().size() >= 7) {
                 users = groupDetaiInfoBean.getGroupUserInfo().subList(0, 7);
                 binding.tvAll.setVisibility(View.VISIBLE);
             } else {
                 users = groupDetaiInfoBean.getGroupUserInfo();
             }
+            users.add(new GroupDetaiInfoBean.GroupUserInfoBean("jia"));
             groupUserAdapter = new GroupUserAdapter(users, groupId, groupDetaiInfoBean.getMyGInfo().getAdmin());
+
+
+
+
+
+
+
+//            List<GroupDetaiInfoBean.GroupUserInfoBean> users = new ArrayList();
+//            if (groupDetaiInfoBean.getGroupUserInfo().size() >= 8) {
+//                users = groupDetaiInfoBean.getGroupUserInfo().subList(0, 7);
+//                binding.tvAll.setVisibility(View.VISIBLE);
+//            } else {
+//                users = groupDetaiInfoBean.getGroupUserInfo();
+//            }
+//            groupUserAdapter = new GroupUserAdapter(users, groupId, groupDetaiInfoBean.getMyGInfo().getAdmin());
         }
         binding.rvList.setAdapter(groupUserAdapter);
     }
