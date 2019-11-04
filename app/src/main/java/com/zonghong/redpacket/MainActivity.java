@@ -263,8 +263,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                     if (baseBean.getData().get("number") != null) {
                         if (((double) baseBean.getData().get("number")) > 0) {
                             binding.tvContactsUnread.setVisibility(View.VISIBLE);
-                            binding.tvContactsUnread.setText((String) baseBean.getData().get("number") + "");
+                            binding.tvContactsUnread.setText((int) ((double) baseBean.getData().get("number")) + "");
+                        }else{
+                            binding.tvContactsUnread.setVisibility(View.GONE);
                         }
+                    }else{
+                        binding.tvContactsUnread.setVisibility(View.GONE);
                     }
                 }
 
