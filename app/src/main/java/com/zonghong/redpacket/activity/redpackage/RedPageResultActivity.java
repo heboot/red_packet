@@ -9,6 +9,7 @@ import com.zonghong.redpacket.R;
 import com.zonghong.redpacket.adapter.RedpackageLogAdapter;
 import com.zonghong.redpacket.base.BaseActivity;
 import com.zonghong.redpacket.databinding.ActivityRedpackageResultBinding;
+import com.zonghong.redpacket.service.UserService;
 import com.zonghong.redpacket.utils.ImageUtils;
 import com.zonghong.redpacket.utils.IntentUtils;
 
@@ -43,13 +44,13 @@ public class RedPageResultActivity extends BaseActivity<ActivityRedpackageResult
         binding.tvName.setText(getRedpackageBean.getName() + "的红包");
         if (status == 100 || status == 101) {
             binding.tvMoney.setVisibility(View.GONE);
-        }else{
+        } else {
             binding.tvMoney.setVisibility(View.VISIBLE);
             binding.tvMoney.setText(formatDouble(Double.parseDouble(getRedpackageBean.getMyGetMoney())));
         }
-        if(status == 101){
+        if (status == 101) {
             binding.tvDesc.setText("手慢了，红包派完了");
-        }else{
+        } else {
             binding.tvDesc.setText(getRedpackageBean.getDes());
         }
 
@@ -57,7 +58,14 @@ public class RedPageResultActivity extends BaseActivity<ActivityRedpackageResult
         redpackageLogAdapter = new RedpackageLogAdapter(getRedpackageBean.getList(), false);
         binding.rvList.setAdapter(redpackageLogAdapter);
 
-        binding.tvGetInfo.setText("已领取" + getRedpackageBean.getNumbering() + "/" + getRedpackageBean.getNumber() + "，共" + getRedpackageBean.getSuming() + "/" + getRedpackageBean.getSum() + "元");
+        if (getRedpackageBean.getUser_id().equals(UserService.getInstance().getUserId())) {
+            binding.tvGetInfo.setVisibility(View.VISIBLE);
+            binding.tvGetInfo.setText("已领取" + getRedpackageBean.getNumbering() + "/" + getRedpackageBean.getNumber() + "，共" + getRedpackageBean.getSuming() + "/" + getRedpackageBean.getSum() + "元");
+        } else {
+            binding.tvGetInfo.setVisibility(View.GONE);
+        }
+
+
     }
 
     @Override

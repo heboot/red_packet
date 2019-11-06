@@ -62,7 +62,7 @@
             android:id="@+id/v_open"
             android:layout_width="@dimen/x105"
             android:layout_height="@dimen/y105"
-            android:layout_marginBottom="@dimen/y40"
+            android:layout_marginBottom="@dimen/y55"
             android:background="@mipmap/icon_open_redpackage"
             app:layout_constraintBottom_toBottomOf="@+id/v_bg"
             app:layout_constraintLeft_toLeftOf="parent"
